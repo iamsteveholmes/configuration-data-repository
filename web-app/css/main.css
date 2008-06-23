@@ -11,7 +11,8 @@ html * {
 }
 
 body {
-    background: #e2dfee;
+    /*background: #e2dfee;*/
+    background: red; /*Just making a color change*/ 
     color: #000000;
     font: 11px verdana,tahoma,sans-serif;
     line-height: 155%;
