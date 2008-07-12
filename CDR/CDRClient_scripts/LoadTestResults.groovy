@@ -12,7 +12,7 @@ def username = "admin"
 def password = "changeit"
 
 def projectName = "APS"
-def environmentName = "Staging"
+def environmentName = "Production"
 
 
 def buildCiName = "build"

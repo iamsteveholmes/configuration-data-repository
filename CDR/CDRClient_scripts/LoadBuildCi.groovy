@@ -7,7 +7,7 @@ import groovy.util.slurpersupport.GPathResult
  * Date: Jul 9, 2008
  * Time: 10:06:54 AM
  */
-def root = "http://solutions.delegata.com:8086/CDR"
+def root = "http://solutions.delegata.com:8085/CDR"
 
 def username = "admin"
 def password = "changeit"
