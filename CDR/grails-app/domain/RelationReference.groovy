@@ -8,8 +8,8 @@ class RelationReference implements java.io.Serializable{
     
     static hasMany = [relations: Relation]
     static constraints = {
-        name(nullable: false, blank:false)
-        description(nullable: true)
+        name(nullable: false, blank:false, maxSize: 50, unique: true)
+        description(nullable: true, maxSize: 255)
         relations(nullable: true)
     }
 

@@ -10,10 +10,10 @@ class Project implements java.io.Serializable{
 
     static hasMany = [environments: Environment]
     static constraints = {
-        name(nullable:false, blank:false)
+        name(nullable:false, blank:false, maxSize: 50, unique:true)
         description(nullable:true, maxSize:1000)
-        ownerName(nullable:true)
-        ownerEmail(nullable:true, email:true)
+        ownerName(nullable:true, maxSize: 50)
+        ownerEmail(nullable:true, email:true, maxSize: 75)
         environments(nullable:true)
     }
 

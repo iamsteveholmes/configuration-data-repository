@@ -117,6 +117,7 @@ class EnvironmentController {
         Environment environment = Environment.get(params.id)
         environment.configurationItems -= ci
         environment.save()
+        flash.message = "Configuration Item ${params.ciID} removed from this Environment"
         redirect(action: show, id: environment.id)
     }
 }

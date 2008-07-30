@@ -8,7 +8,7 @@ class HardwareType implements java.io.Serializable{
 
     static hasMany = [hardwares:Hardware]
     static constraints = {
-        description(nullable:false, blank:false)
+        description(nullable:false, blank:false, maxSize: 50,unique:'type')
         hardwares(nullable:true)
     }
 

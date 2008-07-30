@@ -14,7 +14,7 @@ class HardwareTypeController{
 
     def list = {
         if(!params.max)params.max = 10
-        [ hardwareTypeList: HardwareType.findAllByType('Hardware') ]
+        [ hardwareTypeList: HardwareType.findAllByType('Hardware', params) ]
     }
 
     def show = {
@@ -24,12 +24,18 @@ class HardwareTypeController{
     def delete = {
         def hardwareType = HardwareType.get( params.id )
         if(hardwareType) {
-            hardwareType.delete()
-            flash.message = "HardwareType ${params.id} deleted."
-            redirect(action:list)
+            try {
+                hardwareType.delete(flush:true)
+                flash.message = "Hardware Type ${params.id} deleted."
+                redirect(action:list)
+            } catch (org.hibernate.exception.ConstraintViolationException e) {
+                flash.message = "Unable to Delete Hardware Type ${params.id}.  Types used by Configuration Items cannot be deleted."
+                redirect(action:show, id:params.id)
+            }
+
         }
         else {
-            flash.message = "HardwareType not found with id ${params.id}"
+            flash.message = "Hardware Type not found with id ${params.id}"
             redirect(action:list)
         }
     }
@@ -38,7 +44,7 @@ class HardwareTypeController{
         def hardwareType = HardwareType.get( params.id )
 
         if(!hardwareType) {
-                flash.message = "HardwareType not found with id ${params.id}"
+                flash.message = "Hardware Type not found with id ${params.id}"
                 redirect(action:list)
         }
         else {
@@ -51,7 +57,7 @@ class HardwareTypeController{
         if(hardwareType) {
              hardwareType.properties = params
             if(hardwareType.save()) {
-                flash.message = "HardwareType ${params.id} updated."
+                flash.message = "Hardware Type ${params.id} updated."
                 redirect(action:show,id:hardwareType.id)
             }
             else {
@@ -59,7 +65,7 @@ class HardwareTypeController{
             }
         }
         else {
-            flash.message = "HardwareType not found with id ${params.id}"
+            flash.message = "Hardware Type not found with id ${params.id}"
             redirect(action:edit,id:params.id)
         }
     }
@@ -74,7 +80,7 @@ class HardwareTypeController{
         def hardwareType = new HardwareType()
         hardwareType.properties = params
         if(hardwareType.save()) {
-            flash.message = "HardwareType ${hardwareType.id} created."
+            flash.message = "Hardware Type ${hardwareType.id} created."
             redirect(action:show,id:hardwareType.id)
         }
         else {

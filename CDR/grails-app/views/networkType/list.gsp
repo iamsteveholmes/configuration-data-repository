@@ -35,7 +35,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${NetworkType.count()}" />
+                <g:paginate total="${NetworkType.countByType('Network')}" />
             </div>
         </div>
     </body>

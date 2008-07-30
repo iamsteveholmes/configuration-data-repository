@@ -32,7 +32,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${RequestType.count()}" />
+                <g:paginate total="${RequestType.countByType('Change Request')}" />
             </div>
         </div>
     </body>

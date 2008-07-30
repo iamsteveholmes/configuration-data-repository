@@ -45,16 +45,6 @@ class HardwareTest extends grails.util.WebTest {
 
             //verifyListSize 1
 
-            //Create Relation Reference
-            /*clickLink(label: "Solutions")*/
-            showFirstElementDetails()
-            invoke(url: "relationReference/list")
-            clickLink(label: "New Relation Reference")
-            setInputField(name: "name", value: "exists in")
-            setInputField(name: "description", value: "exists in")
-            clickButton(label: "Create")
-            verifyText(description: "Verify that text is contained in the page", text: "Show Relation Reference")
-
             //Test Create Relation
             clickLink(label:'Home')
             clickLink(label: "Hardware")

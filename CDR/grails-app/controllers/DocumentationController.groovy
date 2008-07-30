@@ -1,4 +1,4 @@
-class DocumentationController{
+class DocumentationController {
     /*def scaffold = Documentation*/
 
     static accessControl = {
@@ -58,21 +58,38 @@ class DocumentationController{
     }
 
     def update = {
-        println "in update"
         def documentation = Documentation.get(params.id)
         if (documentation) {
-            documentation.properties = params
-            def upload = request.getFile('document')
-            documentation.document = upload.getBytes()
-            documentation.fileType = upload.getContentType()
-            documentation.fileName = upload.getOriginalFilename()
-            documentation.docVersion += 1 
-            if (documentation.save()) {
-                flash.message = "Documentation ${params.id} updated."
-                redirect(action: show, id: documentation.id)
+            def circular = false
+            if (params.get('parent.id') != 'null') {
+                def parent = Documentation.get(Long.parseLong(params.get('parent.id')))
+                println "parent: ${parent}"
+                documentation.configurationItems.each {child ->
+                    println "child: ${child}"
+                    if (child.id == parent.id) {
+                        circular = true
+                    }
+                }
             }
-            else {
+
+            if (circular) {
+                flash.message = "Cannot choose a child as a parent."
                 render(view: 'edit', model: [documentation: documentation])
+            } else {
+                documentation.properties = params
+                def upload = request.getFile('document')
+                documentation.document = upload.getBytes()
+                documentation.fileType = upload.getContentType()
+                documentation.fileName = upload.getOriginalFilename()
+                documentation.docVersion += 1
+                if (documentation.save()) {
+                    if(!documentation.fileName) flash.message = "Documentation ${params.id} updated.  No document was saved.  This may be due to a bad Path."
+                    else flash.message = "Documentation ${params.id} updated."
+                    redirect(action: show, id: documentation.id)
+                }
+                else {
+                    render(view: 'edit', model: [documentation: documentation])
+                }
             }
         }
         else {
@@ -97,6 +114,7 @@ class DocumentationController{
         documentation.fileSize = upload.getSize()
         documentation.docVersion = 1
         if (documentation.save()) {
+            if(!documentation.fileName) flash.message = "Documentation ${documentation.id} created.  No document was saved.  This may be due to a bad Path."
             flash.message = "Documentation ${documentation.id} created."
             redirect(action: show, id: documentation.id)
         }

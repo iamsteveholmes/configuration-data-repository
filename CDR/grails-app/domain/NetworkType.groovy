@@ -8,7 +8,7 @@ class NetworkType implements java.io.Serializable{
 
     static hasMany = [networks:Network]
     static constraints = {
-        description(nullable:false, blank:false)
+        description(nullable:false, blank:false, maxSize: 50,unique:'type')
         networks(nullable:true)
     }
 

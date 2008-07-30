@@ -45,7 +45,7 @@ class DocumentationTypeTest extends grails.util.WebTest {
             group(description:'delete the only element') {
                 showFirstElementDetails()
                 clickButton (label:'Delete')
-                verifyXPath (xpath:"//div[@class='message']", text:/.*DocumentationType.*deleted.*/, regex:true)
+                verifyXPath (xpath:"//div[@class='message']", text:/.*Documentation Type.*deleted.*/, regex:true)
             }
 
             verifyListSize 1
@@ -55,7 +55,7 @@ class DocumentationTypeTest extends grails.util.WebTest {
     String ROW_COUNT_XPATH = "count(//div[@class='list']//tbody/tr)"
 
     def verifyListSize(int size) {
-        ant.group(description:"verify DocumentationType list view with $size row(s)") {
+        ant.group(description:"verify Documentation Type list view with $size row(s)") {
             verifyText  (text:'Documentation Type List')
             verifyXPath (xpath:ROW_COUNT_XPATH, text:size, description:"$size row(s) of data expected")
         }

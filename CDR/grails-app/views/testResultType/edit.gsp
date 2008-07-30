@@ -8,7 +8,7 @@
 <div class="body">
     <h1>Edit Test Result Type</h1>
     <div class="nav">
-        <span class="menuButton"><g:link class="create" action="create">New Test Result Type</g:link></span>
+        <span class="menuButton"><g:link class="list" action="list">Test Result Type List</g:link></span>
     </div>
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
@@ -23,7 +23,6 @@
         <div class="dialog">
             <table>
                 <tbody>
-
                     <tr class='prop'>
                         <td valign='top' class='name'>
                             <label for='description'>Description:<span class="required">*</span></label>
@@ -37,17 +36,14 @@
                             <label for='results'>Results:</label>
                         </td>
                         <td valign='top' class='value ${hasErrors(bean: testResultType, field: 'results', 'errors')}'>
-
                             <ul>
                                 <g:each var='r' in='${testResultType?.results?}'>
                                     <li><g:link controller='changeRequest' action='show' id='${r.id}'>${r}</g:link></li>
                                 </g:each>
                             </ul>
                             <g:link controller='changeRequest' params='["testResultType.id":testResultType?.id]' action='create'>Add ChangeRequest</g:link>
-
                         </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>

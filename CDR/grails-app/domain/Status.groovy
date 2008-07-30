@@ -7,7 +7,7 @@ class Status implements java.io.Serializable {
     Date dateCreated
     Date lastUpdated
 
-    static belongsTo = [ConfigurationItem, StatusReference]
+    static belongsTo = [ConfigurationItem]
     static constraints = {
         startDate(nullable: false, blank:false)
         endDate(nullable: false, blank:false)

@@ -1,7 +1,6 @@
 import java.sql.Blob
 import org.hibernate.Hibernate
 import com.delegata.utility.BlobUtil
-import org.hibernate.lob.SerializableBlob
 
 class Documentation extends ConfigurationItem implements java.io.Serializable {
     int docVersion
@@ -18,16 +17,16 @@ class Documentation extends ConfigurationItem implements java.io.Serializable {
     Date lastUpdated
 
     static transients = ["document"]
-    static belongsTo = [DocumentationType, Environment]
+    static belongsTo = [Environment]
     static constraints = {
         docVersion(nullable: true)
         document(nullable: true)
         documentBlob(nullable: true)
-        fileType(nullable: true)
-        fileName(nullable: true)
-        fileSize(nullable: true)
-        title(nullable: true)
-        abstraction(nullable: true)
+        fileType(nullable: true, maxSize: 255)
+        fileName(nullable: true, maxSize: 255)
+        fileSize(nullable: true, maxSize: 255)
+        title(nullable: true, maxSize: 255)
+        abstraction(nullable: true, maxSize: 255)
         documentationType(nullable: true)
     }
 

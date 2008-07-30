@@ -25,13 +25,13 @@ class EnvironmentControllerTests extends GroovyTestCase
     }
 
     public void testIndex(){
-        def controller = new EnvironmentController()
+        EnvironmentController controller = new EnvironmentController()
         controller.index()
         assertEquals "/environment/list", controller.response.redirectedUrl
     }
 
     public void testList(){
-        def controller = new EnvironmentController()
+        EnvironmentController controller = new EnvironmentController()
         def environments = controller.list()?.environmentList
         assert environments != null
         assertLength(2, environments as Object[])
@@ -39,19 +39,30 @@ class EnvironmentControllerTests extends GroovyTestCase
     }
 
     public void testAddRelation(){
-        def controller = new EnvironmentController()
+        EnvironmentController controller = new EnvironmentController()
         controller.params.id = testEnvironment.id
         assert controller.addRelation()?.environment == testEnvironment
         assert controller.addRelation()?.ciList != null
     }
 
     public void testSaveRelation(){
-        def controller = new EnvironmentController()
+        EnvironmentController controller = new EnvironmentController()
         controller.params.ciId = solutions.id
         controller.params.id = testEnvironment.id
         controller.saveRelation()
         assert testEnvironment.configurationItems != null
         testEnvironment.configurationItems.each {assert it == solutions}
+    }
+
+    public void testRemoveCI(){
+        EnvironmentController controller = new EnvironmentController()
+        testEnvironment.configurationItems = [solutions]
+        testEnvironment.save(flush: true)
+        controller.params.ciID = solutions.id
+        controller.params.id = testEnvironment.id
+        controller.removeCI()
+        assert controller.flash.message.startsWith("Configuration Item ")
+        assert controller.response.redirectedUrl.startsWith("/environment/show/")
     }
 
     /*void tearDown(){

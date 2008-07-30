@@ -1,4 +1,4 @@
-class ProjectController{
+class ProjectController {
     /*def scaffold = Project*/
     static accessControl = {
         // All actions require the 'Observer' role.
@@ -11,19 +11,24 @@ class ProjectController{
 
     def list = {
         if (!params.max) params.max = 10
-                [projectList: Project.list(params)]
+        [projectList: Project.list(params)]
     }
 
     def show = {
-                [project: Project.get(params.id)]
+        [project: Project.get(params.id)]
     }
 
     def delete = {
         def project = Project.get(params.id)
         if (project) {
-            project.delete()
-            flash.message = "Project ${params.id} deleted."
-            redirect(action: list)
+            if (!project.environments) {
+                project.delete()
+                flash.message = "Project ${params.id} deleted."
+                redirect(action: list)
+            } else {
+                flash.message = "Unable to Delete Project ${project.name}.  Projects with environments cannot be deleted."
+                redirect(action:show, id:params.id)
+            }
         }
         else {
             flash.message = "Project not found with id ${params.id}"

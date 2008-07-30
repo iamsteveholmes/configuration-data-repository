@@ -30,7 +30,7 @@
         </table>
     </div>
     <div class="paginateButtons">
-        <g:paginate total="${SoftwareType.count()}"/>
+        <g:paginate total="${SoftwareType.countByType('Software')}"/>
     </div>
 </div>
 </body>

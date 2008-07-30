@@ -27,12 +27,17 @@ class StatusReferenceController {
     def delete = {
         def statusReference = StatusReference.get( params.id )
         if(statusReference) {
-            statusReference.delete()
-            flash.message = "StatusReference ${params.id} deleted"
-            redirect(action:list)
+            try {
+                statusReference.delete(flush:true)
+                flash.message = "Status Reference ${params.id} deleted"
+                redirect(action:list)
+            } catch (org.hibernate.exception.ConstraintViolationException e) {
+                flash.message = "Unable to Delete Status Reference ${params.id}.  References used by Statuses cannot be deleted."
+                redirect(action:show, id:params.id)
+            }
         }
         else {
-            flash.message = "StatusReference not found with id ${params.id}"
+            flash.message = "Status Reference not found with id ${params.id}"
             redirect(action:list)
         }
     }
@@ -41,7 +46,7 @@ class StatusReferenceController {
         def statusReference = StatusReference.get( params.id )
 
         if(!statusReference) {
-            flash.message = "StatusReference not found with id ${params.id}"
+            flash.message = "Status Reference not found with id ${params.id}"
             redirect(action:list)
         }
         else {
@@ -54,7 +59,7 @@ class StatusReferenceController {
         if(statusReference) {
             statusReference.properties = params
             if(!statusReference.hasErrors() && statusReference.save()) {
-                flash.message = "StatusReference ${params.id} updated"
+                flash.message = "Status Reference ${params.id} updated"
                 redirect(action:show,id:statusReference.id)
             }
             else {
@@ -62,7 +67,7 @@ class StatusReferenceController {
             }
         }
         else {
-            flash.message = "StatusReference not found with id ${params.id}"
+            flash.message = "Status Reference not found with id ${params.id}"
             redirect(action:edit,id:params.id)
         }
     }
@@ -76,7 +81,7 @@ class StatusReferenceController {
     def save = {
         def statusReference = new StatusReference(params)
         if(!statusReference.hasErrors() && statusReference.save()) {
-            flash.message = "StatusReference ${statusReference.id} created"
+            flash.message = "Status Reference ${statusReference.id} created"
             redirect(action:show,id:statusReference.id)
         }
         else {

@@ -35,7 +35,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${DocumentationType.count()}" />
+                <g:paginate total="${DocumentationType.countByType('Documentation')}" />
             </div>
         </div>
     </body>

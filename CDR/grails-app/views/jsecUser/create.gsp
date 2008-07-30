@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="body">
-            <h1>Create JsecUser</h1>
+            <h1>Create User</h1>
             <div class="nav">
                 <span class="menuButton"><g:link class="list" action="list">User List</g:link></span>
             </div>

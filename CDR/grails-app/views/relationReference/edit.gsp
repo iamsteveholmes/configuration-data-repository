@@ -8,7 +8,7 @@
 <div class="body">
     <h1>Edit Relation Reference</h1>
     <div class="nav">
-        <span class="menuButton"><g:link class="create" action="create">New Relation Reference</g:link></span>
+        <span class="menuButton"><g:link class="list" action="list">Relation Reference List</g:link></span>
     </div>
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>

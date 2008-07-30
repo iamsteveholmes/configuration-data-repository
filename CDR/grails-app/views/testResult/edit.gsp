@@ -8,7 +8,7 @@
 <div class="body">
     <h1>Edit Test Result</h1>
     <div class="nav">
-        <span class="menuButton"><g:link class="create" action="create">New Test Result</g:link></span>
+        <span class="menuButton"><g:link class="list" action="list">Test Result List</g:link></span>
     </div>
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
@@ -84,7 +84,7 @@
                             <label for='testResultType'>Test Result Type:</label>
                         </td>
                         <td valign='top' class='value ${hasErrors(bean: testResult, field: 'testResultType', 'errors')}'>
-                            <g:select optionKey="id" from="${TestResultType.list()}" name='testResultType.id' value="${testResult?.testResultType?.id}"></g:select>
+                            <g:select optionKey="id" from="${HardwareType.findAllByType('Test Result')}" name='testResultType.id' value="${testResult?.testResultType?.id}"></g:select>
                         </td>
                     </tr>
                 </tbody>

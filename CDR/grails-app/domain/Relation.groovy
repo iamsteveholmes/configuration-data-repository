@@ -6,7 +6,7 @@ class Relation implements java.io.Serializable {
     Date dateCreated
     Date lastUpdated
 
-    static belongsTo = [ConfigurationItem, RelationReference]
+    static belongsTo = [ConfigurationItem]
     static constraints = {
         thisCI(nullable: false, blank:false)
         reference(nullable: false, blank:false)

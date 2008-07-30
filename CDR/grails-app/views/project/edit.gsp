@@ -9,6 +9,7 @@
             <h1>Edit Application</h1>
 			<!-- New Location of nav menu - Tab specific functions go here --> 
 			<div class="nav">
+                <span class="menuButton"><g:link class="list" action="list">Application List</g:link></span>
         	</div>
             
 			<g:if test="${flash.message}">
@@ -60,6 +61,22 @@
                                     <input type="text" id='ownerEmail' name='ownerEmail' value="${fieldValue(bean: project, field: 'ownerEmail')}"/>
                                 </td>
                             </tr>
+
+                            %{--<tr class='prop'>
+                                <td valign='top' class='name'>
+                                    <label for='environments'>Environments:</label>
+                                </td>
+                                <td valign='top' class='value ${hasErrors(bean:project,field:'environments','errors')}'>
+
+       <ul>
+       <g:each var='e' in='${project?.environments?}'>
+       <li><g:link controller='environment' action='show' id='${e.id}'>${e}</g:link></li>
+       </g:each>
+       </ul>
+       <g:link controller='environment' params='["project.id":project?.id]' action='create'>Add Environment</g:link>
+
+                                </td>
+                            </tr>--}%
 
                         </tbody>
                     </table>

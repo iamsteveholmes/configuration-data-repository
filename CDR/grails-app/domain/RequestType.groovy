@@ -8,7 +8,7 @@ class RequestType implements java.io.Serializable{
 
     static hasMany = [requests:ChangeRequest]
     static constraints = {
-        description(nullable:false, blank:false)
+        description(nullable:false, blank:false, maxSize: 50,unique:'type')
         requests(nullable:true)
     }
 

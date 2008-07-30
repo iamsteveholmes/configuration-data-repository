@@ -9,7 +9,6 @@
     <h1>Edit Network</h1>
     <div class="nav">
         <span class="menuButton"><g:link class="list" action="list">Network List</g:link></span>
-        <span class="menuButton"><g:link class="create" action="create">New Network</g:link></span>
     </div>
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>

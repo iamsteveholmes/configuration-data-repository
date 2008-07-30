@@ -36,7 +36,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${HardwareType.count()}" />
+                <g:paginate total="${HardwareType.countByType('Hardware')}" />
             </div>
         </div>
     </body>

@@ -15,7 +15,7 @@ class DocumentationTypeController{
 
     def list = {
         if(!params.max)params.max = 10
-        [ documentationTypeList: DocumentationType.findAllByType('Documentation') ]
+        [ documentationTypeList: DocumentationType.findAllByType('Documentation', params) ]
     }
 
     def show = {
@@ -23,14 +23,19 @@ class DocumentationTypeController{
     }
 
     def delete = {
-        def documentationType = DocumentationType.get( params.id )
+        def documentationType = DocumentationType.get(params.id)
         if(documentationType) {
-            documentationType.delete()
-            flash.message = "DocumentationType ${params.id} deleted."
-            redirect(action:list)
+            try {
+                documentationType.delete(flush:true)
+                flash.message = "Documentation Type ${params.id} deleted."
+                redirect(action:list)
+            } catch (org.hibernate.exception.ConstraintViolationException e) {
+                flash.message = "Unable to Delete Documentation Type ${params.id}.  Types used by Configuration Items cannot be deleted."
+                redirect(action:show, id:params.id)
+            }
         }
         else {
-            flash.message = "DocumentationType not found with id ${params.id}"
+            flash.message = "Documentation Type not found with id ${params.id}"
             redirect(action:list)
         }
     }
@@ -52,7 +57,7 @@ class DocumentationTypeController{
         if(documentationType) {
              documentationType.properties = params
             if(documentationType.save()) {
-                flash.message = "DocumentationType ${params.id} updated."
+                flash.message = "Documentation Type ${params.id} updated."
                 redirect(action:show,id:documentationType.id)
             }
             else {
@@ -60,7 +65,7 @@ class DocumentationTypeController{
             }
         }
         else {
-            flash.message = "DocumentationType not found with id ${params.id}"
+            flash.message = "Documentation Type not found with id ${params.id}"
             redirect(action:edit,id:params.id)
         }
     }
@@ -75,7 +80,7 @@ class DocumentationTypeController{
         def documentationType = new DocumentationType()
         documentationType.properties = params
         if(documentationType.save()) {
-            flash.message = "DocumentationType ${documentationType.id} created."
+            flash.message = "Documentation Type ${documentationType.id} created."
             redirect(action:show,id:documentationType.id)
         }
         else {

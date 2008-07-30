@@ -53,37 +53,39 @@ class HardwareController {
     }
 
     def update = {
-        withFormat {
-            xml {
-                def hardware = Hardware.findByName(params.hardware.name)
-                hardware.properties = params['hardware']
-                println "$hardware"
-                if (hardware.save()) {
-                    render hardware as XML
-                } else {
-                    def errors = hardware.errors.allErrors.collect {g.message(error: it)}
-                    render(contentType: "text/xml") {
-                        error {
-                            for (err in errors) {
-                                message(error: err)
-                            }
-                        }
-                    }
-                }
-            }
-            form{
-                def hardware = Hardware.get(params.id)
-                hardware.properties = params
-                if (hardware.save()) {
-                    flash.message = "Hardware ${params.id} updated."
-                    println "$hardware"
-                    redirect(action: show, id: hardware.id)
-                } else {
-                    println "$hardware"
-                    render(view: 'edit', model: [hardware: hardware])
+        def hardware = Hardware.get(params.id)
+
+        def circular = false
+        if (params.get('parent.id') != 'null') {
+            def parent = Hardware.get(Long.parseLong(params.get('parent.id')))
+            println "parent: ${parent}"
+            hardware.configurationItems.each {child ->
+                println "child: ${child}"
+                println "child.id == parent.id: ${child.id == parent.id}"
+                if (child.id == parent.id) {
+                    circular = true
                 }
             }
         }
+
+        if (circular) {
+            println "in circular"
+            flash.message = "Cannot choose a child as a parent."
+            render(view: 'edit', model: [hardware: hardware])
+            println "after render"
+        } else {
+            hardware.properties = params
+            if (hardware.save()) {
+                println "in true???"
+                flash.message = "Hardware ${params.id} updated."
+                println "$hardware"
+                redirect(action: show, id: hardware.id)
+            } else {
+                println "$hardware"
+                render(view: 'edit', model: [hardware: hardware])
+            }
+        }
+        println "even getting here...about to drop out..."
     }
 
     def create = {
@@ -93,37 +95,15 @@ class HardwareController {
     }
 
     def save = {
-        withFormat {
-            xml {
-                def hardware = new Hardware(params['hardware'])
-                if (hardware.parent) {
-                    hardware.parent.addToConfigurationItems(hardware)
-                }
-                if (hardware.save()) {
-                    render hardware as XML
-                } else {
-                    def errors = hardware.errors.allErrors.collect {g.message(error: it)}
-                    render(contentType: "text/xml") {
-                        error {
-                            for (err in errors) {
-                                message(error: err)
-                            }
-                        }
-                    }
-                }
-            }
-            form {
-                def hardware = new Hardware(params)
-                if (hardware.parent) {
-                    hardware.parent.addToConfigurationItems(hardware)
-                }
-                if (hardware.save()) {
-                    flash.message = "Hardware ${hardware.id} created."
-                    redirect(action: show, id: hardware.id, params: ["parent.id": params.parent?.id])
-                } else {
-                    render(view: 'create', model: [hardware: hardware])
-                }
-            }
+        def hardware = new Hardware(params)
+        if (hardware.parent) {
+            hardware.parent.addToConfigurationItems(hardware)
+        }
+        if (hardware.save()) {
+            flash.message = "Hardware ${hardware.id} created."
+            redirect(action: show, id: hardware.id, params: ["parent.id": params.parent?.id])
+        } else {
+            render(view: 'create', model: [hardware: hardware])
         }
     }
 }

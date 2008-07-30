@@ -8,8 +8,8 @@ class StatusReference implements java.io.Serializable{
 
     static hasMany = [statuses: Status]
     static constraints = {
-        name(nullable: false, blank:false)
-        description(nullable: true)
+        name(nullable: false, blank:false, maxSize: 50)
+        description(nullable: true, maxSize: 255)
     }
 
     String toString() {

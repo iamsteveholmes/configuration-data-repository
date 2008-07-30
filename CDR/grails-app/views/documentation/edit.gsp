@@ -8,7 +8,7 @@
 <div class="body">
     <h1>Edit Documentation</h1>
     <div class="nav">
-        <span class="menuButton"><g:link class="create" action="create">New Documentation</g:link></span>
+        <span class="menuButton"><g:link class="list" action="list">Documentation List</g:link></span>
     </div>
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>

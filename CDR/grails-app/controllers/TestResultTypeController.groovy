@@ -14,7 +14,7 @@ class TestResultTypeController{
 
     def list = {
         if(!params.max)params.max = 10
-        [ testResultTypeList: TestResultType.findAllByType('Test Result') ]
+        [ testResultTypeList: TestResultType.findAllByType('Test Result', params) ]
     }
 
     def show = {
@@ -22,11 +22,16 @@ class TestResultTypeController{
     }
 
     def delete = {
-        def testResultType = TestResultType.get( params.id )
+        def testResultType = TestResultType.get(params.id)
         if(testResultType) {
-            testResultType.delete()
-            flash.message = "TestResultType ${params.id} deleted."
-            redirect(action:list)
+            try {
+                testResultType.delete(flush:true)
+                flash.message = "Test Result Type ${params.id} deleted."
+                redirect(action:list)
+            } catch (org.hibernate.exception.ConstraintViolationException e) {
+                flash.message = "Unable to Delete Test Result Type ${params.id}.  Types used by Configuration Items cannot be deleted."
+                redirect(action:show, id:params.id)
+            }
         }
         else {
             flash.message = "TestResultType not found with id ${params.id}"
@@ -38,7 +43,7 @@ class TestResultTypeController{
         def testResultType = TestResultType.get( params.id )
 
         if(!testResultType) {
-                flash.message = "TestResultType not found with id ${params.id}"
+                flash.message = "Test Result Type not found with id ${params.id}"
                 redirect(action:list)
         }
         else {
@@ -51,7 +56,7 @@ class TestResultTypeController{
         if(testResultType) {
              testResultType.properties = params
             if(testResultType.save()) {
-                flash.message = "TestResultType ${params.id} updated."
+                flash.message = "Test Result Type ${params.id} updated."
                 redirect(action:show,id:testResultType.id)
             }
             else {
@@ -59,7 +64,7 @@ class TestResultTypeController{
             }
         }
         else {
-            flash.message = "TestResultType not found with id ${params.id}"
+            flash.message = "Test Result Type not found with id ${params.id}"
             redirect(action:edit,id:params.id)
         }
     }
@@ -74,7 +79,7 @@ class TestResultTypeController{
         def testResultType = new TestResultType()
         testResultType.properties = params
         if(testResultType.save()) {
-            flash.message = "TestResultType ${testResultType.id} created."
+            flash.message = "Test Result Type ${testResultType.id} created."
             redirect(action:show,id:testResultType.id)
         }
         else {

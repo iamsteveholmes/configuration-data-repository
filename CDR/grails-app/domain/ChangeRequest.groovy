@@ -15,13 +15,13 @@ class ChangeRequest extends ConfigurationItem{
     Date lastUpdated
 
     static transients = ["document"]
-    static belongsTo = [RequestType, Environment]
+    static belongsTo = [Environment]
     static constraints = {
         document(nullable:true)
         documentBlob(nullable: true)
-        fileType(nullable:true)
-        fileName(nullable:true)
-        fileSize(nullable:true)
+        fileType(nullable:true, maxSize: 255)
+        fileName(nullable:true, maxSize: 255)
+        fileSize(nullable:true, maxSize: 255)
         requestType(nullable:false, blank:false)
     }
 

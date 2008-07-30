@@ -14,7 +14,7 @@ class NetworkTypeController{
 
     def list = {
         if(!params.max)params.max = 10
-        [ networkTypeList: NetworkType.findAllByType('Network') ]
+        [ networkTypeList: NetworkType.findAllByType('Network', params) ]
     }
 
     def show = {
@@ -24,12 +24,18 @@ class NetworkTypeController{
     def delete = {
         def networkType = NetworkType.get( params.id )
         if(networkType) {
-            networkType.delete()
-            flash.message = "NetworkType ${params.id} deleted."
-            redirect(action:list)
+            try {
+                networkType.delete(flush:true)
+                flash.message = "Network Type ${params.id} deleted."
+                redirect(action:list)
+            } catch (org.hibernate.exception.ConstraintViolationException e) {
+                flash.message = "Unable to Delete Network Type ${params.id}.  Types used by Configuration Items cannot be deleted."
+                redirect(action:show, id:params.id)
+            }
+
         }
         else {
-            flash.message = "NetworkType not found with id ${params.id}"
+            flash.message = "Network Type not found with id ${params.id}"
             redirect(action:list)
         }
     }
@@ -38,7 +44,7 @@ class NetworkTypeController{
         def networkType = NetworkType.get( params.id )
 
         if(!networkType) {
-                flash.message = "NetworkType not found with id ${params.id}"
+                flash.message = "Network Type not found with id ${params.id}"
                 redirect(action:list)
         }
         else {
@@ -51,7 +57,7 @@ class NetworkTypeController{
         if(networkType) {
              networkType.properties = params
             if(networkType.save()) {
-                flash.message = "NetworkType ${params.id} updated."
+                flash.message = "Network Type ${params.id} updated."
                 redirect(action:show,id:networkType.id)
             }
             else {
@@ -59,7 +65,7 @@ class NetworkTypeController{
             }
         }
         else {
-            flash.message = "NetworkType not found with id ${params.id}"
+            flash.message = "Network Type not found with id ${params.id}"
             redirect(action:edit,id:params.id)
         }
     }
@@ -74,7 +80,7 @@ class NetworkTypeController{
         def networkType = new NetworkType()
         networkType.properties = params
         if(networkType.save()) {
-            flash.message = "NetworkType ${networkType.id} created."
+            flash.message = "Network Type ${networkType.id} created."
             redirect(action:show,id:networkType.id)
         }
         else {

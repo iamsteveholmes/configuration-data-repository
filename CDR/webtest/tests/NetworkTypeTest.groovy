@@ -8,7 +8,7 @@ class NetworkTypeTest extends grails.util.WebTest {
     }
 
     def testNetworkTypeListNewDelete() {
-        webtest('NetworkType basic operations: view list, create new entry, view, edit, delete, view') {
+        webtest('Network Type basic operations: view list, create new entry, view, edit, delete, view') {
             invoke(url: 'auth')
             verifyText(text:'Login')
             setInputField(name: "username", value: "admin")
@@ -17,7 +17,7 @@ class NetworkTypeTest extends grails.util.WebTest {
             verifyText(text: 'Project List')
 
             invoke      (url: 'networkType')
-            verifyText  (text:'Home')
+            verifyText  (text:'Network Type List')
 
             verifyListSize 0
 

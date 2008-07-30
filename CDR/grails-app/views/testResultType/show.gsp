@@ -28,7 +28,7 @@
                     <td valign="top" style="text-align:left;" class="value">
                         <ul>
                             <g:each var="r" in="${testResultType.results}">
-                                <li><g:link controller="changeRequest" action="show" id="${r.id}">${r}</g:link></li>
+                                <li><g:link controller="testResult" action="show" id="${r.id}">${r}</g:link></li>
                             </g:each>
                         </ul>
                     </td>

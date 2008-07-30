@@ -9,12 +9,12 @@ class Network extends ConfigurationItem{
     Date dateCreated
     Date lastUpdated
 
-    static belongsTo = [NetworkType, Environment]
+    static belongsTo = [Environment]
     static constraints = {
-        internetProtocolAddress(nullable:true)
-        macAddress(nullable:true)
-        element(nullable:true)
-        location(nullable:true)
+        internetProtocolAddress(nullable:true, maxSize: 75)
+        macAddress(nullable:true, maxSize: 75)
+        element(nullable:true, maxSize: 255)
+        location(nullable:true, maxSize: 255)
         networkType(nullable:false, blank:false)
     }
     static mapping = {

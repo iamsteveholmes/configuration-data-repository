@@ -9,7 +9,7 @@
         <div class="body">
             <h1>Edit User</h1>
             <div class="nav">
-                <span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
+                <span class="menuButton"><g:link class="list" action="list">User List</g:link></span>
             </div>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>

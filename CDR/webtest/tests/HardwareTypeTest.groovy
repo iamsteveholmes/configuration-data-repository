@@ -17,7 +17,7 @@ class HardwareTypeTest extends grails.util.WebTest {
             verifyText(text: 'Project List')
 
             invoke      (url: 'hardwareType')
-            verifyText  (text:'Home')
+            verifyText  (text:'Hardware Type List')
 
             verifyListSize 0
 
@@ -44,7 +44,7 @@ class HardwareTypeTest extends grails.util.WebTest {
             group(description:'delete the only element') {
                 showFirstElementDetails()
                 clickButton (label:'Delete')
-                verifyXPath (xpath:"//div[@class='message']", text:/.*HardwareType.*deleted.*/, regex:true)
+                verifyXPath (xpath:"//div[@class='message']", text:/.*Hardware Type.*deleted.*/, regex:true)
             }
 
             verifyListSize 0

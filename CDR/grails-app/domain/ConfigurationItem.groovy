@@ -9,9 +9,9 @@ class ConfigurationItem implements java.io.Serializable {
     Date dateCreated
     Date lastUpdated
 
-    /*Set configurationItems
+    Set configurationItems
     Set environments
-    Set statuses*/
+    Set statuses
     Set thisRelations
     Set thatRelations
 
@@ -19,11 +19,11 @@ class ConfigurationItem implements java.io.Serializable {
     static mappedBy = [thisRelations: 'thisCI', thatRelations: 'thatCI', configurationItems: 'parent']
     static belongsTo = [Environment, ConfigurationItem]
     static constraints = {
-        name(nullable: false, blank: false)
+        name(nullable: false, blank: false, maxSize: 50)
         description(nullable: true, maxSize: 1000)
-        author(nullable: false, blank: false)
-        ownerName(nullable: true)
-        ownerEmail(nullable: true, email: true)
+        author(nullable: false, blank: false, maxSize: 50)
+        ownerName(nullable: true, maxSize: 50)
+        ownerEmail(nullable: true, email: true, maxSize: 75)
         parent(nullable: true)
         configurationItems(nullable: true)
         environments(nullable: true)

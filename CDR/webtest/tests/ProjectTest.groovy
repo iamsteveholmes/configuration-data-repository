@@ -23,7 +23,7 @@ class ProjectTest extends grails.util.WebTest {
 
             clickLink(label: 'New Project')
             verifyText(text: 'Create Project')
-            setInputField(name: "name", value: "APS")
+            setInputField(name: "name", value: "Unique Name")
             setInputField(name: "description", value: "APS Project")
             setInputField(name: "ownerName", value: "Steve Holmes")
             setInputField(name: "ownerEmail", value: "sholmes@delegata.com")
@@ -48,6 +48,7 @@ class ProjectTest extends grails.util.WebTest {
                 showFirstElementDetails()
                 clickButton(label: 'Delete')
                 verifyXPath(xpath: "//div[@class='message']", text: /.*Project.*deleted.*/, regex: true)
+                clickLink(label: "Project", description: 'Back to List view')
             }
 
             verifyListSize 0

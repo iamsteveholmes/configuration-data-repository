@@ -14,13 +14,13 @@ class TestResult extends ConfigurationItem{
     Date lastUpdated
 
     static transients = ["document"]
-    static belongsTo = [TestResultType, Environment]
+    static belongsTo = [Environment]
     static constraints = {
         document(nullable:true)
         documentBlob(nullable: true)
-        fileType(nullable:true)
-        fileName(nullable:true)
-        fileSize(nullable:true)
+        fileType(nullable:true, maxSize: 255)
+        fileName(nullable:true, maxSize: 255)
+        fileSize(nullable:true, maxSize: 255)
         testResultType(nullable:false, blank:false)
     }
 

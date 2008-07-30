@@ -16,8 +16,8 @@ class RelationReferenceTest extends grails.util.WebTest {
             clickButton(label: 'Login >')
             verifyText(text: 'Project List')
             
-            invoke(url: 'relationReference')
-            verifyText(text: 'Home')
+            invoke(url: 'relationReference/list')
+            verifyText(text: 'Relation Reference List')
 
             verifyListSize 0
 
@@ -45,7 +45,7 @@ class RelationReferenceTest extends grails.util.WebTest {
             group(description: 'delete the only element') {
                 showFirstElementDetails()
                 clickButton(label: 'Delete')
-                verifyXPath(xpath: "//div[@class='message']", text: /.*RelationReference.*deleted.*/, regex: true)
+                verifyXPath(xpath: "//div[@class='message']", text: /.*Relation Reference.*deleted.*/, regex: true)
             }
 
             verifyListSize 0

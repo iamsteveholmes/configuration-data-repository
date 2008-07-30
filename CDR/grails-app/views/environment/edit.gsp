@@ -8,6 +8,7 @@
         <div class="body">
             <h1>Edit Environment</h1>
             <div class="nav">
+                <span class="menuButton"><g:link class="list" action="list">Environment List</g:link></span>
             </div>
             <g:if test="${flash.message}">
                 <div class="message">${flash.message}</div>

@@ -17,7 +17,7 @@ class SoftwareTypeTest extends grails.util.WebTest {
             verifyText(text: 'Project List')
             
             invoke      (url: 'softwareType')
-            verifyText  (text:'Home')
+            verifyText  (text:'Software Type List')
 
             verifyListSize 0
 
@@ -44,7 +44,7 @@ class SoftwareTypeTest extends grails.util.WebTest {
             group(description:'delete the only element') {
                 showFirstElementDetails()
                 clickButton (label:'Delete')
-                verifyXPath (xpath:"//div[@class='message']", text:/.*SoftwareType.*deleted.*/, regex:true)
+                verifyXPath (xpath:"//div[@class='message']", text:/.*Software Type.*deleted.*/, regex:true)
             }
 
             verifyListSize 0

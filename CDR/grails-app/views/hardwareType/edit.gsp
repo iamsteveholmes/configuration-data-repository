@@ -9,9 +9,7 @@
         <div class="body">
             <h1>Edit Hardware Type</h1>
             <div class="nav">
-                %{--<span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>--}%
-                %{--<span class="menuButton"><g:link class="list" action="list">Hardware Type List</g:link></span>--}%
-                <span class="menuButton"><g:link class="create" action="create">New Hardware Type</g:link></span>
+                <span class="menuButton"><g:link class="list" action="list">Hardware Type List</g:link></span>
             </div>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>

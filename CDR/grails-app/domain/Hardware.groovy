@@ -8,13 +8,13 @@ class Hardware extends ConfigurationItem{
     Date dateCreated
     Date lastUpdated
 
-    static belongsTo = [HardwareType, Environment]
+    static belongsTo = [Environment]
     static constraints = {
         purchaseDate(nullable: true)
         macAddress(maxSize: 50, nullable: true)
         hostName(maxSize: 50, nullable: true)
         hardwareType(nullable:false, blank:false)
-        internetProtocolAddress(nullable:true)
+        internetProtocolAddress(nullable:true, maxSize: 75)
     }
 
     String toString() {

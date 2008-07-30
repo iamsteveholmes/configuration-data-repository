@@ -30,7 +30,7 @@
                     <td valign="top" style="text-align:left;" class="value">
                         <ul>
                             <g:each var="s" in="${statusReference.statuses}">
-                                <li><g:link controller="status" action="show" id="${s.id}">${s}</g:link></li>
+                                <li><g:link controller="status" action="show" id="${s.id}">${s.configurationItem.name}</g:link></li>
                             </g:each>
                         </ul>
                     </td>

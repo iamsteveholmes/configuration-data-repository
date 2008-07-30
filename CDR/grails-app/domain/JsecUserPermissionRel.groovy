@@ -5,7 +5,7 @@ class JsecUserPermissionRel {
     String actions
 
     static constraints = {
-        target(nullable: true, blank: false)
-        actions(nullable: false, blank: false)
+        target(nullable: true, blank: false, maxSize: 255)
+        actions(nullable: false, blank: false, maxSize: 255)
     }
 }

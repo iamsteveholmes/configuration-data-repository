@@ -17,7 +17,7 @@ class TestResultTest extends grails.util.WebTest {
             verifyText(text: 'Project List')
             
             invoke      (url: 'testResult')
-            verifyText  (text:'Home')
+            verifyText  (text:'Test Result List')
 
             verifyListSize 0
 

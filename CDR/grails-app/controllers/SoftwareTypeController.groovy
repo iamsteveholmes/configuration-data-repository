@@ -13,8 +13,8 @@ class SoftwareTypeController{
     def allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
     def list = {
-        if(!params.max)params.max = 10
-        [ softwareTypeList: SoftwareType.findAllByType('Software') ]
+        if(!params.max) params.max = 10
+        [ softwareTypeList: SoftwareType.findAllByType('Software', params) ]
     }
 
     def show = {
@@ -24,12 +24,17 @@ class SoftwareTypeController{
     def delete = {
         def softwareType = SoftwareType.get( params.id )
         if(softwareType) {
-            softwareType.delete()
-            flash.message = "SoftwareType ${params.id} deleted."
-            redirect(action:list)
+            try {
+                softwareType.delete(flush:true)
+                flash.message = "Software Type ${params.id} deleted."
+                redirect(action:list)
+            } catch (org.hibernate.exception.ConstraintViolationException e) {
+                flash.message = "Unable to Delete Software Type ${params.id}.  Types used by Configuration Items cannot be deleted."
+                redirect(action:show, id:params.id)
+            }
         }
         else {
-            flash.message = "SoftwareType not found with id ${params.id}"
+            flash.message = "Software Type not found with id ${params.id}"
             redirect(action:list)
         }
     }
@@ -38,7 +43,7 @@ class SoftwareTypeController{
         def softwareType = SoftwareType.get( params.id )
 
         if(!softwareType) {
-                flash.message = "SoftwareType not found with id ${params.id}"
+                flash.message = "Software Type not found with id ${params.id}"
                 redirect(action:list)
         }
         else {
@@ -59,7 +64,7 @@ class SoftwareTypeController{
             }
         }
         else {
-            flash.message = "SoftwareType not found with id ${params.id}"
+            flash.message = "Software Type not found with id ${params.id}"
             redirect(action:edit,id:params.id)
         }
     }
@@ -74,7 +79,7 @@ class SoftwareTypeController{
         def softwareType = new SoftwareType()
         softwareType.properties = params
         if(softwareType.save()) {
-            flash.message = "SoftwareType ${softwareType.id} created."
+            flash.message = "Software Type ${softwareType.id} created."
             redirect(action:show,id:softwareType.id)
         }
         else {

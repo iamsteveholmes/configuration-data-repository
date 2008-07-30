@@ -1,4 +1,4 @@
-class TestResultController{
+class TestResultController {
     /*def scaffold = TestResult*/
     static accessControl = {
         // All actions require the 'Observer' role.
@@ -59,17 +59,35 @@ class TestResultController{
     def update = {
         def testResult = TestResult.get(params.id)
         if (testResult) {
-            testResult.properties = params
-            def upload = request.getFile('document')
-            testResult.document = upload.getBytes()
-            testResult.fileType = upload.getContentType()
-            testResult.fileName = upload.getOriginalFilename()
-            if (testResult.save()) {
-                flash.message = "TestResult ${params.id} updated."
-                redirect(action: show, id: testResult.id)
+            def circular = false
+            if (params.get('parent.id') != 'null') {
+                def parent = TestResult.get(Long.parseLong(params.get('parent.id')))
+                println "parent: ${parent}"
+                testResult.configurationItems.each {child ->
+                    println "child: ${child}"
+                    if (child.id == parent.id) {
+                        circular = true
+                    }
+                }
             }
-            else {
+
+            if (circular) {
+                flash.message = "Cannot choose a child as a parent."
                 render(view: 'edit', model: [testResult: testResult])
+            } else {
+                def upload = request.getFile('document')
+                testResult.document = upload.getBytes()
+                testResult.fileType = upload.getContentType()
+                testResult.fileName = upload.getOriginalFilename()
+                testResult.properties = params
+                if (testResult.save()) {
+                    if(!testResult.fileName) flash.message = "Test Result ${params.id} updated.  No document was saved.  This may be due to a bad Path."
+                    else flash.message = "TestResult ${params.id} updated."
+                    redirect(action: show, id: testResult.id)
+                }
+                else {
+                    render(view: 'edit', model: [testResult: testResult])
+                }
             }
         }
         else {
@@ -93,14 +111,15 @@ class TestResultController{
         testResult.fileName = upload.getOriginalFilename()
         testResult.fileSize = upload.getSize()
         if (testResult.save()) {
-            flash.message = "TestResult ${testResult.id} created."
+            if(!testResult.fileName) flash.message = "Test Result ${testResult.id} created.  No document was saved.  This may be due to a bad Path."
+            else flash.message = "TestResult ${testResult.id} created."
             redirect(action: show, id: testResult.id)
         }
         else {
             render(view: 'create', model: [testResult: testResult])
         }
     }
-    
+
     def downloadDocument = {
         def testResult = TestResult.get(params.id)
         response.setHeader("Content-Type", "application/octet-stream;")

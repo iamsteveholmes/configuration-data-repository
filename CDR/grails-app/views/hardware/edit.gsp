@@ -9,6 +9,9 @@
     <div class="nav">
     </div>
     <h1>Edit Hardware</h1>
+    <div class="nav">
+        <span class="menuButton"><g:link class="list" action="list">Hardware List</g:link></span>
+    </div>
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
     </g:if>
