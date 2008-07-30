@@ -687,7 +687,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CDR.iml" filepath="$PROJECT_DIR$/CDR.iml" />
-      <module fileurl="file://$PROJECT_DIR$/untitled/CDRClient.iml" filepath="$PROJECT_DIR$/untitled/CDRClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CDRClient_scripts/CDRClient_scripts.iml" filepath="$PROJECT_DIR$/CDRClient_scripts/CDRClient_scripts.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
