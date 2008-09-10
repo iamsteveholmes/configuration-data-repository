@@ -11,7 +11,7 @@ class ServiceOrderController {
         createServiceOrder {
             action {
                 flow.serviceOrder = new ServiceOrder()
-                println "create service Order"
+                log.debug "create service Order"
             }
             on("success").to "proposed"
             on(Exception).to "proposed"
@@ -21,8 +21,8 @@ class ServiceOrderController {
             render(view: "/serviceOrder/proposed")
 
             on("createConfigurationItem") {
-                println "createConfigurationItem"
-                println params
+                log.debug "createConfigurationItem"
+                log.debug params
                 if (params.category) {
                     def ci
                     if (params.category == "hardware") {
@@ -47,7 +47,7 @@ class ServiceOrderController {
                         }
                         ci.properties = params
                         def documentMap = session.getAttribute("documentMap")
-                        println documentMap
+                        log.debug documentMap
                         ci.document = documentMap.document
                         ci.fileType = documentMap.contentType
                         ci.fileName = documentMap.fileName
@@ -59,7 +59,7 @@ class ServiceOrderController {
                             ci.testResultType = TestResultType.find(ci.testResultType)
                         }
                         def documentMap = session.getAttribute("documentMap")
-                        println documentMap
+                        log.debug documentMap
                         ci.document = documentMap.document
                         ci.fileType = documentMap.contentType
                         ci.fileName = documentMap.fileName
@@ -70,7 +70,7 @@ class ServiceOrderController {
                             ci.requestType = RequestType.find(ci.requestType)
                         }
                         def documentMap = session.getAttribute("documentMap")
-                        println documentMap
+                        log.debug documentMap
                         ci.document = documentMap.document
                         ci.fileType = documentMap.contentType
                         ci.fileName = documentMap.fileName
@@ -85,7 +85,7 @@ class ServiceOrderController {
                     }
                     if (!ci?.validate()) {
                         ci?.errors.allErrors.each {
-                            println it
+                            log.debug it
                         }
                         return error()
                     }
@@ -126,7 +126,7 @@ class ServiceOrderController {
 
             on("createRelation") {
                 Relation relation = new Relation()
-                println params
+                log.debug params
                 relation.properties = params
                 if(!params['thisCI.id']) relation.thisCI = flow.serviceOrder.configurationItems[Integer.parseInt(params.ciListId)]
                 else if(!params['thatCI.id']) relation.thatCI = flow.serviceOrder.configurationItems[Integer.parseInt(params.ciListId)]
@@ -150,7 +150,7 @@ class ServiceOrderController {
 
             on("cancel").to "end"
             on("persist") {
-                println "persist"
+                log.debug "persist"
                 serviceOrderService.persistServiceOrder(flow.serviceOrder)
             }.to "end"
 

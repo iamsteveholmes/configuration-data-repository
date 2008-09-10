@@ -1,4 +1,4 @@
-<html>
+hid<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main"/>
@@ -20,6 +20,7 @@
     </g:hasErrors>
     <g:form controller="changeRequest" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="${changeRequest?.id}"/>
+        <input type="hidden" name="version" value="${changeRequest?.version}"/>
         <div class="dialog">
             <table>
                 <tbody>

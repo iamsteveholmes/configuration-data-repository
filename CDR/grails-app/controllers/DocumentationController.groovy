@@ -63,9 +63,9 @@ class DocumentationController {
             def circular = false
             if (params.get('parent.id') != 'null') {
                 def parent = Documentation.get(Long.parseLong(params.get('parent.id')))
-                println "parent: ${parent}"
+                log.debug "parent: ${parent}"
                 documentation.configurationItems.each {child ->
-                    println "child: ${child}"
+                    log.debug "child: ${child}"
                     if (child.id == parent.id) {
                         circular = true
                     }

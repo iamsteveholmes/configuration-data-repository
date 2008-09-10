@@ -13,7 +13,7 @@ class ConfigurationItemController {
             ciList = Hardware.executeQuery("select ci from Hardware as ci join fetch ci.environments environment join fetch ci.hardwareType join ci.statuses as status where ci.name=:name and environment=:environment and ci.hardwareType=:hardwareType and status.endDate > :date and status.startDate < :date and status.reference.name = :statusName", [name: params.name, environment: environment, hardwareType: hardwareType, date: date, statusName:params.status.reference.name])
         } else if (params.category == 'software') {
             SoftwareType softwareType = SoftwareType.find(new SoftwareType(description: params.ciType.name))
-            println "softwareType: ${softwareType}"
+            log.debug "softwareType: ${softwareType}"
             ciList = Software.executeQuery("select ci from Software as ci join fetch ci.environments environment join fetch ci.softwareType join ci.statuses as status where ci.name=:name and environment=:environment and ci.softwareType=:softwareType and status.endDate > :date and status.startDate < :date and status.reference.name = :statusName", [name: params.name, environment: environment, softwareType: softwareType, date: date, statusName:params.status.reference.name])
         } else if (params.category == 'network') {
             NetworkType networkType = NetworkType.find(new NetworkType(description: params.ciType.name))
@@ -28,10 +28,10 @@ class ConfigurationItemController {
             TestResultType testResultType = TestResultType.find(new TestResultType(description: params.ciType.name))
             ciList = TestResult.executeQuery("select ci from TestResult as ci join fetch ci.environments environment join fetch ci.testResultType join ci.statuses as status where ci.name=:name and environment=:environment and ci.testResultType=:testResultType and status.endDate > :date and status.startDate < :date and status.reference.name = :statusName", [name: params.name, environment: environment, testResultType: testResultType, date: date, statusName:params.status.reference.name])
         } else {
-//barf
+//barf      
         }
-        println environment
-        println project
+        println "environment: $environment"
+        println "project: $project"
         println "params.name: ${params.name}"
         println "params.category: ${params.category}"
         println "params.status.reference.name: ${params.status.reference.name}"
@@ -40,7 +40,7 @@ class ConfigurationItemController {
             render(view:"${params.category}", model: [ci: ciList[0]])
         } else {
             println "ciList != 1"
-            //barf
+            error()
         }
     }
 }

@@ -42,7 +42,6 @@ Do not edit it else you risk to lose your changes.
 def definitionsDir = new File(properties["wt.generateDefinitions.dir"]) // TODO: use a fileset
 if (!definitionsDir.exists())
 {
-	println "Definitions dir not found: ${definitionsDir}. Ignoring."
 	return
 }
 def definitionsFile = new File(properties["wt.generateDefinitions.file"])
@@ -50,7 +49,6 @@ def definitionsFile = new File(properties["wt.generateDefinitions.file"])
 def baseDirURI = definitionsDir.parentFile.toURI() as String
 def entities = new TreeMap() // as TreeMap to have elements alphabetically sorted
 
-println "Scanning ${definitionsDir} for definitions..."
 definitionsDir.eachFileRecurse
 {
 	if (it.file && it.name ==~ /.*\.xml/)
@@ -60,7 +58,6 @@ definitionsDir.eachFileRecurse
 		entities[entityName] = relPath
 	}
 }
-println "${entities.size()} definitions found"
 
 def binding = ["entities": entities]
 def engine = new groovy.text.GStringTemplateEngine()
@@ -71,7 +68,6 @@ def newDefinitions = template.make(binding) as String
 // test if this would generate a new version
 if (!definitionsFile.exists() || newDefinitions != definitionsFile.text)
 {
-	println "Generating ${definitionsFile}"
 	definitionsFile.withWriter
 	{
 		it << newDefinitions
@@ -79,5 +75,4 @@ if (!definitionsFile.exists() || newDefinitions != definitionsFile.text)
 }
 else
 {
-	println "Already uptodate: ${definitionsFile}"
 }

@@ -1,4 +1,4 @@
-import org.apache.commons.codec.digest.DigestUtils
+//import org.apache.commons.codec.digest.DigestUtils
 
 class BootStrap {
 
@@ -20,7 +20,8 @@ class BootStrap {
         // not the password itself.
         def admin = JsecUser.findByUsername('admin')
         if (!admin) {
-            admin = new JsecUser(username: 'admin', passwordHash: DigestUtils.shaHex('changeit'))
+            //admin = new JsecUser(username: 'admin', passwordHash: DigestUtils.shaHex('changeit'))
+            admin = new JsecUser(username: 'admin', passwordHash: new org.jsecurity.crypto.hash.Sha1Hash('changeit').toHex())
             admin.save()
             new JsecUserRoleRel(user: admin, role: adminRole).save()
             new JsecUserRoleRel(user: admin, role: observerRole).save()
@@ -28,7 +29,8 @@ class BootStrap {
 
         def tarzan = JsecUser.findByUsername("tarzan")
         if (!tarzan) {
-            tarzan = new JsecUser(username: 'tarzan', passwordHash: DigestUtils.shaHex('password'))
+            tarzan = new JsecUser(username: 'tarzan', passwordHash: new org.jsecurity.crypto.hash.Sha1Hash('password').toHex())
+            //tarzan = new JsecUser(username: 'tarzan', passwordHash: DigestUtils.shaHex('password'))
             tarzan.save()
             new JsecUserRoleRel(user: tarzan, role: observerRole).save()
         }
@@ -123,7 +125,7 @@ class BootStrap {
                     author: "Steve Holmes",
                     softwareType: os)
             if (!windows.save(flush: true)) {
-                windows.errors.each {error -> println error}
+                windows.errors.each {error -> log.debug error}
             }
 
             def build = new Software(
@@ -131,7 +133,7 @@ class BootStrap {
                     author: "Steve Holmes",
                     softwareType: application)
             if (!build.save(flush: true)) {
-                build.errors.each {error -> println error}
+                build.errors.each {error -> log.debug error}
             }
 
             testing.configurationItems << build
@@ -143,7 +145,7 @@ class BootStrap {
                     author: "Steve Holmes",
                     softwareType: application)
             if (!build.save(flush: true)) {
-                build.errors.each {error -> println error}
+                build.errors.each {error -> log.debug error}
             }
             staging.configurationItems = [stagingBuild]
             staging.save(flush:true)
@@ -154,7 +156,7 @@ class BootStrap {
                     author: "Steve Holmes",
                     softwareType: application)
             if (!build.save(flush: true)) {
-                build.errors.each {error -> println error}
+                build.errors.each {error -> log.debug error}
             }
 
             production.configurationItems = [productionBuild]

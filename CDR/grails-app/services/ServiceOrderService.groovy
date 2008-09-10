@@ -6,7 +6,7 @@ class ServiceOrderService implements java.io.Serializable{
 
     def persistServiceOrder(ServiceOrder serviceOrder) {
         serviceOrder.configurationItems.each { ci ->
-            println ci
+            log.debug ci
             if(ci.metaClass.hasProperty(ci, "document")) ci.document = ci.document
             ci.save(flush:true)
 
@@ -18,9 +18,9 @@ class ServiceOrderService implements java.io.Serializable{
             }
         }
         serviceOrder.relations.each {
-            println "it.thisCI?.id: ${it.thisCI?.id}"
-            println "it.thatCI?.id: ${it.thatCI?.id}"
-            println "it.thatCI: ${it.thatCI}"
+            log.debug "it.thisCI?.id: ${it.thisCI?.id}"
+            log.debug "it.thatCI?.id: ${it.thatCI?.id}"
+            log.debug "it.thatCI: ${it.thatCI}"
             it.save()
         }
         Date date = new Date();

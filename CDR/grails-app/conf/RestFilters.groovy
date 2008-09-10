@@ -7,16 +7,16 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
  */
 class RestFilters {
     def filters = {
-        println "here 1"
+        log.debug "here 1"
         cancelServiceOrder(uri: '/serviceOrder') {
             before = {
                 if (request.method == "DELETE"){
                     params._eventId_cancel = 'cancel'
-                    println "here 2"
+                    log.debug "here 2"
                 } else if (request.method == "POST"){
                     params._eventId_persist = 'persist'
-                    println "here 3"
-                    println params
+                    log.debug "here 3"
+                    log.debug params
                     redirect(action: 'serviceOrder', params:params)
                 }
             }
@@ -26,14 +26,14 @@ class RestFilters {
             before = {
                 if (request.method == "POST"){
                     params._eventId_createConfigurationItem ='createConfigurationItem'
-                    println "here 4"
+                    log.debug "here 4"
                     if(params.document){
                         def upload = request.getFile("document")
                         Map documentMap = ["document": upload.getBytes(),"contentType":upload.getContentType(), "fileName":upload.getOriginalFilename(), "fileSize":upload.getSize()]
                         session.setAttribute("documentMap",documentMap)
                         params.remove("document")
                     }
-                    println params
+                    log.debug params
                     redirect(action: 'serviceOrder', params:params)
                 }
             }
@@ -43,7 +43,7 @@ class RestFilters {
             before = {
                 if (request.method == "PUT"){
                     params._eventId_modifyConfigurationItem = 'modifyConfigurationItem'
-                    println "here 5"
+                    log.debug "here 5"
                     redirect(action: 'serviceOrder', params:params)
                 }
             }
@@ -53,7 +53,7 @@ class RestFilters {
             before = {
                 if (request.method == "POST"){
                     params._eventId_createRelation = 'createRelation'
-                    println "here 6"
+                    log.debug "here 6"
                     redirect(action: 'serviceOrder', params:params)
                 }
             }
@@ -63,7 +63,7 @@ class RestFilters {
             before = {
                 if (request.method == "DELETE"){
                     params._eventId_deleteRelation = 'deleteRelation'
-                    println "here 7"
+                    log.debug "here 7"
                     redirect(action: 'serviceOrder', params:params)
                 }
             }
@@ -73,7 +73,7 @@ class RestFilters {
             before = {
                 if (request.method == "POST"){
                     params._eventId_createStatus = 'createStatus'
-                    println "here 9"
+                    log.debug "here 9"
                     redirect(action: 'serviceOrder', params:params)
                 }
             }

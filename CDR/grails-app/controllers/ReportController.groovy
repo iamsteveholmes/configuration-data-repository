@@ -11,7 +11,7 @@ class ReportController {
     def environmentReport = {
         def model = [projects:Project.list(),environments:Environment.list()]
         if(chainModel?.errors) model.errors = chainModel['errors']
-        println model
+        log.debug model
         render(view: 'environmentReport', model:model)
     }
 
