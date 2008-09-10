@@ -16,11 +16,11 @@ class ChangeRequestControllerTests extends GroovyTestCase {
         changeRequest2.save(flush: true)
         changeRequest1.save(flush: true)
         controller.params.id = changeRequest1.id
+        controller.params.version = changeRequest1.version
         controller.params.name = changeRequest1.name
         controller.params.author = changeRequest1.author
         controller.params.put('requestType.id',Long.toString(changeRequest1.requestType.id))
         controller.params.put('parent.id',Long.toString(changeRequest2.id))
-
         controller.update()
         assert controller.modelAndView.model.changeRequest
     }
