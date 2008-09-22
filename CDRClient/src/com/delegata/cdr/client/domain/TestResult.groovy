@@ -3,7 +3,6 @@ package com.delegata.cdr.client.domain
 import org.apache.commons.httpclient.methods.multipart.*
 
 class TestResult extends ConfigurationItem{
-    String id
     File document
     String category = "testResult"
     TestResultType testResultType

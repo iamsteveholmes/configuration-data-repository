@@ -13,7 +13,14 @@ class ConfigurationItem {
     String projectName
     ConfigurationItem parent
 
+    /*public void setOwnerEmail(String ownerEmail){
+        this.ownerEmail = ownerEmail.replace('%40','@')
+    }
 
+    public String getOwnerEmail(){
+        return ownerEmail.replace('%40','@')
+    }*/
+    
     Set configurationItems
     Set environments
     Set statuses

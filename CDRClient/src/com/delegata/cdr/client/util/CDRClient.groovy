@@ -12,7 +12,6 @@ import org.apache.commons.httpclient.methods.multipart.StringPart
 class CDRClient {
     HttpClient client = new HttpClient()
     def root
-
     def key
     def body
 

@@ -3,7 +3,6 @@ package com.delegata.cdr.client.domain
 import org.apache.commons.httpclient.NameValuePair
 
 class Hardware extends ConfigurationItem{
-    String id
     String macAddress
     String internetProtocolAddress
     String hostName

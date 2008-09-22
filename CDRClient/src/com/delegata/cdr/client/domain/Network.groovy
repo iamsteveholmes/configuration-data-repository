@@ -3,7 +3,6 @@ package com.delegata.cdr.client.domain
 import org.apache.commons.httpclient.NameValuePair
 
 class Network extends ConfigurationItem{
-    String id
     String internetProtocolAddress
     String macAddress
     String element

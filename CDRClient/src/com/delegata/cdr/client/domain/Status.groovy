@@ -8,7 +8,8 @@ class Status{
     Date endDate
     ConfigurationItem configurationItem
     StatusReference reference
-    int listId
+    int listId  //this attribute identifies the id of the owning CI on the server side.
+                //Only used if CI does not yet have an ID.
 
     List getParams(){
         def params = []

@@ -3,7 +3,6 @@ package com.delegata.cdr.client.domain
 import org.apache.commons.httpclient.NameValuePair
 
 class Software extends ConfigurationItem{
-    String id
     String versionNum
     String port
     String releaseNum

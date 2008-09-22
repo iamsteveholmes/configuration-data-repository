@@ -8,30 +8,33 @@ import groovy.util.slurpersupport.GPathResult
  * Time: 12:49:25 PM
  */
 
-//def root = "http://solutions.delegata.com:8086/CDR"
+static final String MKE_DATA = "MKE Data"
+static final String MKE_CODE = "MKE Code"
+static final String MKE = "MKE"
+
 def username = "admin"
 def password = "changeit"
 
 //def root = "http://cdr.caldoj.net/CDR"
+//def root = "http://solutions.delegata.com:8086/CDR"
 def root = "http://localhost:8080/CDR"
 def projectName = "AV-SRF"
-//def environmentFrom = "AV-SRF Staging"
-def environment = " 	AV-SRF Pseudo-Production"
+def environment = "AV-SRF Pseudo-Production"
 def statusName = "Active"
-//def fromStatusName = "Active"
+def oldCIStatus = "Retired"
 def configurationItems = [
-    new Software(name: "AV-SRF", softwareType: new SoftwareType(description:"CJIS app")),
+    new Software(name: "AV-SRF", softwareType: new SoftwareType(description:"CJIS Application")),
     new Software(name: "AVSRF Data", softwareType: new SoftwareType(description:"CJISAPP Data")),
-    new Software(name: "AVSRF Code", softwareType: new SoftwareType(description:"CJISAPP Code")),
-    new Software(name: "MKE_EPR", softwareType: new SoftwareType(description:"mke")),
-    new Software(name: "MKE_EPR Data", softwareType: new SoftwareType(description:"mke data")),
-    new Software(name: "MKE_EPR Code", softwareType: new SoftwareType(description:"mke code")),
-    new Software(name: "MKE_QCF", softwareType: new SoftwareType(description:"mke")),
-    new Software(name: "MMKE_QCF Data", softwareType: new SoftwareType(description:"mke data")),
-    new Software(name: "MKE_QCF Code", softwareType: new SoftwareType(description:"mke code")),
-    new Software(name: "MKE_XVC", softwareType: new SoftwareType(description:"mke")),
-    new Software(name: "MKE_XVC Data", softwareType: new SoftwareType(description:"mke data")),
-    new Software(name: "MKE_XVC Code", softwareType: new SoftwareType(description:"mke code"))
+    new Software(name: "AV-SRF Code", softwareType: new SoftwareType(description:"CJISAPP Code")),
+    new Software(name: "AV-SRF_MKE_EPR", softwareType: new SoftwareType(description:MKE)),
+    new Software(name: "AV-SRF_MKE_EPR Data", softwareType: new SoftwareType(description:MKE_DATA)),
+    new Software(name: "AV-SRF_MKE_EPR Code", softwareType: new SoftwareType(description:MKE_CODE)),
+    new Software(name: "AV-SRF_MKE_QCF", softwareType: new SoftwareType(description:MKE)),
+    new Software(name: "AV-SRF_MKE_QCF Data", softwareType: new SoftwareType(description:MKE_DATA)),
+    new Software(name: "AV-SRF_MKE_QCF Code", softwareType: new SoftwareType(description:MKE_CODE)),
+    new Software(name: "AV-SRF_MKE_XVC", softwareType: new SoftwareType(description:MKE)),
+    new Software(name: "AV-SRF_MKE_XVC Data", softwareType: new SoftwareType(description:MKE_DATA)),
+    new Software(name: "AV-SRF_MKE_XVC Code", softwareType: new SoftwareType(description:MKE_CODE))
 ]
 
 def relations = [:]
@@ -61,17 +64,19 @@ configurationItems.eachWithIndex{ ci, i ->
 
     build.thisRelations.relation.each {
         println "this relation: $it"
-        relations.put("${it.thisCI.@id}${it.reference.name}${i}", new Relation(thisCI: new ConfigurationItem(id: "${it.thisCI.@id}"), reference: new RelationReference(name: it.reference.name), listId: i))
+        relations.put("${it.thisCI.@id}${it.reference.name}${it.thatCI.@id}", new Relation(thatCI: new ConfigurationItem(id: "${it.thatCI.@id}"), reference: new RelationReference(name: it.reference.name), listId: i))
         println client.body
     }
 
     build.thatRelations.relation.each {
         println "that relation: $it"
-        relations.put("${it.thisCI.@id}${it.reference.name}${i}", new Relation(thisCI: new ConfigurationItem(id: "${it.thisCI.@id}"), reference: new RelationReference(name: it.reference.name), listId: i)) 
+        relations.put("${it.thisCI.@id}${it.reference.name}${it.thatCI.@id}", new Relation(thisCI: new ConfigurationItem(id: "${it.thisCI.@id}"), reference: new RelationReference(name: it.reference.name), listId: i)) 
         println client.body
     }
 
-    statusus << new Status(configurationItem: new Software(id: build.@id), reference: new StatusReference(name: statusName, description: statusName), listId: i)
+    //setting old statusus
+    statusus << new Status(configurationItem: new Software(id: build.@id), reference: new StatusReference(name: oldCIStatus, description: oldCIStatus), listId: i)
+    //setting new statusus
     statusus << new Status(reference: new StatusReference(name: statusName, description: statusName), listId: i)
 }
 
