@@ -25,10 +25,12 @@ class ServiceOrderService implements java.io.Serializable{
         }
         Date date = new Date();
         serviceOrder.statusus.each {newStatus ->
-            newStatus.configurationItem.statuses.each {status ->
-                if (status.endDate > date) {
-                    status.endDate = date
-                    status.save()
+            if (newStatus.configurationItem?.statuses) {
+                newStatus.configurationItem?.statuses?.each {status ->
+                    if (status.endDate > date) {
+                        status.endDate = date
+                        status.save()
+                    }
                 }
             }
 

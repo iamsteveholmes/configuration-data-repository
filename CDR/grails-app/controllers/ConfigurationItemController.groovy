@@ -12,9 +12,13 @@ class ConfigurationItemController {
             HardwareType hardwareType = HardwareType.find(new HardwareType(description: params.ciType.name))
             ciList = Hardware.executeQuery("select ci from Hardware as ci join fetch ci.environments environment join fetch ci.hardwareType join ci.statuses as status where ci.name=:name and environment=:environment and ci.hardwareType=:hardwareType and status.endDate > :date and status.startDate < :date and status.reference.name = :statusName", [name: params.name, environment: environment, hardwareType: hardwareType, date: date, statusName:params.status.reference.name])
         } else if (params.category == 'software') {
+            println "params: ${params}"
+            println "params.ciType.name: ${params.ciType.name}"
             SoftwareType softwareType = SoftwareType.find(new SoftwareType(description: params.ciType.name))
             log.debug "softwareType: ${softwareType}"
-            ciList = Software.executeQuery("select ci from Software as ci join fetch ci.environments environment join fetch ci.softwareType join ci.statuses as status where ci.name=:name and environment=:environment and ci.softwareType=:softwareType and status.endDate > :date and status.startDate < :date and status.reference.name = :statusName", [name: params.name, environment: environment, softwareType: softwareType, date: date, statusName:params.status.reference.name])
+            ciList = Software.executeQuery("select ci from Software as ci join fetch ci.environments environment join fetch ci.softwareType join ci.statuses as status  where ci.name=:name and environment=:environment and ci.softwareType=:softwareType and status.endDate > :date and status.startDate < :date and status.reference.name = :statusName", [name: params.name, environment: environment, softwareType: softwareType, date: date, statusName:params.status.reference.name])
+            println "ciList[0].thisRelations: ${ciList[0].thisRelations}"
+            println "ciList[0].thatRelations: ${ciList[0].thatRelations}"
         } else if (params.category == 'network') {
             NetworkType networkType = NetworkType.find(new NetworkType(description: params.ciType.name))
             ciList = Network.executeQuery("select ci from Network as ci join fetch ci.environments environment join fetch ci.networkType join ci.statuses as status where ci.name=:name and environment=:environment and ci.networkType=:networkType and status.endDate > :date and status.startDate < :date and status.reference.name = :statusName", [name: params.name, environment: environment, networkType: networkType, date: date, statusName:params.status.reference.name])
@@ -34,6 +38,8 @@ class ConfigurationItemController {
         println "project: $project"
         println "params.name: ${params.name}"
         println "params.category: ${params.category}"
+        println "params.project.name: ${params.project.name}"
+        println "params.ciType.name: ${params.ciType.name}"
         println "params.status.reference.name: ${params.status.reference.name}"
         println "ciList: ${ciList}"
         if (ciList.size == 1) {

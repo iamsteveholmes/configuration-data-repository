@@ -32,7 +32,7 @@ class ServiceOrderController {
                         }
                     } else if (params.category == "software") {
                         ci = new Software(params)
-                        if(!ci.softwareType.id && ci.softwareType.description){
+                        if(!ci?.softwareType?.id && ci?.softwareType?.description){
                             ci.softwareType = SoftwareType.find(ci.softwareType)
                         }
                     } else if (params.category == "network") {
@@ -78,18 +78,21 @@ class ServiceOrderController {
                     } else {
                         return error()
                     }
-                    prinln params
+                    println params
                     if(params.environmentName && params.projectName){
                         ci.environments = new HashSet()
                         ci.environments << Environment.find("from Environment e where e.name=:environmentName and e.project.name=:projectName", [environmentName:params.environmentName, projectName:params.projectName])
                     }
+                    if(ci.ownerEmail) ci.ownerEmail = ci.ownerEmail.replace('%40','@')
                     if (!ci?.validate()) {
                         ci?.errors.allErrors.each {
+                            println it
                             log.debug it
                         }
                         return error()
                     }
                     flow.serviceOrder.configurationItems << ci
+                    println "flow.serviceOrder.configurationItems: ${flow?.serviceOrder?.configurationItems}"
                 } else {
                     return error()
                 }
