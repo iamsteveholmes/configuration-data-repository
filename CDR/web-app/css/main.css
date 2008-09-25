@@ -13,10 +13,10 @@ html * {
 body {
     background: #e2dfee;
     color: #000000;
-    font: 11px verdana,tahoma,sans-serif;
+    font: 11px verdana, tahoma, sans-serif;
     line-height: 155%;
     text-align: center; /** Fixed width container hack **/
-	margin: 0;
+    margin: 0;
 }
 
 #main_wrapper {
@@ -134,7 +134,7 @@ a:hover {
 h1 {
     color: #0061af;
     font-size: 20px;
-    font-family: verdana,tahoma,sans-serif;
+    font-family: verdana, tahoma, sans-serif;
     font-style: normal;
     font-weight: normal;
     line-height: 130%;
@@ -165,7 +165,7 @@ ul li {
 input, select, textarea {
     background-color: #fcfcfc;
     border: 1px solid #ccc;
-    font: 11px verdana,tahoma,sans-serif;
+    font: 11px verdana, tahoma, sans-serif;
     margin: 2px 0;
     padding: 4px 6px;
 }
@@ -197,14 +197,14 @@ input:focus, select:focus, textarea:focus {
 /* LOGIN */
 
 #login_top_container {
-	width: 443px;
-	height: 190px;
-	background: #0061af url( ../images/CDR_Login_Graphic_200.jpg ) no-repeat top left;
-	text-align: left;
-	font-size: 14px;
-	color: #ffffff;
-	padding-top: 10px;
-	padding-left: 15px;
+    width: 443px;
+    height: 190px;
+    background: #0061af url( ../images/CDR_Login_Graphic_200.jpg ) no-repeat top left;
+    text-align: left;
+    font-size: 14px;
+    color: #ffffff;
+    padding-top: 10px;
+    padding-left: 15px;
 }
 
 * html #login_top_container {
@@ -231,7 +231,6 @@ input:focus, select:focus, textarea:focus {
     overflow: hidden;
 }
 
-
 * html #login_container {
     \width: 458px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
     w\idth: 293px; /* STAR HTML Habk for IE6 in standards mode */
@@ -251,35 +250,49 @@ input:focus, select:focus, textarea:focus {
     margin-top: 15px;
 }
 
-
 * html #login_footer {
     \width: 458px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
     \padding-bottom: 10px;
     w\idth: 418px; /* STAR HTML Habk for IE6 in standards mode */
 }
 
-#login_container label {font-size: 12px;}
-
-#user_login {font-size: 15px;}
-#user_pass {font-size: 15px;}
-
-#login_submit {font-size: 12px; margin-left: 10px; margin-top: 10px;}
-.submit {text-align: right;}
-
-.report label{
-width: 7em;
-float: left;
-text-align: right;
-margin-right: 0.5em;
-display: block
+#login_container label {
+    font-size: 12px;
 }
 
-.ciLink{
-width: 9em;
-float: left;
-text-align: left;
-margin-left: 0.5em;
-display: block
+#user_login {
+    font-size: 15px;
+}
+
+#user_pass {
+    font-size: 15px;
+}
+
+#login_submit {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.submit {
+    text-align: right;
+}
+
+.report label {
+    width: 7em;
+    float: left;
+    text-align: right;
+    margin-right: 0.5em;
+    display: block
+}
+
+.ciLink {
+    width: 25em;
+    float: left;
+    text-align: left;
+    margin-left: 0.5em;
+    display: block;
+    white-space:nowrap;
 }
 
 /* TOP NAVIGATION */
@@ -317,45 +330,65 @@ display: block
 /* MAIN NAVIGATION */
 
 ul.main_menu {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	width: 150px; /* Width of Menu Items */
-	border-bottom: 1px solid #ccc;
-	}
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 150px; /* Width of Menu Items */
+    border-bottom: 1px solid #ccc;
+}
 
 ul.main_menu li {
-	position: relative;
-	}
-	
+    position: relative;
+}
+
 li.main_menu_parent ul {
-	position: absolute;
-	left: 149px; /* Set 1px less than menu width */
-	top: 0;
-	display: none;
-	}
+    position: absolute;
+    left: 149px; /* Set 1px less than menu width */
+    top: 0;
+    display: none;
+}
 
 /* Styles for Menu Items */
 ul.main_menu li a {
-	display: block;
-	text-decoration: none;
-	color: #777;
-	background: #fff; /* IE6 Bug */
-	padding: 5px;
-	border: 1px solid #ccc;
-	border-bottom: 0;
-	}
+    display: block;
+    text-decoration: none;
+    color: #777;
+    background: #fff; /* IE6 Bug */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+}
 
 /* Fix IE. Hide from IE Mac \*/
-* html ul.main_menu li { float: left; height: 1%; }
-* html ul.main_menu li a { height: 1%; }
+* html ul.main_menu li {
+    float: left;
+    height: 1%;
+}
+
+* html ul.main_menu li a {
+    height: 1%;
+}
+
 /* End */
 
-ul.main_menu li a:hover { color: #E2144A; background: #f9f9f9; } /* Hover Styles */
-		
-li.main_menu_parent ul li a { padding: 2px 5px; } /* Sub Menu Styles */
-		
-li:hover ul, li.over ul { display: block; } /* The magic */
+ul.main_menu li a:hover {
+    color: #E2144A;
+    background: #f9f9f9;
+}
+
+/* Hover Styles */
+
+li.main_menu_parent ul li a {
+    padding: 2px 5px;
+}
+
+/* Sub Menu Styles */
+
+li:hover ul, li.over ul {
+    display: block;
+}
+
+/* The magic */
 
 /* MAIN NAVIGATION - Tabbed Navigation Option*/
 /* To implement the sliding doors navigation simply create a div with the id 'main_nav',
@@ -391,7 +424,7 @@ all tab items in an unordered list, the current tab will get assigned the class 
     text-decoration: none;
     color: #0061af;
     font-weight: bold;
-    font-family: verdana,tahoma,sans-serif;
+    font-family: verdana, tahoma, sans-serif;
 }
 
 #main_nav a:hover {
@@ -430,7 +463,7 @@ all tab items in an unordered list, the current tab will get assigned the class 
     background: #ffffff;
     width: 712px;
     height: 10px;
-    padding:  10px 20px 20px 26px;
+    padding: 10px 20px 20px 26px;
     border-left: 1px solid #0061af;
     border-right: 1px solid #0061af;
     float: left;
@@ -442,19 +475,19 @@ all tab items in an unordered list, the current tab will get assigned the class 
 }
 
 ul.breadcrumbs {
-    list-style-type:none;
-    margin:0;
+    list-style-type: none;
+    margin: 0;
     padding: 0;
 }
 
 ul.breadcrumbs li {
-    display:inline;
+    display: inline;
 }
 
 ul.subItems {
-    list-style-type:none;
-    margin:0;
-    padding:0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* NAVIGATION MENU */
@@ -529,8 +562,6 @@ ul.subItems {
     text-decoration: none;
 }
 
-
-
 /* MESSAGES AND ERRORS */
 
 .message {
@@ -577,11 +608,12 @@ table {
 }
 
 tr {
-    border: 0; height: 25px;
+    border: 0;
+    height: 25px;
 }
 
 td, th {
-    font: 11px verdana,tahoma,sans-serif;
+    font: 11px verdana, tahoma, sans-serif;
     line-height: 12px;
     padding: 5px 6px;
     text-align: left;
@@ -589,7 +621,7 @@ td, th {
 }
 
 th {
-    background: #eaeaea url(../images/skin/shadow.jpg);
+    background: #eaeaea url( ../images/skin/shadow.jpg );
     color: #333;
     font-size: 10px; /**font-weight: bold;**/
     line-height: 17px;
@@ -734,9 +766,11 @@ th.desc a {
     padding-left: 20px;
 }
 
-#mymenubar { position: absolute; }
+#mymenubar {
+    position: absolute;
+}
 
-.ci_name{
+.ci_name {
     font-size: 16px;
 }
 
@@ -749,5 +783,5 @@ th.desc a {
 }
 
 img.blank {
-    background:transparent;
+    background: transparent;
 }
