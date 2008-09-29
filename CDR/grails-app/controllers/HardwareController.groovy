@@ -58,10 +58,10 @@ class HardwareController {
         def circular = false
         if (params.get('parent.id') != 'null') {
             def parent = Hardware.get(Long.parseLong(params.get('parent.id')))
-            println "parent: ${parent}"
+            log.debug "parent: ${parent}"
             hardware.configurationItems.each {child ->
-                println "child: ${child}"
-                println "child.id == parent.id: ${child.id == parent.id}"
+                log.debug "child: ${child}"
+                log.debug "child.id == parent.id: ${child.id == parent.id}"
                 if (child.id == parent.id) {
                     circular = true
                 }
@@ -69,23 +69,23 @@ class HardwareController {
         }
 
         if (circular) {
-            println "in circular"
+            log.debug "in circular"
             flash.message = "Cannot choose a child as a parent."
             render(view: 'edit', model: [hardware: hardware])
-            println "after render"
+            log.debug "after render"
         } else {
             hardware.properties = params
             if (hardware.save()) {
-                println "in true???"
+                log.debug "in true???"
                 flash.message = "Hardware ${params.id} updated."
-                println "$hardware"
+                log.debug "$hardware"
                 redirect(action: show, id: hardware.id)
             } else {
-                println "$hardware"
+                log.debug "$hardware"
                 render(view: 'edit', model: [hardware: hardware])
             }
         }
-        println "even getting here...about to drop out..."
+        log.debug "even getting here...about to drop out..."
     }
 
     def create = {

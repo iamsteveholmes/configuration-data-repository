@@ -14,12 +14,12 @@ class JasperController {
                 jasperFile = grailsApplication.config.jasper.dir.reports
                 if (!jasperFile.endsWith("/")) jasperFile += "/"
                 if (!jasperFile.startsWith("/")) jasperFile = servletContext.getRealPath(jasperFile)
-                println "jasper file 1: $jasperFile"
+                log.debug "jasper file 1: $jasperFile"
             }
             else {
                 jasperFile = servletContext.getRealPath("${pluginContextPath}/reports/")
-                println "pluginContextPath: $pluginContextPath"
-                println "jasper file 2: $jasperFile"
+                log.debug "pluginContextPath: $pluginContextPath"
+                log.debug "jasper file 2: $jasperFile"
             }
 
             params.JASPER_FILE = jasperFile

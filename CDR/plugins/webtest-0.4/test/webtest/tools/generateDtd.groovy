@@ -28,7 +28,6 @@ entitiesScanner.addFileset(project.getReference('wt.generateDtd.entities.fileset
 def dtdFile = new File(readMandatoryAntProperty("wt.generateDtd.file"))
 if (!dtdFile.parentFile.exists())
 {
-	println "Creating dir ${dtdFile.parentFile}" 
 	dtdFile.parentFile.mkdirs()
 }
 
@@ -56,13 +55,11 @@ it ->
 //def baseDirURI = includesDir.toURI() as String
 def entities = new TreeMap() // as TreeMap to have elements alphabetically sorted
 
-println "Scanning for entities..."
 entitiesScanner.each {
 	def entityName = it.name.replaceFirst(/\..*/, '').replaceAll(/\W/, "__")
 	entities[entityName] = computePath(it)
 }
 
-println "${entities.size()} entities found"
 
 def binding = ["entities": entities]
 def engine = new groovy.text.GStringTemplateEngine()
@@ -74,7 +71,6 @@ def newDtd = template.make(binding) as String
 // (this avoid to make file apear as modified for the SCM when it is not)
 if (!dtdFile.exists() || newDtd != dtdFile.text)
 {
-	println "Generating ${dtdFile}"
 	dtdFile.withWriter
 	{
 		it << newDtd
@@ -82,5 +78,4 @@ if (!dtdFile.exists() || newDtd != dtdFile.text)
 }
 else
 {
-	println "Already uptodate: ${dtdFile}"
 }

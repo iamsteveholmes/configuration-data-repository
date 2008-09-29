@@ -66,7 +66,7 @@ class RelationController {
     def create = {
         def relation = new Relation()
         relation.properties = params
-        println params
+        log.debug params
         return ['relation':relation, ciList: ConfigurationItem.list(sort: "name", order: "desc")]
     }
 

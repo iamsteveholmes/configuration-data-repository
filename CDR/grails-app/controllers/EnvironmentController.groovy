@@ -17,7 +17,7 @@ class EnvironmentController {
     def addRelation = {
         if (!params.max) params.max = 10
         if (!params.offset) params.offset = 0
-        println params
+        log.debug params
         if(params.name){
             return [ciList: ConfigurationItem.findAllByNameIlike("%${params.name}%", [max: params.max, offset: params.offset, sort: "name", order: "desc"]), ciListSize: ConfigurationItem.findAllByNameIlike("%${params.name}%").size, environment: Environment.get(params.id)]
         } else {
@@ -28,7 +28,7 @@ class EnvironmentController {
     def relationForm = {
         if (!params.max) params.max = 10
         if (!params.offset) params.offset = 0
-        println params
+        log.debug params
 
         if (params.name) {
             return [ciList: ConfigurationItem.findAllByNameIlike("%${params.name}%", [max: params.max, offset: params.offset, sort: "name", order: "desc"]), ciListSize: ConfigurationItem.findAllByNameIlike("%${params.name}%").size, environment: Environment.get(params.id)]
@@ -102,7 +102,7 @@ class EnvironmentController {
     def save = {
         def environment = new Environment()
         environment.properties = params
-        println environment
+        log.debug environment
         if (environment.save()) {
             flash.message = "Environment ${environment.id} created."
             redirect(action: show, id: environment.id)

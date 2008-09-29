@@ -28,7 +28,7 @@
     <div id="top_nav_container">
         <!--Navigation Items List-->
         <ul class="top_nav">
-            <li><a href="#" title="Help">Help</a></li>
+            <li><a title="Help" href="${createLinkTo(dir: 'static_files', file: 'CDR_User_Manual.pdf')}">Help</a></li>
             <li><a href="#maincontent"><img id="blank" width="1" height="1" border="0" src="${createLinkTo(dir: 'images', file: 'blank.gif')}" alt="Skip to main content"/></a></li>
         </ul>
     </div>

@@ -51,7 +51,6 @@ class WebTest {
         webtestHome = new File("$pluginHome/test/webtest").absolutePath
         props.projectName = new File('.').absolutePath.tokenize('./\\')[-1]
         if (! props.webtest_basepath) props.webtest_basepath = props.projectName
-        println 'Testing ' + props.projectName
     }
 
    // prepare a configmap based on webtest.properties
@@ -88,7 +87,6 @@ class WebTest {
         if(! props.'os.name'?.contains('Windows')) return
         String reportHtml = "$props.webtest_resultpath/$props.webtest_resultfile" - '.xml' + '.html'
         def filename = new File(reportHtml).canonicalPath
-        println "opening: $filename"
         "cmd /c $filename".execute()
     }
 }

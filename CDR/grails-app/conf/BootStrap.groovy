@@ -125,7 +125,7 @@ class BootStrap {
                     author: "Steve Holmes",
                     softwareType: os)
             if (!windows.save(flush: true)) {
-                windows.errors.each {error -> println error}
+                windows.errors.each {error -> log.debug error}
             }
 
             def build = new Software(
@@ -133,7 +133,7 @@ class BootStrap {
                     author: "Steve Holmes",
                     softwareType: application)
             if (!build.save(flush: true)) {
-                build.errors.each {error -> println error}
+                build.errors.each {error -> log.debug error}
             }
 
             testing.configurationItems << build
@@ -145,7 +145,7 @@ class BootStrap {
                     author: "Steve Holmes",
                     softwareType: application)
             if (!build.save(flush: true)) {
-                build.errors.each {error -> println error}
+                build.errors.each {error -> log.debug error}
             }
             staging.configurationItems = [stagingBuild]
             staging.save(flush:true)
@@ -156,7 +156,7 @@ class BootStrap {
                     author: "Steve Holmes",
                     softwareType: application)
             if (!build.save(flush: true)) {
-                build.errors.each {error -> println error}
+                build.errors.each {error -> log.debug error}
             }
 
             production.configurationItems = [productionBuild]

@@ -53,6 +53,5 @@ target ('default': "Creates a skeleton of a Canoo WebTest (functional test) for 
 				token:"XclassNameX", value:"${className}" )
 		replace(file:fileName, 
 				token:"XpropertyNameX", value:"${propertyName}" )
-	}	                                                                            
-	println "Web Test generated at $fileName"  
+	}	                                         
 }

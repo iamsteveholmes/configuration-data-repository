@@ -49,9 +49,9 @@ class NetworkController {
             def circular = false
             if (params.get('parent.id') != 'null') {
                 def parent = Network.get(Long.parseLong(params.get('parent.id')))
-                println "parent: ${parent}"
+                log.debug "parent: ${parent}"
                 network.configurationItems.each {child ->
-                    println "child: ${child}"
+                    log.debug "child: ${child}"
                     if (child.id == parent.id) {
                         circular = true
                     }
