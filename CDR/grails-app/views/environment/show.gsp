@@ -41,7 +41,7 @@
                 <tr class="prop">
                     <td valign="top" class="name">Hardware:</td>
                     <td valign="top" class=value>
-                        <g:if test="${environment.configurationItems.collect{it.id}}">
+                        <g:if test="${environment.configurationItems?.collect{it.id}}">
                         <div>
                         <ul class="subItems">
                             <g:each var="item" in="${Hardware.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}}">
@@ -55,7 +55,7 @@
                 <tr class="prop">
                     <td valign="top" class="name">Software:</td>
                     <td valign="top" class=value>
-                        <g:if test="${environment.configurationItems.collect{it.id}}">
+                        <g:if test="${environment.configurationItems?.collect{it.id}}">
                         <ul class="subItems">
                             <g:each var="item" in="${Software.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}">
                                 <li><span class="ciLink"><g:link controller="software" action="show" params='["environment.id":params.id]' id="${item?.id}">${item}</g:link></span> <g:link action="removeCI" params='["ciID":item?.id]' id="${params.id}" onclick="return confirm('Are you sure?');">remove</g:link></li>
@@ -67,9 +67,9 @@
                 <tr class="prop">
                     <td valign="top" class="name">Network:</td>
                     <td valign="top" class=value>
-                        <g:if test="${environment.configurationItems.collect{it.id}}">
+                        <g:if test="${environment.configurationItems?.collect{it.id}}">
                         <ul class="subItems">
-                            <g:each var="item" in="${Network.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}}">
+                            <g:each var="item" in="${Network.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}">
                                 <li><span class="ciLink"><g:link controller="network" action="show" params='["environment.id":params.id]' id="${item?.id}">${item}</g:link></span> <g:link action="removeCI" params='["ciID":item?.id]' id="${params.id}" onclick="return confirm('Are you sure?');">remove</g:link></li>
                             </g:each>
                         </ul>
@@ -79,9 +79,9 @@
                 <tr class="prop">
                     <td valign="top" class="name">Documentation:</td>
                     <td valign="top" class=value>
-                        <g:if test="${environment.configurationItems.collect{it.id}}">
+                        <g:if test="${environment.configurationItems?.collect{it.id}}">
                         <ul class="subItems">
-                            <g:each var="item" in="${Documentation.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}}">
+                            <g:each var="item" in="${Documentation.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}">
                                 <li><span class="ciLink"><g:link controller="documentation" action="show" params='["environment.id":params.id]' id="${item?.id}">${item}</g:link></span> <g:link action="removeCI" params='["ciID":item?.id]' id="${params.id}" onclick="return confirm('Are you sure?');">remove</g:link></li>
                             </g:each>
                         </ul>
@@ -91,9 +91,9 @@
                 <tr class="prop">
                     <td valign="top" class="name">Change Request:</td>
                     <td valign="top" class=value>
-                        <g:if test="${environment.configurationItems.collect{it.id}}">
+                        <g:if test="${environment.configurationItems?.collect{it.id}}">
                         <ul class="subItems">
-                            <g:each var="item" in="${ChangeRequest.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}}">
+                            <g:each var="item" in="${ChangeRequest.getAll(environment.configurationItems?.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}">
                                 <li><span class="ciLink"><g:link controller="changeRequest" action="show" params='["environment.id":params.id]' id="${item?.id}">${item}</g:link></span> <g:link action="removeCI" params='["ciID":item?.id]' id="${params.id}" onclick="return confirm('Are you sure?');">remove</g:link></li>
                             </g:each>
                         </ul>
@@ -103,9 +103,9 @@
                 <tr class="prop">
                     <td valign="top" class="name">Test Result:</td>
                     <td valign="top" class=value>
-                        <g:if test="${environment.configurationItems.collect{it.id}}">
+                        <g:if test="${environment.configurationItems?.collect{it.id}}">
                         <ul class="subItems">
-                            <g:each var="item" in="${TestResult.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}}">
+                            <g:each var="item" in="${TestResult.getAll(environment.configurationItems?.collect{it.id})?.findAll{it?.id}?.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}">
                                 <li><span class="ciLink"><g:link controller="testResult" action="show" params='["environment.id":params.id]' id="${item?.id}">${item}</g:link></span> <g:link action="removeCI" params='["ciID":item?.id]' id="${params.id}" onclick="return confirm('Are you sure?');">remove</g:link></li>
                             </g:each>
                         </ul>

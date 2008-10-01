@@ -3,7 +3,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 /*import grails.converters.XML*/
 
 class ServiceOrderController {
-    def serviceOrderService
+    //def serviceOrderService
 
     /*def index = { }*/
 
