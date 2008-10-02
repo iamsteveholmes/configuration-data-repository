@@ -1,4 +1,5 @@
 class Status implements java.io.Serializable {
+    static auditable = true
     Date startDate
     Date endDate
     ConfigurationItem configurationItem

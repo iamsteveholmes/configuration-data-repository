@@ -1,4 +1,5 @@
 class TestResultType implements java.io.Serializable{
+    static auditable = true
     String description
     Set results
     String type = 'Test Result'

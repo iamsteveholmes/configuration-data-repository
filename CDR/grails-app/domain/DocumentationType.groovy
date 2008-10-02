@@ -1,5 +1,5 @@
 class DocumentationType implements java.io.Serializable{
-
+    static auditable = true
     String description
     String type = 'Documentation'
 

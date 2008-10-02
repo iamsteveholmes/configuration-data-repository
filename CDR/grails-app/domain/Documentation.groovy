@@ -3,6 +3,7 @@ import org.hibernate.Hibernate
 import com.delegata.utility.BlobUtil
 
 class Documentation extends ConfigurationItem implements java.io.Serializable {
+    static auditable = true
     int docVersion
     byte[] document
     Blob documentBlob

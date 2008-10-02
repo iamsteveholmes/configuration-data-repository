@@ -1,4 +1,5 @@
 class Relation implements java.io.Serializable {
+    static auditable = true
     RelationReference reference
     ConfigurationItem thisCI
     ConfigurationItem thatCI

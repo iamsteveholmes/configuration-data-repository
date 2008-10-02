@@ -3,7 +3,7 @@ import org.hibernate.Hibernate
 import java.sql.Blob
 
 class ChangeRequest extends ConfigurationItem{
-
+    static auditable = true
     byte[] document
     Blob documentBlob
     String fileType

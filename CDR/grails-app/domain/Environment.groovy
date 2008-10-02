@@ -1,4 +1,5 @@
 class Environment implements java.io.Serializable{
+    static auditable = true
     String name
     String description
     String ownerName

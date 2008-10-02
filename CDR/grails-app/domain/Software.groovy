@@ -1,5 +1,5 @@
 class Software extends ConfigurationItem{
-
+    static auditable = true
     String versionNum
     String port
     String releaseNum

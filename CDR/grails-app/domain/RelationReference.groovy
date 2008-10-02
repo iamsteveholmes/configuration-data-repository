@@ -1,4 +1,5 @@
 class RelationReference implements java.io.Serializable{
+    static auditable = true
     String name
     String description
     Set relations

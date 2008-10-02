@@ -1,4 +1,5 @@
 class Hardware extends ConfigurationItem{
+    static auditable = true
     Date purchaseDate
     String macAddress
     String internetProtocolAddress

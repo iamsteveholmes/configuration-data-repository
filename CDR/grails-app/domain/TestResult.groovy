@@ -3,6 +3,7 @@ import org.hibernate.Hibernate
 import java.sql.Blob
 
 class TestResult extends ConfigurationItem{
+    static auditable = true
     byte[] document
     Blob documentBlob
     String fileType

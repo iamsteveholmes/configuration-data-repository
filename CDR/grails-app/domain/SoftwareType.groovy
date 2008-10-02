@@ -1,4 +1,5 @@
 class SoftwareType implements java.io.Serializable{
+    static auditable = true
     String description
     Set softwares
     String type = 'Software'

@@ -1,4 +1,5 @@
 class RequestType implements java.io.Serializable{
+    static auditable = true
     String description
     String type = 'Change Request'
     Set requests

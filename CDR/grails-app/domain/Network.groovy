@@ -1,4 +1,5 @@
 class Network extends ConfigurationItem{
+    static auditable = true
     String internetProtocolAddress
     String macAddress
     String element
