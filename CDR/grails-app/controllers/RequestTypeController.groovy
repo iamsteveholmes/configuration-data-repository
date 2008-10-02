@@ -14,7 +14,7 @@ class RequestTypeController {
 
     def list = {
         if (!params.max) params.max = 10
-        [requestTypeList: RequestType.findAllByType('Change Request',params)]
+        [requestTypeList: RequestType.findAllByType('Change Request', params)]
     }
 
     def show = {
@@ -54,13 +54,18 @@ class RequestTypeController {
     def update = {
         def requestType = RequestType.get(params.id)
         if (requestType) {
-            requestType.properties = params
-            if (requestType.save()) {
-                flash.message = "Request Type ${params.id} updated."
+            if (Long.valueOf(requestType.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
                 redirect(action: show, id: requestType.id)
-            }
-            else {
-                render(view: 'edit', model: [requestType: requestType])
+            } else {
+                requestType.properties = params
+                if (requestType.save()) {
+                    flash.message = "Request Type ${params.id} updated."
+                    redirect(action: show, id: requestType.id)
+                }
+                else {
+                    render(view: 'edit', model: [requestType: requestType])
+                }
             }
         }
         else {

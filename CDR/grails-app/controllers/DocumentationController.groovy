@@ -60,39 +60,43 @@ class DocumentationController {
     def update = {
         def documentation = Documentation.get(params.id)
         if (documentation) {
-            def circular = false
-            if (params.get('parent.id') != 'null') {
-                def parent = Documentation.get(Long.parseLong(params.get('parent.id')))
-                log.debug "parent: ${parent}"
-                documentation.configurationItems.each {child ->
-                    log.debug "child: ${child}"
-                    if (child.id == parent.id) {
-                        circular = true
+            if (Long.valueOf(documentation.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
+                redirect(action: show, id: documentation.id)
+            } else {
+                def circular = false
+                if (params.get('parent.id') != 'null') {
+                    def parent = Documentation.get(Long.parseLong(params.get('parent.id')))
+                    log.debug "parent: ${parent}"
+                    documentation.configurationItems.each {child ->
+                        log.debug "child: ${child}"
+                        if (child.id == parent.id) {
+                            circular = true
+                        }
+                    }
+                }
+
+                if (circular) {
+                    flash.message = "Cannot choose a child as a parent."
+                    render(view: 'edit', model: [documentation: documentation])
+                } else {
+                    documentation.properties = params
+                    def upload = request.getFile('document')
+                    documentation.document = upload.getBytes()
+                    documentation.fileType = upload.getContentType()
+                    documentation.fileName = upload.getOriginalFilename()
+                    documentation.docVersion += 1
+                    if (documentation.save()) {
+                        if (!documentation.fileName) flash.message = "Documentation ${params.id} updated.  No document was saved.  This may be due to a bad Path."
+                        else flash.message = "Documentation ${params.id} updated."
+                        redirect(action: show, id: documentation.id)
+                    }
+                    else {
+                        render(view: 'edit', model: [documentation: documentation])
                     }
                 }
             }
-
-            if (circular) {
-                flash.message = "Cannot choose a child as a parent."
-                render(view: 'edit', model: [documentation: documentation])
-            } else {
-                documentation.properties = params
-                def upload = request.getFile('document')
-                documentation.document = upload.getBytes()
-                documentation.fileType = upload.getContentType()
-                documentation.fileName = upload.getOriginalFilename()
-                documentation.docVersion += 1
-                if (documentation.save()) {
-                    if(!documentation.fileName) flash.message = "Documentation ${params.id} updated.  No document was saved.  This may be due to a bad Path."
-                    else flash.message = "Documentation ${params.id} updated."
-                    redirect(action: show, id: documentation.id)
-                }
-                else {
-                    render(view: 'edit', model: [documentation: documentation])
-                }
-            }
-        }
-        else {
+        } else {
             flash.message = "Documentation not found with id ${params.id}"
             redirect(action: edit, id: params.id)
         }
@@ -114,7 +118,7 @@ class DocumentationController {
         documentation.fileSize = upload.getSize()
         documentation.docVersion = 1
         if (documentation.save()) {
-            if(!documentation.fileName) flash.message = "Documentation ${documentation.id} created.  No document was saved.  This may be due to a bad Path."
+            if (!documentation.fileName) flash.message = "Documentation ${documentation.id} created.  No document was saved.  This may be due to a bad Path."
             flash.message = "Documentation ${documentation.id} created."
             redirect(action: show, id: documentation.id)
         }

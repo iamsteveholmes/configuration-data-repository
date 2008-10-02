@@ -21,6 +21,7 @@
             </g:hasErrors>
             <g:form controller="networkType" method="post" >
                 <input type="hidden" name="id" value="${networkType?.id}" />
+                <input type="hidden" name="version" value="${networkType?.version}"/>
                 <div class="dialog">
                     <table>
                         <tbody>

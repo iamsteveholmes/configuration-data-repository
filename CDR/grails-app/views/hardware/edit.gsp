@@ -22,6 +22,7 @@
     </g:hasErrors>
     <g:form controller="hardware" method="post">
         <input type="hidden" name="id" value="${hardware?.id}"/>
+        <input type="hidden" name="version" value="${hardware?.version}"/>
         <div class="dialog">
             <table>
                 <tbody>

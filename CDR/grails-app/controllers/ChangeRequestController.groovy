@@ -64,7 +64,7 @@ class ChangeRequestController {
             println "changeRequest.version: ${changeRequest.version}"
             println "params.version: ${params.version}"
             if (Long.valueOf(changeRequest.version) != Long.valueOf(params.version)) {
-                    flash.message = "${changeRequest.name} has modified this record since you last saw it.  Please try updating again."
+                    flash.message = "This record has been modified since you last saw it.  Please try updating again."
                     redirect(action: show, id: changeRequest.id)
             } else {
                 def circular = false

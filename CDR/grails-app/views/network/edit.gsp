@@ -20,6 +20,7 @@
     </g:hasErrors>
     <g:form controller="network" method="post">
         <input type="hidden" name="id" value="${network?.id}"/>
+        <input type="hidden" name="version" value="${network?.version}"/>
         <div class="dialog">
             <table>
                 <tbody>

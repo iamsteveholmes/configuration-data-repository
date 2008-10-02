@@ -54,38 +54,47 @@ class HardwareController {
 
     def update = {
         def hardware = Hardware.get(params.id)
-
-        def circular = false
-        if (params.get('parent.id') != 'null') {
-            def parent = Hardware.get(Long.parseLong(params.get('parent.id')))
-            log.debug "parent: ${parent}"
-            hardware.configurationItems.each {child ->
-                log.debug "child: ${child}"
-                log.debug "child.id == parent.id: ${child.id == parent.id}"
-                if (child.id == parent.id) {
-                    circular = true
-                }
-            }
-        }
-
-        if (circular) {
-            log.debug "in circular"
-            flash.message = "Cannot choose a child as a parent."
-            render(view: 'edit', model: [hardware: hardware])
-            log.debug "after render"
-        } else {
-            hardware.properties = params
-            if (hardware.save()) {
-                log.debug "in true???"
-                flash.message = "Hardware ${params.id} updated."
-                log.debug "$hardware"
+        if (hardware) {
+            if (Long.valueOf(hardware.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
                 redirect(action: show, id: hardware.id)
             } else {
-                log.debug "$hardware"
-                render(view: 'edit', model: [hardware: hardware])
+                def circular = false
+                if (params.get('parent.id') != 'null') {
+                    def parent = Hardware.get(Long.parseLong(params.get('parent.id')))
+                    log.debug "parent: ${parent}"
+                    hardware.configurationItems.each {child ->
+                        log.debug "child: ${child}"
+                        log.debug "child.id == parent.id: ${child.id == parent.id}"
+                        if (child.id == parent.id) {
+                            circular = true
+                        }
+                    }
+                }
+
+                if (circular) {
+                    log.debug "in circular"
+                    flash.message = "Cannot choose a child as a parent."
+                    render(view: 'edit', model: [hardware: hardware])
+                    log.debug "after render"
+                } else {
+                    hardware.properties = params
+                    if (hardware.save()) {
+                        log.debug "in true???"
+                        flash.message = "Hardware ${params.id} updated."
+                        log.debug "$hardware"
+                        redirect(action: show, id: hardware.id)
+                    } else {
+                        log.debug "$hardware"
+                        render(view: 'edit', model: [hardware: hardware])
+                    }
+                }
+                log.debug "even getting here...about to drop out..."
             }
+        } else {
+            flash.message = "Hardware not found with id ${params.id}"
+            redirect(action: edit, id: params.id)
         }
-        log.debug "even getting here...about to drop out..."
     }
 
     def create = {
