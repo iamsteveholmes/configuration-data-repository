@@ -20,6 +20,7 @@ class NetworkControllerTests extends GroovyTestCase {
         controller.params.author = network1.author
         controller.params.put('networkType.id',Long.toString(network1.networkType.id))
         controller.params.put('parent.id',Long.toString(network2.id))
+        controller.params.version = network1.version
 
         controller.update()
         assert controller.modelAndView.model.network

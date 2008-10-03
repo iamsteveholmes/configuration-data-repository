@@ -20,6 +20,7 @@ class TestResultControllerTests extends GroovyTestCase {
         controller.params.author = testResult1.author
         controller.params.put('testResultType.id',Long.toString(testResult1.testResultType.id))
         controller.params.put('parent.id',Long.toString(testResult2.id))
+        controller.params.version = testResult1.version
 
         controller.update()
         assert controller.modelAndView.model.testResult

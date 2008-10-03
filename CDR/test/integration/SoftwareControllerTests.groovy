@@ -20,6 +20,7 @@ class SoftwareControllerTests extends GroovyTestCase {
         controller.params.author = software1.author
         controller.params.put('softwareType.id',Long.toString(software1.softwareType.id))
         controller.params.put('parent.id',Long.toString(software2.id))
+        controller.params.version = software1.version
 
         controller.update()
         assert controller.modelAndView.model.software
