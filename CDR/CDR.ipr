@@ -301,7 +301,7 @@
   </component>
   <component name="DBNavigator.Project.ConnectionManager">
     <connections>
-      <connection id="40be9e8e-f77d-492f-bcdf-2649fec85fc8" name="CDR Test" description="" driver-library="C:\backup\projects\DelegataLib\oracleDriver\ojdbc14.jar" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@//192.168.0.235:1521/COAPS" user="cdrtest" password="cdrtest" />
+      <connection id="40be9e8e-f77d-492f-bcdf-2649fec85fc8" name="CDR Test" description="" database-type="" driver-library="C:\backup\projects\DelegataLib\oracleDriver\ojdbc14.jar" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@//192.168.0.235:1521/COAPS" user="cdrtest" password="cdrtest" />
     </connections>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -724,6 +724,7 @@
         </entry>
       </map>
     </option>
+    <option name="myVersion" value="123" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="svn" />

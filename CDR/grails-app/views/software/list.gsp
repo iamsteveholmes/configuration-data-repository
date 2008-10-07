@@ -39,7 +39,7 @@
                         <td>${software.version?.encodeAsHTML()}</td>
                         <td>${software.description?.encodeAsHTML()}</td>
                         <td>${software.ownerName?.encodeAsHTML()}</td>
-                        <td><g:formatDate format="dd-MM-yyyy" date="${software.lastUpdated}"/></td>
+                        <td><g:formatDate format="MM-dd-yyyy" date="${software.lastUpdated}"/></td>
                     </tr>
                 </g:each>
             </tbody>
