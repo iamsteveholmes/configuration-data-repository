@@ -16,38 +16,14 @@
             <div class="dialog">
                 <table>
                     <tbody>
-                        
-                        
-
-
                         <tr class="prop">
                             <!--<td valign="top" class="name">This CI:</td>-->
-                            
                             <td valign="top" class="value">
-                                <g:link controller="${relation?.thisCI?.class.name.toString().toLowerCase()}" action="show" id="${relation?.thisCI?.id}">${relation?.thisCI}</g:link>
+                                <g:link controller="${cdr.className(name:relation?.thisCI?.class?.name)}" action="show" id="${relation?.thisCI?.id}">${relation?.thisCI}</g:link>
                                 <g:link controller="relationReference" action="show" id="${relation?.reference?.id}">${relation?.reference}</g:link>
-                                <g:link controller="${relation?.thatCI?.class.name.toString().toLowerCase()}" action="show" id="${relation?.thatCI?.id}">${relation?.thatCI}</g:link>
+                                <g:link controller="${cdr.className(name:relation?.thatCI?.class?.name)}" action="show" id="${relation?.thatCI?.id}">${relation?.thatCI}</g:link>
                             </td>
                         </tr>
-                        
-
-
-                       %{-- <tr class="prop">
-                            <!--<td valign="top" class="name">Reference:</td>-->
-
-                            <td valign="top" class="value"><g:link controller="relationReference" action="show" id="${relation?.reference?.id}">${relation?.reference}</g:link></td>
-
-                        </tr>
-
-
-
-                        <tr class="prop">
-                            <!--<td valign="top" class="name">That CI:</td>-->
-
-                            <td valign="top" class="value"><g:link controller="${relation?.thatCI?.class.name.toString().toLowerCase()}" action="show" id="${relation?.thatCI?.id}">${relation?.thatCI}</g:link></td>
-
-                        </tr>--}%
-                        
                     </tbody>
                 </table>
             </div>
