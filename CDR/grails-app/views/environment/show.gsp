@@ -44,7 +44,7 @@
                         <g:if test="${environment.configurationItems?.collect{it.id}}">
                         <div>
                         <ul class="subItems">
-                            <g:each var="item" in="${Hardware.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}}">
+                            <g:each var="item" in="${Hardware.getAll(environment.configurationItems.collect{it.id})?.findAll{it?.id}.sort{ a, b -> a?.name?.compareToIgnoreCase b?.name }}">
                                 <li><span class="ciLink"><g:link controller="hardware" action="show" params='["environment.id":params.id]' id="${item?.id}">${item}</g:link></span> <g:link action="removeCI" params='["ciID":item?.id]' id="${params.id}" onclick="return confirm('Are you sure?');">remove</g:link></li>
                             </g:each>
                         </ul>

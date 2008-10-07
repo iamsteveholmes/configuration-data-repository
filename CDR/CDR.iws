@@ -17,10 +17,7 @@
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CDR.iws" afterPath="$PROJECT_DIR$/CDR.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/software/list.gsp" afterPath="$PROJECT_DIR$/grails-app/views/software/list.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/software/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/software/show.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CDR.iml" afterPath="$PROJECT_DIR$/CDR.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CDR.ipr" afterPath="$PROJECT_DIR$/CDR.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/environment/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/environment/show.gsp" />
     </list>
     <ignored path="CDR.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -220,15 +217,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NetworkControllerTests.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/integration/NetworkControllerTests.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="44" selection-start="1127" selection-end="1127" vertical-scroll-proportion="0.4914586">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SoftwareControllerTests.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/integration/SoftwareControllerTests.groovy">
           <provider selected="true" editor-type-id="text-editor">
@@ -280,10 +268,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.gsp" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="list.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/software/list.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="52" selection-start="2088" selection-end="2088" vertical-scroll-proportion="0.57793105">
+            <state line="8" column="59" selection-start="221" selection-end="221" vertical-scroll-proportion="0.1875862">
               <folding />
             </state>
           </provider>
@@ -295,7 +283,16 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="6" selection-start="167" selection-end="167" vertical-scroll-proportion="0.13858695">
+            <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="show.gsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/environment/show.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="185" selection-start="2173" selection-end="2173" vertical-scroll-proportion="0.3751724">
               <folding />
             </state>
           </provider>
@@ -620,7 +617,7 @@
     <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Fixed Software List so that it shows useful info&#10;-Fixed Software show so that the statuses are ordered latest to oldest" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Fixed sorting of CIs on SHow Environment" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -636,6 +633,7 @@
     <MESSAGE value="-Added pess. locking to most update pages" />
     <MESSAGE value="-Added pess. locking to most update pages&#10;-Altered tests to work with locking" />
     <MESSAGE value="-Fixed Software List so that it shows useful info&#10;-Fixed Software show so that the statuses are ordered latest to oldest" />
+    <MESSAGE value="-Fixed sorting of CIs on SHow Environment" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -676,13 +674,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/ProjectController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="2" selection-start="1428" selection-end="1428" vertical-scroll-proportion="0.022339027">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/DocumentationTypeController.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="57" column="67" selection-start="2040" selection-end="2040" vertical-scroll-proportion="0.045992117">
@@ -749,16 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/Environment.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="6" selection-start="167" selection-end="167" vertical-scroll-proportion="0.13858695">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/integration/TestResultControllerTests.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="89" selection-start="771" selection-end="771" vertical-scroll-proportion="0.31274638">
@@ -795,7 +776,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/software/list.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="52" selection-start="2088" selection-end="2088" vertical-scroll-proportion="0.57793105">
+        <state line="8" column="59" selection-start="221" selection-end="221" vertical-scroll-proportion="0.1875862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/Environment.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/environment/show.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="185" selection-start="2173" selection-end="2173" vertical-scroll-proportion="0.3751724">
           <folding />
         </state>
       </provider>
