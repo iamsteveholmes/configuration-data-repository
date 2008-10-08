@@ -1,0 +1,91 @@
+class ProjectController {
+    /*def scaffold = Project*/
+    static accessControl = {
+        // All actions require the 'Observer' role.
+        role(name: 'Observer')
+    }
+    def index = {redirect(action: list, params: params)}
+
+    // the delete, save and update actions only accept POST requests
+    def allowedMethods = [delete: 'POST', save: 'POST', update: 'POST']
+
+    def list = {
+        if (!params.max) params.max = 10
+        [projectList: Project.list(params)]
+    }
+
+    def show = {
+        [project: Project.get(params.id)]
+    }
+
+    def delete = {
+        def project = Project.get(params.id)
+        if (project) {
+            if (!project.environments) {
+                project.delete()
+                flash.message = "Project ${params.id} deleted."
+                redirect(action: list)
+            } else {
+                flash.message = "Unable to Delete Project ${project.name}.  Projects with environments cannot be deleted."
+                redirect(action: show, id: params.id)
+            }
+        }
+        else {
+            flash.message = "Project not found with id ${params.id}"
+            redirect(action: list)
+        }
+    }
+
+    def edit = {
+        def project = Project.get(params.id)
+
+        if (!project) {
+            flash.message = "Project not found with id ${params.id}"
+            redirect(action: list)
+        }
+        else {
+            return [project: project]
+        }
+    }
+
+    def update = {
+        def project = Project.get(params.id)
+        if (project) {
+            if (Long.valueOf(project.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
+                redirect(action: show, id: project.id)
+            } else {
+                project.properties = params
+                if (project.save()) {
+                    flash.message = "Project ${params.id} updated."
+                    redirect(action: show, id: project.id)
+                }
+                else {
+                    render(view: 'edit', model: [project: project])
+                }
+            }
+        }
+        else {
+            flash.message = "Project not found with id ${params.id}"
+            redirect(action: edit, id: params.id)
+        }
+    }
+
+    def create = {
+        def project = new Project()
+        project.properties = params
+        return ['project': project]
+    }
+
+    def save = {
+        def project = new Project()
+        project.properties = params
+        if (project.save()) {
+            flash.message = "Project ${project.id} created."
+            redirect(action: show, id: project.id)
+        }
+        else {
+            render(view: 'create', model: [project: project])
+        }
+    }
+}
