@@ -27,11 +27,6 @@
       <sourceFolder url="file://$MODULE_DIR$/plugins/jasper-0.7.6.1/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/plugins/jasper-0.7.6.1/grails-app/taglib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/plugins/jasper-0.7.6.1/grails-app/views" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/plugins/jsecurity-0.2/grails-app/conf" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/plugins/jsecurity-0.2/grails-app/controllers" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/plugins/jsecurity-0.2/grails-app/taglib" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/plugins/jsecurity-0.2/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/plugins/jsecurity-0.2/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/plugins/webtest-0.4/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/java" isTestSource="false" />
@@ -39,8 +34,9 @@
       <sourceFolder url="file://$MODULE_DIR$/test/unit" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/CDRClient_scripts" />
     </content>
-    <orderEntry type="library" name="GROOVY" level="application" />
     <orderEntry type="library" name="grails-1.0.3" level="application" />
+    <orderEntry type="library" name="GRAILS" level="application" />
+    <orderEntry type="library" name="GROOVY" level="application" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="plugins" level="project" />
