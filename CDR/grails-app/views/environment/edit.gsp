@@ -20,6 +20,7 @@
             </g:hasErrors>
             <g:form controller="environment" method="post">
                 <input type="hidden" name="id" value="${environment?.id}"/>
+                <input type="hidden" name="version" value="${environment?.version}"/>
                 <div class="dialog">
                     <table>
                         <tbody>

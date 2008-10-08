@@ -7,85 +7,90 @@ class StatusReferenceController {
         role(name: 'Observer')
 
         // Alternatively, several actions can be specified.
-        role(name: 'Administrator', only: [ 'create', 'edit', 'save', 'update' ])
+        role(name: 'Administrator', only: ['create', 'edit', 'save', 'update'])
     }
-    
-    def index = { redirect(action:list,params:params) }
+
+    def index = { redirect(action: list, params: params) }
 
     // the delete, save and update actions only accept POST requests
-    def allowedMethods = [delete:'POST', save:'POST', update:'POST']
+    def allowedMethods = [delete: 'POST', save: 'POST', update: 'POST']
 
     def list = {
-        if(!params.max) params.max = 10
-        [ statusReferenceList: StatusReference.list( params ) ]
+        if (!params.max) params.max = 10
+        [statusReferenceList: StatusReference.list(params)]
     }
 
     def show = {
-        [ statusReference : StatusReference.get( params.id ) ]
+        [statusReference: StatusReference.get(params.id)]
     }
 
     def delete = {
-        def statusReference = StatusReference.get( params.id )
-        if(statusReference) {
+        def statusReference = StatusReference.get(params.id)
+        if (statusReference) {
             try {
-                statusReference.delete(flush:true)
+                statusReference.delete(flush: true)
                 flash.message = "Status Reference ${params.id} deleted"
-                redirect(action:list)
+                redirect(action: list)
             } catch (org.hibernate.exception.ConstraintViolationException e) {
                 flash.message = "Unable to Delete Status Reference ${params.id}.  References used by Statuses cannot be deleted."
-                redirect(action:show, id:params.id)
+                redirect(action: show, id: params.id)
             }
         }
         else {
             flash.message = "Status Reference not found with id ${params.id}"
-            redirect(action:list)
+            redirect(action: list)
         }
     }
 
     def edit = {
-        def statusReference = StatusReference.get( params.id )
+        def statusReference = StatusReference.get(params.id)
 
-        if(!statusReference) {
+        if (!statusReference) {
             flash.message = "Status Reference not found with id ${params.id}"
-            redirect(action:list)
+            redirect(action: list)
         }
         else {
-            return [ statusReference : statusReference ]
+            return [statusReference: statusReference]
         }
     }
 
     def update = {
-        def statusReference = StatusReference.get( params.id )
-        if(statusReference) {
-            statusReference.properties = params
-            if(!statusReference.hasErrors() && statusReference.save()) {
-                flash.message = "Status Reference ${params.id} updated"
-                redirect(action:show,id:statusReference.id)
-            }
-            else {
-                render(view:'edit',model:[statusReference:statusReference])
+        def statusReference = StatusReference.get(params.id)
+        if (statusReference) {
+            if (Long.valueOf(statusReference.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
+                redirect(action: show, id: statusReference.id)
+            } else {
+                statusReference.properties = params
+                if (!statusReference.hasErrors() && statusReference.save()) {
+                    flash.message = "Status Reference ${params.id} updated"
+                    redirect(action: show, id: statusReference.id)
+                }
+                else {
+                    render(view: 'edit', model: [statusReference: statusReference])
+                }
             }
         }
         else {
             flash.message = "Status Reference not found with id ${params.id}"
-            redirect(action:edit,id:params.id)
+            redirect(action: edit, id: params.id)
         }
     }
 
     def create = {
         def statusReference = new StatusReference()
         statusReference.properties = params
-        return ['statusReference':statusReference]
+        return ['statusReference': statusReference]
     }
 
     def save = {
         def statusReference = new StatusReference(params)
-        if(!statusReference.hasErrors() && statusReference.save()) {
+        if (!statusReference.hasErrors() && statusReference.save()) {
             flash.message = "Status Reference ${statusReference.id} created"
-            redirect(action:show,id:statusReference.id)
+            redirect(action: show, id: statusReference.id)
         }
         else {
-            render(view:'create',model:[statusReference:statusReference])
+            render(view: 'create', model: [statusReference: statusReference])
         }
     }
 

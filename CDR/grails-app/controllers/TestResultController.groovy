@@ -59,34 +59,39 @@ class TestResultController {
     def update = {
         def testResult = TestResult.get(params.id)
         if (testResult) {
-            def circular = false
-            if (params.get('parent.id') != 'null') {
-                def parent = TestResult.get(Long.parseLong(params.get('parent.id')))
-                log.debug "parent: ${parent}"
-                testResult.configurationItems.each {child ->
-                    log.debug "child: ${child}"
-                    if (child.id == parent.id) {
-                        circular = true
+            if (Long.valueOf(testResult.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
+                redirect(action: show, id: testResult.id)
+            } else {
+                def circular = false
+                if (params.get('parent.id') != 'null') {
+                    def parent = TestResult.get(Long.parseLong(params.get('parent.id')))
+                    log.debug "parent: ${parent}"
+                    testResult.configurationItems.each {child ->
+                        log.debug "child: ${child}"
+                        if (child.id == parent.id) {
+                            circular = true
+                        }
                     }
                 }
-            }
 
-            if (circular) {
-                flash.message = "Cannot choose a child as a parent."
-                render(view: 'edit', model: [testResult: testResult])
-            } else {
-                def upload = request.getFile('document')
-                testResult.document = upload.getBytes()
-                testResult.fileType = upload.getContentType()
-                testResult.fileName = upload.getOriginalFilename()
-                testResult.properties = params
-                if (testResult.save()) {
-                    if(!testResult.fileName) flash.message = "Test Result ${params.id} updated.  No document was saved.  This may be due to a bad Path."
-                    else flash.message = "TestResult ${params.id} updated."
-                    redirect(action: show, id: testResult.id)
-                }
-                else {
+                if (circular) {
+                    flash.message = "Cannot choose a child as a parent."
                     render(view: 'edit', model: [testResult: testResult])
+                } else {
+                    def upload = request.getFile('document')
+                    testResult.document = upload.getBytes()
+                    testResult.fileType = upload.getContentType()
+                    testResult.fileName = upload.getOriginalFilename()
+                    testResult.properties = params
+                    if (testResult.save()) {
+                        if (!testResult.fileName) flash.message = "Test Result ${params.id} updated.  No document was saved.  This may be due to a bad Path."
+                        else flash.message = "TestResult ${params.id} updated."
+                        redirect(action: show, id: testResult.id)
+                    }
+                    else {
+                        render(view: 'edit', model: [testResult: testResult])
+                    }
                 }
             }
         }
@@ -111,7 +116,7 @@ class TestResultController {
         testResult.fileName = upload.getOriginalFilename()
         testResult.fileSize = upload.getSize()
         if (testResult.save()) {
-            if(!testResult.fileName) flash.message = "Test Result ${testResult.id} created.  No document was saved.  This may be due to a bad Path."
+            if (!testResult.fileName) flash.message = "Test Result ${testResult.id} created.  No document was saved.  This may be due to a bad Path."
             else flash.message = "TestResult ${testResult.id} created."
             redirect(action: show, id: testResult.id)
         }

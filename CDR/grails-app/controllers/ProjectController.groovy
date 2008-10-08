@@ -27,7 +27,7 @@ class ProjectController {
                 redirect(action: list)
             } else {
                 flash.message = "Unable to Delete Project ${project.name}.  Projects with environments cannot be deleted."
-                redirect(action:show, id:params.id)
+                redirect(action: show, id: params.id)
             }
         }
         else {
@@ -51,13 +51,18 @@ class ProjectController {
     def update = {
         def project = Project.get(params.id)
         if (project) {
-            project.properties = params
-            if (project.save()) {
-                flash.message = "Project ${params.id} updated."
+            if (Long.valueOf(project.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
                 redirect(action: show, id: project.id)
-            }
-            else {
-                render(view: 'edit', model: [project: project])
+            } else {
+                project.properties = params
+                if (project.save()) {
+                    flash.message = "Project ${params.id} updated."
+                    redirect(action: show, id: project.id)
+                }
+                else {
+                    render(view: 'edit', model: [project: project])
+                }
             }
         }
         else {

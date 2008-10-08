@@ -46,29 +46,34 @@ class NetworkController {
     def update = {
         def network = Network.get(params.id)
         if (network) {
-            def circular = false
-            if (params.get('parent.id') != 'null') {
-                def parent = Network.get(Long.parseLong(params.get('parent.id')))
-                log.debug "parent: ${parent}"
-                network.configurationItems.each {child ->
-                    log.debug "child: ${child}"
-                    if (child.id == parent.id) {
-                        circular = true
+            if (Long.valueOf(network.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
+                redirect(action: show, id: network.id)
+            } else {
+                def circular = false
+                if (params.get('parent.id') != 'null') {
+                    def parent = Network.get(Long.parseLong(params.get('parent.id')))
+                    log.debug "parent: ${parent}"
+                    network.configurationItems.each {child ->
+                        log.debug "child: ${child}"
+                        if (child.id == parent.id) {
+                            circular = true
+                        }
                     }
                 }
-            }
 
-            if (circular) {
-                flash.message = "Cannot choose a child as a parent."
-                render(view: 'edit', model: [network: network])
-            } else {
-                network.properties = params
-                if (network.save()) {
-                    flash.message = "Network ${params.id} updated."
-                    redirect(action: show, id: network.id)
-                }
-                else {
+                if (circular) {
+                    flash.message = "Cannot choose a child as a parent."
                     render(view: 'edit', model: [network: network])
+                } else {
+                    network.properties = params
+                    if (network.save()) {
+                        flash.message = "Network ${params.id} updated."
+                        redirect(action: show, id: network.id)
+                    }
+                    else {
+                        render(view: 'edit', model: [network: network])
+                    }
                 }
             }
         }

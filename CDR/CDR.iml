@@ -2,11 +2,14 @@
 <module relativePaths="true" type="GRAILS_MODULE" version="4">
   <component name="DBNavigator.Module.ConnectionManager">
     <connections>
-      <connection id="331e942b-63b5-4060-8554-6e0dc6b6ccf3" name="CDR Test" description="" driver-library="C:\backup\projects\DelegataLib\oracleDriver\ojdbc14.jar" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@//192.168.0.235:1521/COAPS" user="cdrtest" password="cdrtest" />
+      <connection id="331e942b-63b5-4060-8554-6e0dc6b6ccf3" name="CDR Test" description="" database-type="" driver-library="C:\backup\projects\DelegataLib\oracleDriver\ojdbc14.jar" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@//192.168.0.235:1521/COAPS" user="cdrtest" password="cdrtest" />
     </connections>
   </component>
   <component name="FacetManager">
     <facet type="Grails" name="Grails">
+      <configuration />
+    </facet>
+    <facet type="Groovy" name="Groovy">
       <configuration />
     </facet>
   </component>
@@ -36,9 +39,10 @@
       <sourceFolder url="file://$MODULE_DIR$/test/unit" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/CDRClient_scripts" />
     </content>
+    <orderEntry type="library" name="GROOVY" level="application" />
+    <orderEntry type="library" name="grails-1.0.3" level="application" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="GROOVY" level="application" />
     <orderEntry type="library" name="plugins" level="project" />
     <orderEntry type="module-library">
       <library name="Grails User Library">
@@ -251,7 +255,6 @@
         <jarDirectory url="file://$MODULE_DIR$/plugins/jsecurity-0.2/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="GRAILS" level="application" />
     <orderEntryProperties />
   </component>
 </module>

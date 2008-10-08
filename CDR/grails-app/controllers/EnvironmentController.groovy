@@ -18,10 +18,10 @@ class EnvironmentController {
         if (!params.max) params.max = 10
         if (!params.offset) params.offset = 0
         log.debug params
-        if(params.name){
+        if (params.name) {
             return [ciList: ConfigurationItem.findAllByNameIlike("%${params.name}%", [max: params.max, offset: params.offset, sort: "name", order: "desc"]), ciListSize: ConfigurationItem.findAllByNameIlike("%${params.name}%").size, environment: Environment.get(params.id)]
         } else {
-            return [ciList: ConfigurationItem.list(max:params.max, offset:params.offset, sort:"name", order:"desc"), ciListSize:ConfigurationItem.list().size, environment: Environment.get(params.id)]
+            return [ciList: ConfigurationItem.list(max: params.max, offset: params.offset, sort: "name", order: "desc"), ciListSize: ConfigurationItem.list().size, environment: Environment.get(params.id)]
         }
     }
 
@@ -33,7 +33,7 @@ class EnvironmentController {
         if (params.name) {
             return [ciList: ConfigurationItem.findAllByNameIlike("%${params.name}%", [max: params.max, offset: params.offset, sort: "name", order: "desc"]), ciListSize: ConfigurationItem.findAllByNameIlike("%${params.name}%").size, environment: Environment.get(params.id)]
         } else {
-            return [ciList: ConfigurationItem.list(max:params.max, offset:params.offset, sort:"name", order:"desc"), ciListSize:ConfigurationItem.list().size, environment: Environment.get(params.id)]
+            return [ciList: ConfigurationItem.list(max: params.max, offset: params.offset, sort: "name", order: "desc"), ciListSize: ConfigurationItem.list().size, environment: Environment.get(params.id)]
         }
     }
 
@@ -78,16 +78,20 @@ class EnvironmentController {
     def update = {
         def environment = Environment.get(params.id)
         if (environment) {
-            environment.properties = params
-            if (environment.save()) {
-                flash.message = "Environment ${params.id} updated."
+            if (Long.valueOf(environment.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
                 redirect(action: show, id: environment.id)
+            } else {
+                environment.properties = params
+                if (environment.save()) {
+                    flash.message = "Environment ${params.id} updated."
+                    redirect(action: show, id: environment.id)
+                }
+                else {
+                    render(view: 'edit', model: [environment: environment])
+                }
             }
-            else {
-                render(view: 'edit', model: [environment: environment])
-            }
-        }
-        else {
+        } else {
             flash.message = "Environment not found with id ${params.id}"
             redirect(action: edit, id: params.id)
         }

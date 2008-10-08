@@ -22,6 +22,7 @@
             </g:hasErrors>
             <g:form controller="project" method="post">
                 <input type="hidden" name="id" value="${project?.id}"/>
+                <input type="hidden" name="version" value="${project?.version}"/>
                 <div class="dialog">
                     <table>
                         <tbody>

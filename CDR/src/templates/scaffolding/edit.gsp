@@ -23,6 +23,7 @@
             </g:hasErrors>
             <g:form controller="${propertyName}" method="post" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
                 <input type="hidden" name="id" value="\${${propertyName}?.id}" />
+                <input type="hidden" name="version" value="\${${propertyName}?.version}"/>
                 <div class="dialog">
                     <table>
                         <tbody>

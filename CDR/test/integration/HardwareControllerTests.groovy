@@ -41,6 +41,7 @@ class HardwareControllerTests extends GroovyTestCase
         controller.params.author = hardware1.author
         controller.params.put('hardwareType.id',Long.toString(hardware1.hardwareType.id))
         controller.params.put('parent.id',Long.toString(hardware2.id))
+        controller.params.version = hardware1.version
 
         controller.update()
         assert controller.modelAndView.model.hardware

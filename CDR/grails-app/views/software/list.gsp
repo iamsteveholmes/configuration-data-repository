@@ -18,20 +18,28 @@
             <thead>
                 <tr>
                     <g:sortableColumn property="name" title="Name"/>
+                    <th class="sortable">Status</th>
+                    <th class="sortable">Project Environment</th>
+                    <g:sortableColumn property="version" title="Version"/>
                     <g:sortableColumn property="description" title="Description"/>
-                    <g:sortableColumn property="author" title="Author"/>
                     <g:sortableColumn property="ownerName" title="Owner Name"/>
-                    <g:sortableColumn property="ownerEmail" title="Owner Email"/>
+                    <g:sortableColumn property="lastUpdated" title="Last Updated"/>
                 </tr>
             </thead>
             <tbody>
+
                 <g:each in="${softwareList}" status="i" var="software">
+                    <% def status = software.statuses?.find {it.endDate > new Date()} %>
+                    <% def projectEnvironment = "${environment?.project?.name ? environment?.project?.name : ''} ${environment?.name ? environment?.name : ''}" %>
+                    <% def environment = software.environments?.find {it} %>
                     <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         <td><g:link action="show" id="${software.id}">${software.name?.encodeAsHTML()}</g:link></td>
+                        <td>${status?.encodeAsHTML()}</td>
+                        <td>${projectEnvironment?.encodeAsHTML()}</td>
+                        <td>${software.version?.encodeAsHTML()}</td>
                         <td>${software.description?.encodeAsHTML()}</td>
-                        <td>${software.author?.encodeAsHTML()}</td>
                         <td>${software.ownerName?.encodeAsHTML()}</td>
-                        <td>${software.ownerEmail?.encodeAsHTML()}</td>
+                        <td><g:formatDate format="MM-dd-yyyy" date="${software.lastUpdated}"/></td>
                     </tr>
                 </g:each>
             </tbody>

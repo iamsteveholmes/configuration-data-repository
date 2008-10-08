@@ -49,29 +49,34 @@ class SoftwareController {
     def update = {
         def software = Software.get(params.id)
         if (software) {
-            def circular = false
-            if (params.get('parent.id') != 'null') {
-                def parent = Software.get(Long.parseLong(params.get('parent.id')))
-                log.debug "parent: ${parent}"
-                software.configurationItems.each {child ->
-                    log.debug "child: ${child}"
-                    if (child.id == parent.id) {
-                        circular = true
+            if (Long.valueOf(software.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
+                redirect(action: show, id: software.id)
+            } else {
+                def circular = false
+                if (params.get('parent.id') != 'null') {
+                    def parent = Software.get(Long.parseLong(params.get('parent.id')))
+                    log.debug "parent: ${parent}"
+                    software.configurationItems.each {child ->
+                        log.debug "child: ${child}"
+                        if (child.id == parent.id) {
+                            circular = true
+                        }
                     }
                 }
-            }
 
-            if (circular) {
-                flash.message = "Cannot choose a child as a parent."
-                render(view: 'edit', model: [software: software])
-            } else {
-                software.properties = params
-                if (software.save()) {
-                    flash.message = "Software ${params.id} updated."
-                    redirect(action: show, id: software.id)
-                }
-                else {
+                if (circular) {
+                    flash.message = "Cannot choose a child as a parent."
                     render(view: 'edit', model: [software: software])
+                } else {
+                    software.properties = params
+                    if (software.save()) {
+                        flash.message = "Software ${params.id} updated."
+                        redirect(action: show, id: software.id)
+                    }
+                    else {
+                        render(view: 'edit', model: [software: software])
+                    }
                 }
             }
 

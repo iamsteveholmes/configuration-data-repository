@@ -20,6 +20,7 @@ class DocumentationControllerTests extends GroovyTestCase {
         controller.params.author = documentation1.author
         controller.params.put('documentationType.id',Long.toString(documentation1.documentationType.id))
         controller.params.put('parent.id',Long.toString(documentation2.id))
+        controller.params.version = documentation1.version
 
         controller.update()
         assert controller.modelAndView.model.documentation

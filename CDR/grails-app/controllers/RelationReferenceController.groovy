@@ -11,13 +11,13 @@ class RelationReferenceController {
     }
 
     def defaultAction = "list"
-    
+
     def index = {
         redirect(action: list, params: params)
     }
 
     // the delete, save and update actions only accept POST requests
-    def allowedMethods = [delete:'POST', save:'POST', update:'POST']
+    def allowedMethods = [delete: 'POST', save: 'POST', update: 'POST']
 
     def list = {
         if (!params.max) params.max = 10
@@ -61,13 +61,18 @@ class RelationReferenceController {
     def update = {
         def relationReference = RelationReference.get(params.id)
         if (relationReference) {
-            relationReference.properties = params
-            if (!relationReference.hasErrors() && relationReference.save()) {
-                flash.message = "Relation Reference ${params.id} updated"
+            if (Long.valueOf(relationReference.version) != Long.valueOf(params.version)) {
+                flash.message = "This record has been modified since you last saw it.  Please try updating again."
                 redirect(action: show, id: relationReference.id)
-            }
-            else {
-                render(view: 'edit', model: [relationReference: relationReference])
+            } else {
+                relationReference.properties = params
+                if (!relationReference.hasErrors() && relationReference.save()) {
+                    flash.message = "Relation Reference ${params.id} updated"
+                    redirect(action: show, id: relationReference.id)
+                }
+                else {
+                    render(view: 'edit', model: [relationReference: relationReference])
+                }
             }
         }
         else {

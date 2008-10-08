@@ -20,6 +20,7 @@
     </g:hasErrors>
     <g:form controller="testResult" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="${testResult?.id}"/>
+        <input type="hidden" name="version" value="${testResult?.version}"/>
         <div class="dialog">
             <table>
                 <tbody>

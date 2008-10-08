@@ -69,8 +69,8 @@
                     <td valign="top" class="name">Statuses:</td>
                     <td valign="top" style="text-align:left;" class="value">
                         <ul>
-                            <g:each var="s" in="${software.statuses}">
-                                <li><g:link controller="status" action="show" id="${s.id}">${s}</g:link></li>
+                            <g:each var="s" in="${software.statuses.sort{a,b -> b.endDate <=> a.endDate}}">
+                                <li><g:link controller="status" action="show" id="${s.id}">${s}</g:link> <g:formatDate format="MM-dd-yyyy" date="${s.startDate}"/> - <g:formatDate format="MM-dd-yyyy" date="${s.endDate}"/></li> 
                             </g:each>
                         </ul>
                     </td>

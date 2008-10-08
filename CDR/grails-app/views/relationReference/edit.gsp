@@ -20,6 +20,7 @@
     </g:hasErrors>
     <g:form controller="relationReference" method="post">
         <input type="hidden" name="id" value="${relationReference?.id}"/>
+        <input type="hidden" name="version" value="${relationReference?.version}"/>
         <div class="dialog">
             <table>
                 <tbody>
