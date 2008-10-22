@@ -78,6 +78,13 @@ class CDRClient {
         this.body = post.responseBody
         this.key = post.queryString.tokenize('=')[1]
     }
+	
+	void createRelation(Relation relation){
+        def post = new Post(client: client, url:"${root}/serviceOrder/configurationItem/0/this", params:(relation.params << new NameValuePair("_flowExecutionKey", key)))
+        post.execute()
+        this.body = post.responseBody
+        this.key = post.queryString.tokenize('=')[1]
+    }
 
     void createStatus(Status status, def ciListId){
         def post = new Post(client: client, url:"${root}/serviceOrder/configurationItem/$ciListId/status", params:(status.params << new NameValuePair("_flowExecutionKey", key)))
