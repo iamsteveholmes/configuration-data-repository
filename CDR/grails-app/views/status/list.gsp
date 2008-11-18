@@ -28,9 +28,9 @@
                     <tbody>
                     <g:each in="${statusList}" status="i" var="status">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td><g:link action="show" id="${status.id}">${status.startDate?.encodeAsHTML()}</g:link></td>
-                            <td>${status.endDate?.encodeAsHTML()}</td>
-                            <td>${status.configurationItem?.encodeAsHTML()}</td>
+                            <td><g:link action="show" id="${status.id}"><g:formatDate format="MM-dd-yyyy" date="${status.startDate}"/></g:link></td>
+                            <td><g:formatDate format="MM-dd-yyyy" date="${status.endDate}"/></td>
+                            <td>${status.configurationItem?.name?.encodeAsHTML()}</td>
                             <td>${status.reference?.encodeAsHTML()}</td>
                         </tr>
                     </g:each>

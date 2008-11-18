@@ -30,8 +30,8 @@
 
                 <g:each in="${softwareList}" status="i" var="software">
                     <% def status = software.statuses?.find {it.endDate > new Date()} %>
-                    <% def environment = software.environments?.find {it} %>
                     <% def projectEnvironment = "${environment?.project?.name ? environment?.project?.name : ''} ${environment?.name ? environment?.name : ''}" %>
+                    <% def environment = software.environments?.find {it} %>
                     <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         <td><g:link action="show" id="${software.id}">${software.name?.encodeAsHTML()}</g:link></td>
                         <td>${status?.encodeAsHTML()}</td>

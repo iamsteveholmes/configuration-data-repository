@@ -2,7 +2,7 @@ import com.delegata.utility.BlobUtil
 import org.hibernate.Hibernate
 import java.sql.Blob
 
-class ChangeRequest extends ConfigurationItem{
+class ChangeRequest extends ConfigurationItem implements java.io.Serializable{
     static auditable = true
     byte[] document
     Blob documentBlob

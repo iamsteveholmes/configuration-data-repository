@@ -73,8 +73,8 @@
                     <td valign="top" class="name">Statuses:</td>
                     <td valign="top" style="text-align:left;" class="value">
                         <ul class="subItems">
-                            <g:each var="s" in="${hardware.statuses}">
-                                <li><g:link controller="status" action="show" id="${s.id}">${s}</g:link> Start: ${s?.startDate} End: ${s?.endDate}</li>
+                            <g:each var="s" in="${hardware.statuses.sort{a,b -> b.endDate <=> a.endDate}}">
+                                <li><g:link controller="status" action="show" id="${s.id}">${s}</g:link> <g:formatDate format="MM-dd-yyyy" date="${s.startDate}"/> - <g:formatDate format="MM-dd-yyyy" date="${s.endDate}"/></li>
                             </g:each>
                         </ul>
                     </td>

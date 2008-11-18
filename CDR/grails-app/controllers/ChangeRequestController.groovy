@@ -87,7 +87,7 @@ class ChangeRequestController {
                     changeRequest.fileType = upload.getContentType()
                     changeRequest.fileName = upload.getOriginalFilename()
                     changeRequest.properties = params
-                    if (!changeRequest.hasErrors() && changeRequest.save()) {
+                    if (changeRequest.save()) {
                         if (!changeRequest.fileName) flash.message = "Change Request ${params.id} updated.  No document was saved.  This may be due to a bad Path."
                         else flash.message = "ChangeRequest ${params.id} updated"
                         redirect(action: show, id: changeRequest.id)
@@ -112,13 +112,14 @@ class ChangeRequestController {
     }
 
     def save = {
-        def changeRequest = new ChangeRequest(params)
+        def changeRequest = new ChangeRequest()
+        changeRequest.properties = params
         def upload = request.getFile('document')
         changeRequest.document = upload.getBytes()
         changeRequest.fileType = upload.getContentType()
         changeRequest.fileName = upload.getOriginalFilename()
         changeRequest.fileSize = upload.getSize()
-        if (!changeRequest.hasErrors() && changeRequest.save()) {
+        if (changeRequest.save()) {
             if (!changeRequest.fileName) flash.message = "Change Request ${changeRequest.id} created.  No document was saved.  This may be due to a bad Path."
             else flash.message = "ChangeRequest ${changeRequest.id} created"
             redirect(action: show, id: changeRequest.id)
@@ -130,9 +131,6 @@ class ChangeRequestController {
 
     def downloadDocument = {
         def changeRequest = ChangeRequest.get(params.id)
-        assert changeRequest.fileName
-        assert changeRequest.fileSize
-        assert changeRequest.document
         response.setHeader("Content-Type", "application/octet-stream;")
         response.setHeader("Content-Disposition", "attachment;filename = \"${changeRequest.fileName}\"")
         response.setHeader("Content-Length", "${changeRequest.fileSize}")
