@@ -17,7 +17,7 @@ class EnvironmentControllerTests extends GroovyTestCase
         solutions = new Hardware(name:'Solutions',author:'Steve Holmes', hardwareType:hardwareType)
         if( !solutions.validate() ) {
            solutions.errors.each {
-                println it
+                log.debug it
            }
         }
         assert solutions.validate()

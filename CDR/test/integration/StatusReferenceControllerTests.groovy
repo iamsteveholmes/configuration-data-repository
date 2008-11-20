@@ -34,12 +34,12 @@ class StatusReferenceControllerTests extends GroovyTestCase {
         Date date = new Date()
         def status = new Status(reference: statusReference, configurationItem:network)
         statusService.createStatus(status)
-        println "status: $status"
-        println "status.id ${status.id}"
+        log.debug "status: $status"
+        log.debug "status.id ${status.id}"
         controller.params.id = statusReference.id
         controller.delete()
-        println "controller.response.redirectedUrl: ${controller.response.redirectedUrl}"
-        println "controller.flash.message: ${controller.flash.message}"
+        log.debug "controller.response.redirectedUrl: ${controller.response.redirectedUrl}"
+        log.debug "controller.flash.message: ${controller.flash.message}"
         assert controller.response.redirectedUrl.startsWith("/statusReference/show/")
         assert controller.flash.message.startsWith("Unable to Delete Status Reference")
     }

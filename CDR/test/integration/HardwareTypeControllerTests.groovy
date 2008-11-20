@@ -39,7 +39,7 @@ class HardwareTypeControllerTests extends GroovyTestCase {
         new Hardware(name: "name", author: "author", hardwareType: hardwareType).save(flush: true)
         controller.params.id = hardwareType.id
         controller.delete()
-        println controller.response.redirectedUrl
+        log.debug controller.response.redirectedUrl
         assert controller.response.redirectedUrl.startsWith("/hardwareType/show/")
         assert controller.flash.message.startsWith("Unable to Delete Hardware Type")
     }

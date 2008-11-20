@@ -61,8 +61,8 @@ class ChangeRequestController {
     def update = {
         def changeRequest = ChangeRequest.get(params.id)
         if (changeRequest) {
-            println "changeRequest.version: ${changeRequest.version}"
-            println "params.version: ${params.version}"
+            log.debug "changeRequest.version: ${changeRequest.version}"
+            log.debug "params.version: ${params.version}"
             def circular = false
             if (Long.valueOf(changeRequest.version) != Long.valueOf(params.version)) {
                     flash.message = "This record has been modified since you last saw it.  Please try updating again."
@@ -71,9 +71,9 @@ class ChangeRequestController {
 
                 if (params.get('parent.id') != 'null') {
                     def parent = ChangeRequest.get(Long.parseLong(params.get('parent.id')))
-                    println "parent: ${parent}"
+                    log.debug "parent: ${parent}"
                     changeRequest.configurationItems.each {child ->
-                        println "child: ${child}"
+                        log.debug "child: ${child}"
                         if (child.id == parent.id) {
                             circular = true
                         }

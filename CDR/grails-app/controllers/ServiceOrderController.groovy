@@ -78,7 +78,7 @@ class ServiceOrderController {
                     } else {
                         return error()
                     }
-                    println params
+                    log.debug params
                     if(params.environmentName && params.projectName){
                         ci.environments = new HashSet()
                         ci.environments << Environment.find("from Environment e where e.name=:environmentName and e.project.name=:projectName", [environmentName:params.environmentName, projectName:params.projectName])
@@ -86,13 +86,13 @@ class ServiceOrderController {
                     if(ci.ownerEmail) ci.ownerEmail = ci.ownerEmail.replace('%40','@')
                     if (!ci?.validate()) {
                         ci?.errors.allErrors.each {
-                            println it
+                            log.debug it
                             log.debug it
                         }
                         return error()
                     }
                     flow.serviceOrder.configurationItems << ci
-                    println "flow.serviceOrder.configurationItems: ${flow?.serviceOrder?.configurationItems}"
+                    log.debug "flow.serviceOrder.configurationItems: ${flow?.serviceOrder?.configurationItems}"
                 } else {
                     return error()
                 }
