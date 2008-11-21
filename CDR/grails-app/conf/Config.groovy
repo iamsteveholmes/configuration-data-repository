@@ -112,6 +112,7 @@ environments {
   development {
     grails.war.destFile = "CDR.war"
   }
+
   integration {
     grails.war.destFile = "CDRint.war"
     log4j {
@@ -119,20 +120,21 @@ environments {
         grails = "error"
         StackTrace = "error,errors"
         org {
-          codehaus.groovy.grails.web.servlet = "fatal,error"  //  controllers
-          codehaus.groovy.grails.web.pages = "fatal,error" //  GSP
-          codehaus.groovy.grails.web.sitemesh = "fatal,error" //  layouts
-          codehaus.groovy.grails."web.mapping.filter" = "fatal,error" // URL mapping
-          codehaus.groovy.grails."web.mapping" = "fatal,error" // URL mapping
-          codehaus.groovy.grails.commons = "fatal,error" // core / classloading
-          codehaus.groovy.grails.plugins = "fatal,error" // plugins
-          codehaus.groovy.grails.orm.hibernate = "fatal,error" // hibernate integration
+          codehaus.groovy.grails.web.servlet = "fatal,errors"  //  controllers
+          codehaus.groovy.grails.web.pages = "fatal,errors" //  GSP
+          codehaus.groovy.grails.web.sitemesh = "fatal,errors" //  layouts
+          codehaus.groovy.grails."web.mapping.filter" = "fatal,errors" // URL mapping
+          codehaus.groovy.grails."web.mapping" = "fatal,errors" // URL mapping
+          codehaus.groovy.grails.commons = "fatal,errors" // core / classloading
+          codehaus.groovy.grails.plugins = "fatal,errors" // plugins
+          codehaus.groovy.grails.orm.hibernate = "fatal,errors" // hibernate integration
           springframework = "off"
           hibernate = "off"
         }
       }
     }
   }
+
   test {
     grails.war.destFile = "CDRtest.war"
     log4j {
@@ -140,20 +142,21 @@ environments {
         grails = "error"
         StackTrace = "error,errors"
         org {
-          codehaus.groovy.grails.web.servlet = "fatal,error"  //  controllers
-          codehaus.groovy.grails.web.pages = "fatal,error" //  GSP
-          codehaus.groovy.grails.web.sitemesh = "fatal,error" //  layouts
-          codehaus.groovy.grails."web.mapping.filter" = "fatal,error" // URL mapping
-          codehaus.groovy.grails."web.mapping" = "fatal,error" // URL mapping
-          codehaus.groovy.grails.commons = "fatal,error" // core / classloading
-          codehaus.groovy.grails.plugins = "fatal,error" // plugins
-          codehaus.groovy.grails.orm.hibernate = "fatal,error" // hibernate integration
+          codehaus.groovy.grails.web.servlet = "fatal,errors"  //  controllers
+          codehaus.groovy.grails.web.pages = "fatal,errors" //  GSP
+          codehaus.groovy.grails.web.sitemesh = "fatal,errors" //  layouts
+          codehaus.groovy.grails."web.mapping.filter" = "fatal,errors" // URL mapping
+          codehaus.groovy.grails."web.mapping" = "fatal,errors" // URL mapping
+          codehaus.groovy.grails.commons = "fatal,errors" // core / classloading
+          codehaus.groovy.grails.plugins = "fatal,errors" // plugins
+          codehaus.groovy.grails.orm.hibernate = "fatal,errors" // hibernate integration
           springframework = "off"
           hibernate = "off"
         }
       }
     }
   }
+  
   production {
     grails.war.destFile = "CDR.war"
     log4j {
@@ -161,14 +164,14 @@ environments {
         grails = "error"
         StackTrace = "error,errors"
         org {
-          codehaus.groovy.grails.web.servlet = "fatal,error"  //  controllers
-          codehaus.groovy.grails.web.pages = "fatal,error" //  GSP
-          codehaus.groovy.grails.web.sitemesh = "fatal,error" //  layouts
-          codehaus.groovy.grails."web.mapping.filter" = "fatal,error" // URL mapping
-          codehaus.groovy.grails."web.mapping" = "fatal,error" // URL mapping
-          codehaus.groovy.grails.commons = "fatal,error" // core / classloading
-          codehaus.groovy.grails.plugins = "fatal,error" // plugins
-          codehaus.groovy.grails.orm.hibernate = "fatal,error" // hibernate integration
+          codehaus.groovy.grails.web.servlet = "fatal,errors"  //  controllers
+          codehaus.groovy.grails.web.pages = "fatal,errors" //  GSP
+          codehaus.groovy.grails.web.sitemesh = "fatal,errors" //  layouts
+          codehaus.groovy.grails."web.mapping.filter" = "fatal,errors" // URL mapping
+          codehaus.groovy.grails."web.mapping" = "fatal,errors" // URL mapping
+          codehaus.groovy.grails.commons = "fatal,errors" // core / classloading
+          codehaus.groovy.grails.plugins = "fatal,errors" // plugins
+          codehaus.groovy.grails.orm.hibernate = "fatal,errors" // hibernate integration
           springframework = "off"
           hibernate = "off"
         }
