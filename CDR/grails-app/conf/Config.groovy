@@ -12,7 +12,7 @@
 
 /*jsecurity.session.mode = "jsecurity"*/
 
-grails.war.dependencies = [
+/*grails.war.dependencies = [
     "ant.jar",
     "ant-launcher.jar",
     "hibernate3.jar",
@@ -47,7 +47,7 @@ grails.war.dependencies = [
     "xercesImpl.jar",
     "xstream-1.2.1.jar",
     "xpp3_min-1.1.3.4.O.jar"
-]
+]*/
 
 grails.war.java5.dependencies = [
     "hibernate-annotations.jar",
