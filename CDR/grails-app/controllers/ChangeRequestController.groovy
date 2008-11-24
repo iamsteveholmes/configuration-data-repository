@@ -26,7 +26,40 @@ class ChangeRequestController {
 
     def list = {
         if (!params.max) params.max = 10
-        [changeRequestList: ChangeRequest.list(params)]
+        def c = ChangeRequest.createCriteria()
+        def changeRequestList = c.list(max: params?.max, offset: params?.offset) {
+            environments {
+                if(params.environmentId) {
+                    eq('id', new Long(params.environmentId))
+                }
+            }
+
+            statuses {
+                reference {
+                    if(params.active) {
+                        eq('name', 'Active')
+                    }
+                }
+            }
+        }
+
+        c = ChangeRequest.createCriteria()
+        def count = c.list{
+            environments {
+                if(params.environmentId) {
+                    eq('id', new Long(params.environmentId))
+                }
+            }
+
+            statuses {
+                reference {
+                    if(params.active) {
+                        eq('name', 'Active')
+                    }
+                }
+            }
+        }
+        [changeRequestList: changeRequestList, environmentId: params.environmentId, active: params.active, count:count.size]
     }
 
     def show = {

@@ -24,7 +24,40 @@ class TestResultController {
 
     def list = {
         if (!params.max) params.max = 10
-        [testResultList: TestResult.list(params)]
+        def c = TestResult.createCriteria()
+        def testResultList = c.list(max: params?.max, offset: params?.offset) {
+            environments {
+                if(params.environmentId) {
+                    eq('id', new Long(params.environmentId))
+                }
+            }
+
+            statuses {
+                reference {
+                    if(params.active) {
+                        eq('name', 'Active')
+                    }
+                }
+            }
+        }
+
+        c = TestResult.createCriteria()
+        def count = c.list{
+            environments {
+                if(params.environmentId) {
+                    eq('id', new Long(params.environmentId))
+                }
+            }
+
+            statuses {
+                reference {
+                    if(params.active) {
+                        eq('name', 'Active')
+                    }
+                }
+            }
+        }
+        [testResultList: testResultList, environmentId: params.environmentId, active: params.active, count:count.size]
     }
 
     def show = {

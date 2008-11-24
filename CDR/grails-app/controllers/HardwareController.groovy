@@ -13,7 +13,41 @@ class HardwareController {
 
     def list = {
         if (!params.max) params.max = 10
-        [hardwareList: Hardware.list(params)]
+        def c = Hardware.createCriteria()
+        def hardwareList = c.list(max:params?.max, offset: params?.offset) {
+            environments {
+                if(params.environmentId) {
+                    eq('id', new Long(params.environmentId))
+                }
+            }
+
+            statuses {
+                reference {
+                    if(params.active) {
+                        eq('name', 'Active')
+                    }
+                }
+            }
+        }
+        c = Hardware.createCriteria()
+        def count = c.list{
+            environments {
+                if(params.environmentId) {
+                    eq('id', new Long(params.environmentId))
+                }
+            }
+
+            statuses {
+                reference {
+                    if(params.active) {
+                        eq('name', 'Active')
+                    }
+                }
+            }    
+        }
+        /*if (!params.max) params.max = 10*/
+        println "count.size: ${count.size}"
+        [hardwareList: hardwareList, environmentId: params.environmentId, active: params.active, count:count.size]
     }
 
     def show = {
