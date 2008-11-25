@@ -47,7 +47,9 @@ class EnvironmentController {
     }
 
     def show = {
-        [environment: Environment.get(params.id)]
+        def active = false
+        if(params?.active) active = true
+        [environment: Environment.get(params.id), active: active]
     }
 
     def delete = {

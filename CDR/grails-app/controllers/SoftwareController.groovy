@@ -1,3 +1,5 @@
+import grails.converters.*
+
 class SoftwareController {
     /*def scaffold = Software*/
     static accessControl = {
@@ -14,7 +16,68 @@ class SoftwareController {
 
     def list = {
         if (!params.max) params.max = 10
-        [softwareList: Software.list(params)]
+        def c = Software.createCriteria()
+        def softwareList = c.list(max: params?.max, offset: params?.offset) {
+            environments {
+                if(params.environmentId) {
+                    eq('id', new Long(params.environmentId))
+                }
+            }
+
+            statuses {
+                reference {
+                    if(params.active) {
+                        eq('name', 'Active')
+                    }
+                }
+            }
+        }
+
+        c = Software.createCriteria()
+        def count = c.list{
+            environments {
+                if(params.environmentId) {
+                    eq('id', new Long(params.environmentId))
+                }
+            }
+
+            statuses {
+                reference {
+                    if(params.active) {
+                        eq('name', 'Active')
+                    }
+                }
+            }
+        }
+
+        /*if (!params.max) params.max = 10*/
+        /*[softwareList: Software.list(params)]*/
+        [softwareList: softwareList, environmentId: params.environmentId, active: params.active, count:count.size]
+    }
+
+    def dataTableJSON = {
+        def software = Software.list(params)
+
+        def formattedSoftware = software.collect {
+            def environment = it.environments?.find {it}
+
+            [
+                    name: it.name,
+                    status: it.statuses?.find {it.endDate > new Date()}?.reference?.name,
+                    projectEnvironment: "${environment?.project?.name ? environment?.project?.name : ''} ${environment?.name ? environment?.name : ''}",
+                    version: it.versionNum,
+                    description: it.description,
+                    lastUpdated: new java.text.SimpleDateFormat("MM-dd-yyyy").format(it.lastUpdated)
+            ]
+        }
+
+        def data = [
+                totalRecords: Software.count(),
+                results: formattedSoftware
+        ]
+        println data
+
+        render data as JSON
     }
 
     def show = {

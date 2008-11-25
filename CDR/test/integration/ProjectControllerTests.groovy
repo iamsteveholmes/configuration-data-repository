@@ -23,7 +23,7 @@ class ProjectControllerTests extends GroovyTestCase{
         environment.save(flush: true)
         project.environments = [environment]
         project.save(flush: true)
-        log.debug "environment.id: ${environment?.id}"
+        println "environment.id: ${environment?.id}"
         controller.params.id = project.id
         controller.delete()
         assert controller.response.redirectedUrl.startsWith("/project/show/")
