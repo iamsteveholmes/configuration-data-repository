@@ -17,42 +17,42 @@ class SoftwareController {
     def list = {
         if (!params.max) params.max = 10
         def c = Software.createCriteria()
-        def softwareList = c.list(max: params?.max, offset: params?.offset) {
+        def softwareList = c.listDistinct {
             environments {
-                if(params.environmentId) {
+                if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
                 }
             }
 
             statuses {
-                reference {
-                    if(params.active) {
+                if (params.active) {
+                    gt('endDate', new Date())
+                    reference {
                         eq('name', 'Active')
                     }
                 }
             }
+            maxResults(params?.max)
+            firstResult(params?.offset ? params?.offset : 0)
         }
 
-        c = Software.createCriteria()
-        def count = c.list{
+        def count = Software.createCriteria().listDistinct {
             environments {
-                if(params.environmentId) {
+                if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
                 }
             }
 
             statuses {
-                reference {
-                    if(params.active) {
+                if (params.active) {
+                    gt('endDate', new Date())
+                    reference {
                         eq('name', 'Active')
                     }
                 }
-            }
-        }
-
-        /*if (!params.max) params.max = 10*/
-        /*[softwareList: Software.list(params)]*/
-        [softwareList: softwareList, environmentId: params.environmentId, active: params.active, count:count.size]
+            }  
+        }.size
+        [softwareList: softwareList, environmentId: params.environmentId, active: params.active, count: count]
     }
 
     def dataTableJSON = {

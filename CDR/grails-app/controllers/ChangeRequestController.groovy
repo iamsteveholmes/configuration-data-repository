@@ -27,39 +27,42 @@ class ChangeRequestController {
     def list = {
         if (!params.max) params.max = 10
         def c = ChangeRequest.createCriteria()
-        def changeRequestList = c.list(max: params?.max, offset: params?.offset) {
+        def changeRequestList = c.listDistinct {
             environments {
-                if(params.environmentId) {
+                if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
                 }
             }
 
             statuses {
-                reference {
-                    if(params.active) {
+                if (params.active) {
+                    gt('endDate', new Date())
+                    reference {
                         eq('name', 'Active')
                     }
                 }
             }
+            maxResults(params?.max)
+            firstResult(params?.offset ? params?.offset : 0)
         }
 
-        c = ChangeRequest.createCriteria()
-        def count = c.list{
+        def count = ChangeRequest.createCriteria().listDistinct {
             environments {
-                if(params.environmentId) {
+                if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
                 }
             }
 
             statuses {
-                reference {
-                    if(params.active) {
+                if (params.active) {
+                    gt('endDate', new Date())
+                    reference {
                         eq('name', 'Active')
                     }
                 }
             }
-        }
-        [changeRequestList: changeRequestList, environmentId: params.environmentId, active: params.active, count:count.size]
+        }.size
+        [changeRequestList: changeRequestList, environmentId: params.environmentId, active: params.active, count: count]
     }
 
     def show = {
@@ -123,7 +126,7 @@ class ChangeRequestController {
                 changeRequest.fileType = upload.getContentType()
                 changeRequest.fileName = upload.getOriginalFilename()
                 changeRequest.properties = params
-                if (!changeRequest.hasErrors() && changeRequest.save()) {
+                if (changeRequest.save()) {
                     if(!changeRequest.fileName) flash.message = "Change Request ${params.id} updated.  No document was saved.  This may be due to a bad Path."
                     else flash.message = "ChangeRequest ${params.id} updated"
                     redirect(action: show, id: changeRequest.id)
@@ -152,7 +155,7 @@ class ChangeRequestController {
         changeRequest.fileType = upload.getContentType()
         changeRequest.fileName = upload.getOriginalFilename()
         changeRequest.fileSize = upload.getSize()
-        if (!changeRequest.hasErrors() && changeRequest.save()) {
+        if (changeRequest.save()) {
             if(!changeRequest.fileName) flash.message = "Change Request ${changeRequest.id} created.  No document was saved.  This may be due to a bad Path."
             else flash.message = "ChangeRequest ${changeRequest.id} created"
             redirect(action: show, id: changeRequest.id)

@@ -26,39 +26,42 @@ class DocumentationController {
     def list = {
         if (!params.max) params.max = 10
         def c = Documentation.createCriteria()
-        def documentationList = c.list(max: params?.max, offset: params?.offset) {
+        def documentationList = c.listDistinct {
             environments {
-                if(params.environmentId) {
+                if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
                 }
             }
 
             statuses {
-                reference {
-                    if(params.active) {
+                if (params.active) {
+                    gt('endDate', new Date())
+                    reference {
                         eq('name', 'Active')
                     }
                 }
             }
+            maxResults(params?.max)
+            firstResult(params?.offset ? params?.offset : 0)
         }
 
-        c = Documentation.createCriteria()
-        def count = c.list{
+        def count = Documentation.createCriteria().listDistinct {
             environments {
-                if(params.environmentId) {
+                if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
                 }
             }
 
             statuses {
-                reference {
-                    if(params.active) {
+                if (params.active) {
+                    gt('endDate', new Date())
+                    reference {
                         eq('name', 'Active')
                     }
                 }
             }
-        }
-        [documentationList: documentationList, environmentId: params.environmentId, active: params.active, count:count.size]
+        }.size
+        [documentationList: documentationList, environmentId: params.environmentId, active: params.active, count: count]
     }
 
     def show = {

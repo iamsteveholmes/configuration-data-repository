@@ -12,39 +12,42 @@ class NetworkController {
     def list = {
         if (!params.max) params.max = 10
         def c = Network.createCriteria()
-        def networkList = c.list(max: params?.max, offset: params?.offset) {
+        def networkList = c.listDistinct {
             environments {
-                if(params.environmentId) {
+                if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
                 }
             }
 
             statuses {
-                reference {
-                    if(params.active) {
+                if (params.active) {
+                    gt('endDate', new Date())
+                    reference {
                         eq('name', 'Active')
                     }
                 }
             }
+            maxResults(params?.max)
+            firstResult(params?.offset ? params?.offset : 0)
         }
 
-        c = Network.createCriteria()
-        def count = c.list{
+        def count = Network.createCriteria().listDistinct {
             environments {
-                if(params.environmentId) {
+                if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
                 }
             }
 
             statuses {
-                reference {
-                    if(params.active) {
+                if (params.active) {
+                    gt('endDate', new Date())
+                    reference {
                         eq('name', 'Active')
                     }
                 }
             }
-        }
-        [networkList: networkList, environmentId: params.environmentId, active: params.active, count:count.size]
+        }.size
+        [networkList: networkList, environmentId: params.environmentId, active: params.active, count: count]
     }
 
     def show = {
