@@ -114,8 +114,8 @@ class ChangeRequestController {
                             circular = true
                         }
                     }
-                }
             }
+                }
 
             if (circular) {
                 flash.message = "Cannot choose a child as a parent."

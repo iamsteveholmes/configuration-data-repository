@@ -15,13 +15,31 @@ environments {
             url = "jdbc:hsqldb:mem:devDB"
         }
     }
-    test {
+
+  integration {
         dataSource {
             pooled = false
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = "sa"
+            password = ""
+            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            url = "jdbc:hsqldb:mem:devDB"
+        }
+    }
+
+    test {
+        dataSource {
+            /*pooled = false
             dbCreate = "create-drop"
             driverClassName = "oracle.jdbc.OracleDriver"
             jndiName = "java:comp/env/jdbc/cdr"
-
+*/
+            pooled = false
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = "sa"
+            password = ""
+            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            url = "jdbc:hsqldb:mem:devDB"
         }
     }
 
