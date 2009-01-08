@@ -23,6 +23,5 @@ class ChangeRequestControllerTests extends GroovyTestCase {
         controller.params.put('parent.id',Long.toString(changeRequest2.id))
         controller.update()
         assert controller.modelAndView.model.changeRequest
-        assert 1 == 2
     }
 }
