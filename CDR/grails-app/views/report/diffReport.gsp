@@ -39,11 +39,11 @@
                 </div>
                 <div>
                     <label class="report" for="startDate_day">Start Date</label>
-                    <g:datePicker id="startDate" name="STATUS_DATE_START" value="${new Date()}" precision="day" years="${2008..2020}"/>
+                    <g:datePicker id="startDate" name="statusDateStart" value="${new Date()}" precision="day" years="${2008..2020}"/>
                 </div>
                 <div>
                     <label class="report" for="endDate_day">End Date</label>
-                    <g:datePicker id="endDate" name="STATUS_DATE_END" value="${new Date()}" precision="day" years="${2008..2020}"/>
+                    <g:datePicker id="endDate" name="statusDateEnd" value="${new Date()}" precision="day" years="${2008..2020}"/>
                 </div>
             </fieldset>
         </g:jasperReport>
