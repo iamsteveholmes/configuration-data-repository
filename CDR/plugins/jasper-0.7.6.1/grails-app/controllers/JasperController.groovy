@@ -6,9 +6,9 @@ class JasperController {
             chain(controller: 'report', action: params.priorAction, model: [errors: reportCommand.errors])
         } else {
             params.ENVIRONMENT_ID = reportCommand.ENVIRONMENT_ID
-            params.STATUS_DATE = reportCommand.STATUS_DATE
-            params.STATUS_DATE_START = reportCommand.STATUS_DATE_START
-            params.STATUS_DATE_END = reportCommand.STATUS_DATE_END
+            params.STATUS_DATE = reportCommand.statusDate
+            params.STATUS_DATE_START = reportCommand.statusDateStart
+            params.STATUS_DATE_END = reportCommand.statusDateEnd
             def jasperFile
             if (grailsApplication.config.jasper.dir.reports) {
                 jasperFile = grailsApplication.config.jasper.dir.reports
@@ -75,12 +75,14 @@ class JasperController {
 
 class ReportCommand {
     Integer ENVIRONMENT_ID
-    Date STATUS_DATE
-    Date STATUS_DATE_START
-    Date STATUS_DATE_END
+    Date statusDate
+    Date statusDateStart
+    Date statusDateEnd
 
     static constraints = {
         ENVIRONMENT_ID(blank: false, nullable: false)
+        statusDate(blank: true, nullable: true)
+        statusDateStart(blank: true, nullable: true)
+        statusDateEnd(blank: true, nullable: true)
     }
-
 }

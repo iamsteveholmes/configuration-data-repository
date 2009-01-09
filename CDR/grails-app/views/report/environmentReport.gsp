@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <label class="report" for="statustDate_day">Start Date</label>
-                    <g:datePicker id="statusDate" name="STATUS_DATE" value="${new Date()}" precision="day" years="${2008..2020}"/>
+                    <g:datePicker id="statusDate" name="statusDate" value="${new Date()}" precision="day" years="${2008..2020}"/>
                 </div>
             </fieldset>
         </g:jasperReport>
