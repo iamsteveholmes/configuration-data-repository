@@ -48,16 +48,16 @@
           <g:if test="${environment.configurationItems?.collect{it.id}}">
             <%
               def c = Hardware.createCriteria()
-              def hardwareList = c.list() {
+              def hardwareList = c.listDistinct {
                 environments {
                   if (params.id) {
                     eq('id', new Long(params.id))
                   }
                 }
-
                 statuses {
-                  reference {
-                    if (!active) {
+                  if (!params.active) {
+                    gt('endDate', new Date())
+                    reference {
                       eq('name', 'Active')
                     }
                   }
@@ -81,16 +81,16 @@
           <g:if test="${environment.configurationItems?.collect{it.id}}">
             <%
               c = Software.createCriteria()
-              def softwareList = c.list() {
+              def softwareList = c.listDistinct {
                 environments {
                   if (params.id) {
                     eq('id', new Long(params.id))
                   }
                 }
-
                 statuses {
-                  reference {
-                    if (!active) {
+                  if (!params.active) {
+                    gt('endDate', new Date())
+                    reference {
                       eq('name', 'Active')
                     }
                   }
@@ -112,22 +112,22 @@
           <g:if test="${environment.configurationItems?.collect{it.id}}">
             <%
               c = Network.createCriteria()
-              def networkList = c.list() {
-                environments {
-                  if (params.id) {
-                    eq('id', new Long(params.id))
-                  }
-                }
-
-                statuses {
-                  reference {
-                    if (!active) {
-                      eq('name', 'Active')
+              def networkList = c.listDistinct {
+                  environments {
+                    if (params.id) {
+                      eq('id', new Long(params.id))
                     }
                   }
+                  statuses {
+                    if (!params.active) {
+                      gt('endDate', new Date())
+                      reference {
+                        eq('name', 'Active')
+                      }
+                    }
+                  }
+                  order('name')
                 }
-                order('name')
-              }
             %>
             <ul class="subItems">
               <g:each var="item" in="${networkList}">
@@ -142,23 +142,23 @@
         <td valign="top" class=value>
           <g:if test="${environment.configurationItems?.collect{it.id}}">
             <%
-              c = Documentation.createCriteria()
-              def documentationList = c.list() {
-                environments {
-                  if (params.id) {
-                    eq('id', new Long(params.id))
-                  }
-                }
-
-                statuses {
-                  reference {
-                    if (!active) {
-                      eq('name', 'Active')
+                c = Documentation.createCriteria()
+                def documentationList = c.listDistinct {
+                  environments {
+                    if (params.id) {
+                      eq('id', new Long(params.id))
                     }
                   }
+                  statuses {
+                    if (!params.active) {
+                      gt('endDate', new Date())
+                      reference {
+                        eq('name', 'Active')
+                      }
+                    }
+                  }
+                  order('name')
                 }
-                order('name')
-              }
             %>
             <ul class="subItems">
               <g:each var="item" in="${documentationList}">
@@ -173,23 +173,23 @@
         <td valign="top" class=value>
           <g:if test="${environment.configurationItems?.collect{it.id}}">
             <%
-              c = ChangeRequest.createCriteria()
-              def changeRequestList = c.list() {
-                environments {
-                  if (params.id) {
-                    eq('id', new Long(params.id))
-                  }
-                }
-
-                statuses {
-                  reference {
-                    if (!active) {
-                      eq('name', 'Active')
+                c = ChangeRequest.createCriteria()
+                def changeRequestList = c.listDistinct {
+                  environments {
+                    if (params.id) {
+                      eq('id', new Long(params.id))
                     }
                   }
+                  statuses {
+                    if (!params.active) {
+                      gt('endDate', new Date())
+                      reference {
+                        eq('name', 'Active')
+                      }
+                    }
+                  }
+                  order('name')
                 }
-                order('name')
-              }
             %>
             <ul class="subItems">
               <g:each var="item" in="${changeRequestList}">
@@ -204,23 +204,23 @@
         <td valign="top" class=value>
           <g:if test="${environment.configurationItems?.collect{it.id}}">
             <%
-              c = TestResult.createCriteria()
-              def testResultList = c.list() {
-                environments {
-                  if (params.id) {
-                    eq('id', new Long(params.id))
-                  }
-                }
-
-                statuses {
-                  reference {
-                    if (!active) {
-                      eq('name', 'Active')
+                c = TestResult.createCriteria()
+                def testResultList = c.listDistinct {
+                  environments {
+                    if (params.id) {
+                      eq('id', new Long(params.id))
                     }
                   }
+                  statuses {
+                    if (!params.active) {
+                      gt('endDate', new Date())
+                      reference {
+                        eq('name', 'Active')
+                      }
+                    }
+                  }
+                  order('name')
                 }
-                order('name')
-              }
             %>
             <ul class="subItems">
               <g:each var="item" in="${testResultList}">
