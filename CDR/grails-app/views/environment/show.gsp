@@ -55,7 +55,7 @@
                   }
                 }
                 statuses {
-                  if (params.active) {
+                  if (!params.active) {
                     gt('endDate', new Date())
                     reference {
                       eq('name', 'Active')
@@ -88,7 +88,7 @@
                   }
                 }
                 statuses {
-                  if (params.active) {
+                  if (!params.active) {
                     gt('endDate', new Date())
                     reference {
                       eq('name', 'Active')
@@ -119,7 +119,7 @@
                     }
                   }
                   statuses {
-                    if (params.active) {
+                    if (!params.active) {
                       gt('endDate', new Date())
                       reference {
                         eq('name', 'Active')
@@ -150,7 +150,7 @@
                     }
                   }
                   statuses {
-                    if (params.active) {
+                    if (!params.active) {
                       gt('endDate', new Date())
                       reference {
                         eq('name', 'Active')
@@ -181,7 +181,7 @@
                     }
                   }
                   statuses {
-                    if (params.active) {
+                    if (!params.active) {
                       gt('endDate', new Date())
                       reference {
                         eq('name', 'Active')
@@ -212,7 +212,7 @@
                     }
                   }
                   statuses {
-                    if (params.active) {
+                    if (!params.active) {
                       gt('endDate', new Date())
                       reference {
                         eq('name', 'Active')
