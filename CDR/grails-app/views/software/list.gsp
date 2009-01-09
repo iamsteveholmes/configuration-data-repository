@@ -55,7 +55,7 @@
       <tr>
         <g:sortableColumn property="name" title="Name"/>
         <th class="sortable">Status</th>
-        <th class="sortable">Project Environment</th>
+        <th class="sortable">Application Environment</th>
         <g:sortableColumn property="version" title="Version"/>
         <g:sortableColumn property="description" title="Description"/>
         <g:sortableColumn property="lastUpdated" title="Last Updated"/>

@@ -40,7 +40,7 @@
           <th>&nbsp;</th>
           <g:sortableColumn property="name" title="Name"/>
           <th>Status</th>
-          <th>Project Environment</th>
+          <th>Application Environment</th>
           <g:sortableColumn property="description" title="Description"/>
         </tr>
         </thead>
