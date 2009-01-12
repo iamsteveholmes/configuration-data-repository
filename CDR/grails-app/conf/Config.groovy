@@ -48,6 +48,11 @@
         "xstream-1.2.1.jar",
         "xpp3_min-1.1.3.4.O.jar"
 ]*/
+grails.war.resources = { stagingDir ->
+    delete file: "$stagingDir/WEB-INF/lib/log4j-1.2.15.jar"
+    delete file: "$stagingDir/WEB-INF/lib/hsqldb-1.8.0.5.jar"
+}
+//delete(file: "$stagingDir/WEB-INF/classes/log4j.properties")
 
 grails.war.java5.dependencies = [
         "hibernate-annotations.jar",
@@ -85,7 +90,7 @@ log4j {
   appender.'errors.layout' = "org.apache.log4j.PatternLayout"
   appender.'errors.layout.ConversionPattern' = '[%r] %c{2} %m%n'
   appender.'errors.File' = "stacktrace.log"
-  rootLogger = "fatal,stdout"
+  rootLogger = "fatal,errors"
 
   logger {
     grails = "error"
@@ -103,7 +108,6 @@ log4j {
       hibernate = "off"
     }
   }
-
 
   additivity.StackTrace = false
 }
@@ -161,7 +165,7 @@ environments {
     grails.war.destFile = "CDR.war"
     log4j {
       logger {
-        grails = "error"
+        grails = "error, errors"
         StackTrace = "error,errors"
         org {
           codehaus.groovy.grails.web.servlet = "fatal,errors"  //  controllers
@@ -178,10 +182,4 @@ environments {
       }
     }
   }
-}
-
-grails.war.resources = {stagingDir ->
-  delete(file: "$stagingDir/WEB-INF/lib/log4j-*.jar")
-  delete(file: "$stagingDir/WEB-INF/lib/hsqldb-*.jar")
-  //delete(file: "$stagingDir/WEB-INF/classes/log4j.properties")
 }
