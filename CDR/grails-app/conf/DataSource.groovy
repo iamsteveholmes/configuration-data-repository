@@ -19,35 +19,50 @@ environments {
   integration {
         dataSource {
             pooled = false
-            driverClassName = "org.hsqldb.jdbcDriver"
-            username = "sa"
-            password = ""
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:hsqldb:mem:devDB"
+            username = System.getProperty("ds.username")
+            password = System.getProperty("ds.password")
+            if(!password){
+                password = ""
+            }
+            if(!username){
+                username = ""
+            }
+            url = System.getProperty("ds.url")
         }
     }
 
     test {
         dataSource {
-            /*pooled = false
-            dbCreate = "create-drop"
-            driverClassName = "oracle.jdbc.OracleDriver"
-            jndiName = "java:comp/env/jdbc/cdr"
-*/
             pooled = false
-            driverClassName = "org.hsqldb.jdbcDriver"
-            username = "sa"
-            password = ""
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:hsqldb:mem:devDB"
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = System.getProperty("ds.username")
+            password = System.getProperty("ds.password")
+            if(!password){
+                password = ""
+            }
+            if(!username){
+                username = ""
+            }
+            url = System.getProperty("ds.url")
         }
     }
 
     production {
         dataSource {
+            pooled = false
             dbCreate = "update"
             driverClassName = "oracle.jdbc.OracleDriver"
-            jndiName = "java:comp/env/jdbc/cdr"
+            username = System.getProperty("ds.username")
+            password = System.getProperty("ds.password")
+            if(!password){
+                password = ""
+            }
+            if(!username){
+                username = ""
+            }
+            url = System.getProperty("ds.url")
         }
     }
 }
