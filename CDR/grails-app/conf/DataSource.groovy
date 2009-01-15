@@ -29,6 +29,7 @@ environments {
                 username = ""
             }
             url = System.getProperty("ds.url")
+            dialect="org.hibernate.dialect.Oracle10gDialect"
         }
     }
 
@@ -46,6 +47,7 @@ environments {
                 username = ""
             }
             url = System.getProperty("ds.url")
+            dialect="org.hibernate.dialect.Oracle10gDialect"
         }
     }
 
@@ -63,6 +65,7 @@ environments {
                 username = ""
             }
             url = System.getProperty("ds.url")
+            dialect="org.hibernate.dialect.Oracle10gDialect"
         }
     }
 }
