@@ -1108,6 +1108,7 @@
     </content>
     <orderEntry type="library" name="GROOVY" level="application" />
     <orderEntry type="library" name="grails-1.0.4" level="application" />
+    <orderEntry type="library" name="GROOVY" level="application" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="plugins" level="project" />
