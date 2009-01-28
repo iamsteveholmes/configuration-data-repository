@@ -37,7 +37,7 @@ environments {
     test {
         dataSource {
             pooled = false
-            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            dbCreate = "update" // one of 'create', 'create-drop','update'
             driverClassName = "oracle.jdbc.OracleDriver"
             username = System.getProperty("ds.username")
             password = System.getProperty("ds.password")
