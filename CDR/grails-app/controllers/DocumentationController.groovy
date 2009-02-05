@@ -41,8 +41,8 @@ class DocumentationController {
                     }
                 }
             }
-            maxResults(params?.max)
-            firstResult(params?.offset ? params?.offset : 0)
+            maxResults(params?.max ? (params.max instanceof String ? Integer.parseInt(params.max) : params.max) : null)
+            firstResult(params?.offset ? (params.offset instanceof String ? Integer.parseInt(params.offset) : params.offset) : 0)
         }
 
         def count = Documentation.createCriteria().listDistinct {
