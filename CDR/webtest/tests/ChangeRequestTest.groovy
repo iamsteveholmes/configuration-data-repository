@@ -14,7 +14,7 @@ class ChangeRequestTest extends grails.util.WebTest {
             setInputField(name: "username", value: "admin")
             setInputField(name:"password",value: "changeit")
             clickButton(label: 'Login >')
-            verifyText(text: 'Project List')
+            verifyText(description: "Verify that text is contained in the page", text: "Application List")
 
             invoke(url: 'changeRequest')
             verifyText(text: 'Home')

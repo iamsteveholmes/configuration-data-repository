@@ -14,10 +14,10 @@ class StatusTest extends grails.util.WebTest {
             setInputField(name: "username", value: "admin")
             setInputField(name:"password",value: "changeit")
             clickButton(label: 'Login >')
-            verifyText(text: 'Project List')
+            verifyText(text: 'Application List')
             
-            invoke(url: 'status')
-            verifyText(text: 'Home')
+            //invoke(url: 'status')
+            //verifyText(text: 'Home')
 
             /*verifyListSize 0
 

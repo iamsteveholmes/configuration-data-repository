@@ -14,32 +14,32 @@ class ProjectTest extends grails.util.WebTest {
             setInputField(name: "username", value: "admin")
             setInputField(name:"password",value: "changeit")
             clickButton(label: 'Login >')
-            verifyText(text: 'Project List')
+            verifyText(text: 'Application List')
 
             invoke(url: 'project')
             verifyText(text: 'Home')
 
             verifyListSize 0
 
-            clickLink(label: 'New Project')
-            verifyText(text: 'Create Project')
+            clickLink(label: 'New Application')
+            verifyText(text: 'Create Application')
             setInputField(name: "name", value: "Unique Name")
             setInputField(name: "description", value: "APS Project")
             setInputField(name: "ownerName", value: "Steve Holmes")
             setInputField(name: "ownerEmail", value: "sholmes@delegata.com")
             clickButton(label: "Create")
-            verifyText(text: "Show Project", description: "Verify that text is contained in the page")
-            clickLink(label: "Project", description: 'Back to List view')
+            verifyText(text: "Show Application", description: "Verify that text is contained in the page")
+            clickLink(label: "Application", description: 'Back to List view')
 
             verifyListSize 1
 
             group(description: 'edit the one element') {
                 showFirstElementDetails()
                 clickButton(label: 'Edit')
-                verifyText(text: 'Edit Project')
+                verifyText(text: 'Edit Application')
                 clickButton(label: 'Update')
-                verifyText(text: 'Show Project')
-                clickLink(label: "Project", description: 'Back to List view')
+                verifyText(text: 'Show Application')
+                clickLink(label: "Application", description: 'Back to List view')
             }
 
             verifyListSize 1
@@ -48,7 +48,7 @@ class ProjectTest extends grails.util.WebTest {
                 showFirstElementDetails()
                 clickButton(label: 'Delete')
                 verifyXPath(xpath: "//div[@class='message']", text: /.*Project.*deleted.*/, regex: true)
-                clickLink(label: "Project", description: 'Back to List view')
+                clickLink(label: "Application", description: 'Back to List view')
             }
 
             verifyListSize 0
@@ -58,8 +58,8 @@ class ProjectTest extends grails.util.WebTest {
     String ROW_COUNT_XPATH = "count(//div[@class='list']//tbody/tr)"
 
     def verifyListSize(int size) {
-        ant.group(description: "verify Project list view with $size row(s)") {
-            verifyText(text: 'Project List')
+        ant.group(description: "verify Application list view with $size row(s)") {
+            verifyText(text: 'Application List')
             /*verifyXPath(xpath: ROW_COUNT_XPATH, text: size, description: "$size row(s) of data expected")*/
         }
     }
