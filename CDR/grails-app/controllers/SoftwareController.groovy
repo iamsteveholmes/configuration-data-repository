@@ -16,6 +16,9 @@ class SoftwareController {
 
     def list = {
         if (!params.max) params.max = 10
+        params.max = (params.max instanceof String ? Integer.parseInt(params.max) :  params.max)
+        if (!params.offset) params.offset = 0
+        params.offset = (params.offset instanceof String ? Integer.parseInt(params.offset) : params.offset)
         def c = Software.createCriteria()
         def softwareList = c.listDistinct {
             environments {
@@ -32,8 +35,8 @@ class SoftwareController {
                     }
                 }
             }
-            maxResults(params?.max ? (params.max instanceof String ? Integer.parseInt(params.max) : params.max) : null)
-            firstResult(params?.offset ? (params.offset instanceof String ? Integer.parseInt(params.offset) : params.offset) : 0)
+            maxResults(params.max)
+            firstResult(params.offset)
         }
 
         def count = Software.createCriteria().listDistinct {
