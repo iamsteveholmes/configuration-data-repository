@@ -20,7 +20,7 @@ class SoftwareController {
         if (!params.offset) params.offset = 0
         params.offset = (params.offset instanceof String ? Integer.parseInt(params.offset) : params.offset)
         def c = Software.createCriteria()
-        def softwareList = c.listDistinct {
+        def softwareList = c.list {
             environments {
                 if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
@@ -35,8 +35,8 @@ class SoftwareController {
                     }
                 }
             }
-            maxResults(params.max)
-            firstResult(params.offset)
+            maxResults(new Integer(params.max).intValue())
+             firstResult(params.offset)
         }
 
         def count = Software.createCriteria().listDistinct {

@@ -14,7 +14,7 @@ class HardwareController {
     def list = {
         if (!params.max) params.max = 10
         def c = Hardware.createCriteria()
-        def hardwareList = c.listDistinct {
+        def hardwareList = c.list {
             environments {
                 if (params.environmentId) {
                     eq('id', new Long(params.environmentId))
@@ -29,7 +29,7 @@ class HardwareController {
                     }
                 }
             }
-            maxResults(params?.max ? (params.max instanceof String ? Integer.parseInt(params.max) : params.max) : null)
+            maxResults(new Integer(params.max).intValue())
             firstResult(params?.offset ? (params.offset instanceof String ? Integer.parseInt(params.offset) : params.offset) : 0)
         }
 
