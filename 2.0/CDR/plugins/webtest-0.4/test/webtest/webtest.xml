@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="wt.webtest">
+	<description>
+		<![CDATA[
+		This file provides common facilities for WebTest projects and should be used like:
+		<import file="${webtest.home}/webtest.xml"/>
+		
+		Detailed information on http://webtest.canoo.com/manual/TODO
+
+		Functionalities provided by this file:
+		- loads all webtest steps,
+		- applies the xsl to generate the html report from the xml result file
+		- open the html report in your browser when test is completed
+		- automatically generates a DTD referencing all the includes files
+		- automatically includes the definitions
+
+		The content of this file follows some rules to make reuse both easy and flexible:
+		- all "objects" (targets, properties, classpath, fileset) use the prefix "wt." to clearly identify where they are used 
+		(it is therefore recommanded NOT to use this prefix for custom naming)
+		- meaningfull default values as well as the possibility to define own configuration through own properties or overwriting
+		- properties with the prefix "~wt." are a kind of private properties and are only intended for internal use of this file
+		]]>
+	</description>
+
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.full" description="Run all the tests and generate the html reports" 
+			depends="
+			wt.beforeStart,
+			wt.init, wt.defineTimestamps, 
+			wt.defineTasks, wt.defineMacros, 
+			wt.generateDtd, wt.generateDefinitions,
+			wt.createReportsFolder, wt.deleteReports,
+			wt.testInWork,
+			wt.htmlReports, wt.openResultFile,
+			wt.afterEnd">
+	</target>
+
+	<target name="wt.beforeStart" description="Placeholder for custom processing that should be before at the beginning. Here empty.">
+		<!-- nothing, it just here to be overwritten -->
+	</target>
+
+	<target name="wt.afterEnd" description="Placeholder for custom processing that should be executed at the end. Here empty.">
+		<!-- nothing, it just here to be overwritten -->
+	</target>
+
+	<target name="wt.createReportsFolder">
+		<mkdir dir="${wt.resultpath}" description="Create dir for results if it doesn't already exist"/>
+	</target>
+	
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.init" unless="wt.init.skip"
+			description="Initialisation work">
+
+		<dirname property="~wt.WebTest.dir" file="${ant.file.wt.webtest}" description="the directory of the WebTest distribution used"/>
+		
+		<!-- Compute the html result file name -->
+		<basename property="~wt.init.filename" file="${wt.resultfile}" suffix=".xml"/>
+		<property name="wt.resultfile.html.absolute" location="${wt.resultpath}/${~wt.init.filename}.html"/>
+
+		<property name="wt.init.skip" value="true" description="Avoid this target to be called twice in a run"/>
+	</target>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.defineTimestamps" unless="wt.defineTimestamps.skip" 
+			description="define some date and time properties that may be of global interest">
+		<tstamp>
+			<format property="wt.timestamp" pattern="yyyy.MM.dd hh:mm:ss"/>
+	
+			<format property="wt.date.today" pattern="dd.MM.yyyy"/>
+			<format property="wt.date.yesterday" pattern="dd.MM.yyyy" offset="-1" unit="day"/>
+			<format property="wt.date.tomorrow" pattern="dd.MM.yyyy" offset="1" unit="day"/>
+		</tstamp>
+
+		<property name="wt.defineTimestamps.skip" value="true" description="Avoid this target to be called twice in a run"/>
+	</target>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.defineTasks.init"
+			description="Initialisation for wt.defineTasks">
+
+		<!-- Define the classpath -->
+		<path id="wt.defineTasks.classpath.webtest">
+			<pathelement location="${~wt.WebTest.dir}/lib"/> <!-- to find webtest's log4j properties -->
+			<fileset dir="${~wt.WebTest.dir}/lib" includes="*.jar"/>
+		</path>
+
+		<!-- Placeholders for customisation, here empty (customisation has to occur after this definition as path can be overriden)-->
+		<path id="wt.defineTasks.classpath.customPrepend"/>
+		<path id="wt.defineTasks.classpath.customAppend"/>
+	</target>
+
+	<target name="wt.defineTasks" depends="wt.init, wt.defineTasks.init" unless="wt.defineTasks.skip"
+			description="defines the WebTest tasks as well as groovyScript">
+
+		<!-- Define the classpath -->
+		<path id="wt.defineTasks.classpath.id">
+			<path refid="wt.defineTasks.classpath.customPrepend"/>
+			<path refid="wt.defineTasks.classpath.webtest"/>
+			<path refid="wt.defineTasks.classpath.customAppend"/>
+		</path>
+	
+		<!-- Webtest tasks -->
+		<taskdef resource="webtest.taskdef"
+		         loaderref="wt.defineTasks.loader"
+		         classpathref="wt.defineTasks.classpath.id"
+				/>
+
+		<!-- the standard Ant Groovy task -->
+		<taskdef name="groovyScript" classname="org.codehaus.groovy.ant.Groovy" 
+		         loaderref="wt.defineTasks.loader"
+				classpathref="wt.defineTasks.classpath.id"/>
+
+		<property name="wt.defineTasks.skip" value="true" description="Avoid this target to be called twice in a run"/>
+	</target>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.defineMacros" unless="wt.defineMacros.skip"
+			description="Placeholder to define macros and project specific Steps (here empty)">
+		<echo message="No macro to define"/>
+
+		<property name="wt.defineMacros.skip" value="true" description="Avoid this target to be called twice in a run"/>
+	</target>
+	
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.deleteReports" unless="wt.deleteReports.skip"
+			description="deletes the reports generated by the previous run. Can be skipped setting property 'wt.deleteReports.skip' to have results added to last report">
+		<delete>
+			<fileset dir="${wt.resultpath}" includes="*.html,*.xml"/>
+		</delete>
+	</target>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.testInWork" 
+			description="Runs the test file specified in property wt.testInWork. Overwrite to run an other way">
+
+		<dirname property="~wt.testInWork.dir" file="${wt.testInWork}"/>
+		<!-- give the possibility to specify the testInWork with and without the .xml extension -->
+		<available file="${wt.testInWork}" property="~wt.testInWork.suffix" value=""/>
+		<property name="~wt.testInWork.suffix" value=".xml"/>
+		<basename property="~wt.testInWork.file" file="${wt.testInWork}${~wt.testInWork.suffix}"/>
+
+		<echo message="Execution ${~wt.testInWork.file} in dir ${~wt.testInWork.dir}"/>
+		<ant dir="${~wt.testInWork.dir}" antfile="${~wt.testInWork.file}" inheritRefs="true"/>
+	</target>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.htmlReports.init" description="Init wt.htmlReports">
+		<tstamp>
+			<format property="wt.htmlReports.report.time" pattern="dd.MM.yyyy HH:mm"/>
+		</tstamp>
+		<property name="wt.htmlReports.report.title" value="WebTest Test Report"/>
+		<property name="wt.htmlReports.singleReportsMode" value="external"/>
+		<property name="wt.htmlReports.outputdir" location="${wt.resultpath}"/>
+
+		<property name="wt.htmlReports.xslt" location="${~wt.WebTest.dir}/resources/WebTestReport.xsl"/>
+	</target>
+
+	<target name="wt.htmlReports" depends="wt.init, wt.htmlReports.init" description="generates the html report from the xml">
+		<style
+			in="${wt.resultpath}/${wt.resultfile}"
+		        out="${wt.resultfile.html.absolute}"
+		        style="${wt.htmlReports.xslt}">
+			<param name="reporttime" expression="${wt.htmlReports.report.time}"/>
+			<param name="outputDir" expression="${wt.htmlReports.outputdir}"/>
+			<param name="resources.dir" expression="resources"/>
+			<param name="title" expression="${wt.htmlReports.report.title}"/>
+		    <param name="singleReportsMode" expression="${wt.htmlReports.singleReportsMode}"/> <!-- 'external' or 'embedded' -->
+		</style>
+
+		<mkdir dir="${wt.resultpath}/resources"/>
+
+		<copy todir="${wt.resultpath}/resources" description="Copy resource files">
+			<fileset dir="${~wt.WebTest.dir}/resources">
+				<include name="*.css"/>
+				<include name="*.js"/>
+				<include name="*.html"/>
+				<include name="images/*.*"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.openResultFile" unless="wt.openResultFile.skip"
+			description="Opens the html result file in the browser">
+
+		<!-- If browser not defined, take cmd on Windows, /usr/bin/open on Mac to use default browser 
+		and hope that firefox is on the path for other OS -->
+		<condition property="wt.openResultFile.executable" value="cmd">
+			<os family="windows"/>
+		</condition>
+		<!-- windows' cmd needs /c -->
+		<condition property="wt.openResultFile.executable.arg1" value="/c" else="">
+			<os family="windows"/>
+		</condition>
+
+		<condition property="wt.openResultFile.executable" value="/usr/bin/open" else="firefox">
+			<os family="mac"/>
+		</condition>
+
+		<echo message="Opening result file ${wt.resultfile.html.absolute} with ${wt.openResultFile.executable}"/>
+		
+		<exec executable="${wt.openResultFile.executable}" spawn="true">
+			<arg value="${wt.openResultFile.executable.arg1}"/>
+			<arg value="${wt.resultfile.html.absolute}"/>
+		</exec>
+	</target>
+	
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.generateDtd" depends="wt.defineTasks" unless="wt.generateDtd.skip"
+			description="Generates the definitions.xml file referencing all definitions (macro, custom tasks, ...) from the definitions folder">
+
+		<property name="wt.generateDtd.entities.pattern" value="includes/**/*.xml" description="how to identify the entities"/>
+		<property name="wt.generateDtd.file" location="dtd/Project.dtd" description="the dtd file to generate"/>
+
+		<fileset dir="." id="wt.generateDtd.entities.fileset">
+			<include name="${wt.generateDtd.entities.pattern}"/>
+		</fileset>
+		<groovyScript src="${~wt.WebTest.dir}/tools/generateDtd.groovy"/>
+	</target>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.generateDefinitions" depends="wt.defineTasks"
+			description="Generates the definitions.xml file referencing all definitions (macro, custom tasks, ...) from the definitions folder"
+			unless="wt.generateDefinitions.skip">
+
+		<property name="wt.generateDefinitions.dir" location="definitions" description="the definitions dir"/>
+		<property name="wt.generateDefinitions.file" location="definitions.xml" description="the definitions file to generate"/>
+
+		<groovyScript src="${~wt.WebTest.dir}/tools/generateDefinitions.groovy"/>
+	</target>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<target name="wt.createProject" depends="wt.init"
+			description="Creates a - nearly - empty WebTest project to get started">
+
+		<input message="Enter your WebTest project name: [myWebTestProject]" defaultvalue="myWebTestProject" addproperty="~wt.createProject.projectName"/>
+
+		<property name="~wt.createProject.projectDir" value="${user.dir}/${~wt.createProject.projectName}"/>
+		<mkdir dir="${~wt.createProject.projectDir}"/>
+		<copy todir="${~wt.createProject.projectDir}">
+			<fileset dir="${~wt.WebTest.dir}/resources/empty-project"/>
+			<filterset>
+				<filter token="/define/path/to/webtest!" value="${~wt.WebTest.dir}"/>
+			</filterset>
+   		</copy>
+		
+		<echo>
+Your WebTest project &gt;${~wt.createProject.projectName}&lt; has been successfully created with some demo tests to get started.
+You can now just go to &gt;${~wt.createProject.projectDir}&lt; and run ant.
+</echo>
+	</target>
+</project>

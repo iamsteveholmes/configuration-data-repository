@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="Category"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="585"
+		 columnSpacing="0"
+		 leftMargin="10"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="STATUS_DATE" isForPrompting="true" class="java.util.Date"/>
+	<parameter name="ENVIRONMENT_ID" isForPrompting="true" class="java.lang.Integer"/>
+	<parameter name="JASPER_FILE" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT DISTINCT
+     R_CI_TYPE."TYPE" AS R_CI_TYPE_TYPE
+FROM
+     "ENVIRONMENT" ENVIRONMENT INNER JOIN "ENVIRONMENT_CONFIGURATION_ITEM" ENVIRONMENT_CONFIGURATION_ITEM ON ENVIRONMENT."ID" = ENVIRONMENT_CONFIGURATION_ITEM."CONFIGURATION_ITEMS_ID"
+     INNER JOIN "CONFIGURATION_ITEM" CONFIGURATION_ITEM ON ENVIRONMENT_CONFIGURATION_ITEM."ENVIRONMENTS_ID" = CONFIGURATION_ITEM."ID"
+     INNER JOIN "STATUS" STATUS ON CONFIGURATION_ITEM."ID" = STATUS."CONFIGURATION_ITEM_ID"
+     INNER JOIN "STATUS_REFERENCE" STATUS_REFERENCE ON STATUS."REFERENCE_ID" = STATUS_REFERENCE."ID",
+     "R_CI_TYPE" R_CI_TYPE
+WHERE
+     STATUS_REFERENCE.DESCRIPTION = 'Active'
+     AND STATUS.START_DATE <= $P{STATUS_DATE}
+     AND STATUS.END_DATE >= $P{STATUS_DATE}
+     AND ENVIRONMENT.ID = $P{ENVIRONMENT_ID}
+     AND
+     (R_CI_TYPE.ID = CONFIGURATION_ITEM.DOCUMENTATION_TYPE_ID
+  OR R_CI_TYPE.ID = CONFIGURATION_ITEM.HARDWARE_TYPE_ID
+  OR R_CI_TYPE.ID = CONFIGURATION_ITEM.SOFTWARE_TYPE_ID
+  OR R_CI_TYPE.ID = CONFIGURATION_ITEM.NETWORK_TYPE_ID
+  OR R_CI_TYPE.ID = CONFIGURATION_ITEM.TEST_RESULT_TYPE_ID
+  OR R_CI_TYPE.ID = CONFIGURATION_ITEM.REQUEST_TYPE_ID)]]></queryString>
+
+	<field name="R_CI_TYPE_TYPE" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+				<line direction="BottomUp">
+					<reportElement
+						x="0"
+						y="-1"
+						width="535"
+						height="1"
+						key="line"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="75"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="409"
+						height="25"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{R_CI_TYPE_TYPE}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="25"
+						width="535"
+						height="50"
+						key="subreport-2"/>
+					<subreportParameter  name="JASPER_FILE">
+						<subreportParameterExpression><![CDATA[$P{JASPER_FILE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ENVIRONMENT_ID">
+						<subreportParameterExpression><![CDATA[$P{ENVIRONMENT_ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="CATEGORY_TYPE">
+						<subreportParameterExpression><![CDATA[$F{R_CI_TYPE_TYPE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="STATUS_DATE">
+						<subreportParameterExpression><![CDATA[$P{STATUS_DATE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{JASPER_FILE} + File.separator + "Type.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

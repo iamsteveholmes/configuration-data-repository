@@ -1,0 +1,787 @@
+html * {
+    margin: 0; /*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */
+}
+
+/* GENERAL */
+
+.spinner {
+    padding: 5px;
+    position: absolute;
+    right: 0;
+}
+
+body {
+    background: #e2dfee;
+    color: #000000;
+    font: 11px verdana, tahoma, sans-serif;
+    line-height: 155%;
+    text-align: center; /** Fixed width container hack **/
+    margin: 0;
+}
+
+#main_wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 760px;
+}
+
+#logo_container {
+    background: #ffffff url( ../images/delegata_logo_bg.jpg ) no-repeat top left;
+    height: 135px;
+    width: 758px;
+    float: left;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    color: #ffffff;
+    text-align: right;
+    font-size: 10px;
+    padding-top: 4px;
+    border-left: 1px solid #0061af;
+    border-right: 1px solid #0061af;
+}
+
+#navmenu {
+    background: #ffffff;
+    width: 748px;
+    float: left;
+    border-left: 1px solid #0061af;
+    border-right: 1px solid #0061af;
+    padding-top: 15px;
+    padding-left: 10px;
+    color: #e57e17;
+
+}
+
+* html #navmenu {
+    \width: 758px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    w\idth: 758px; /* STAR HTML Habk for IE6 in standards mode */
+}
+
+#logo_container a {
+    padding-right: 10px;
+    color: #b0b6bb;
+    text-decoration: none;
+}
+
+#logo_container a:hover {
+    padding-right: 10px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#body_container {
+    background: #ffffff;
+    padding: 5px 15px 15px 15px;
+    width: 728px; /**was 730px**/
+    float: left;
+    border-right: 1px solid #0061af;
+    border-bottom: 1px solid #0061af;
+    border-left: 1px solid #0061af;
+    overflow: hidden;
+}
+
+* html #body_container {
+    \width: 758px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    w\idth: 758px; /* STAR HTML Habk for IE6 in standards mode */
+}
+
+#footer {
+    padding-right: 20px;
+    padding-left: 20px;
+    height: 30px;
+    font-size: 10px;
+    background: #0e1676;
+    width: 720px;
+    float: right;
+    color: #ffffff;
+    padding-top: 10px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+* html #footer {
+    \width: 760px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    w\idth: 760px; /* STAR HTML Habk for IE6 in standards mode */
+    \padding-bottom: 10px;
+    p\adding-bottom: 10px;
+    \margin-right: -3px; /* to fix IE6 duplicate character bug on last float */
+    m\argin-right: -3px; /* to fix IE6 duplicate character bug on last float */
+}
+
+#footer a, #login_footer a {
+    color: #B0b6bb;
+    text-decoration: none;
+}
+
+#footer a:hover, #login_footer a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:link, a:visited {
+    color: #0061af;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #0e1676;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+h1 {
+    color: #0061af;
+    font-size: 20px;
+    font-family: verdana, tahoma, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 130%;
+    text-align: left;
+    text-transform: none;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    text-decoration: none;
+    letter-spacing: 0;
+    word-spacing: normal;
+}
+
+ul {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    line-height: 160%;
+}
+
+ul li {
+    /**color: #0e1676;
+   font-size: 11px;
+   font-family: verdana,tahoma,sans-serif;
+   list-style: square;**/
+
+}
+
+input, select, textarea {
+    background-color: #fcfcfc;
+    border: 1px solid #ccc;
+    font: 11px verdana, tahoma, sans-serif;
+    margin: 2px 0;
+    padding: 4px 6px;
+}
+
+select {
+    padding: 2px 2px 2px 0;
+}
+
+textarea {
+    width: 250px;
+    height: 150px;
+    vertical-align: top;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #e57e17;
+}
+
+.body {
+    float: left;
+    margin: 0 15px 10px 15px;
+}
+
+* html .body {
+    \margin: 0px 7px 7px 7px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    m\argin: 0px 7px 7px 7px; /* STAR HTML Habk for IE6 in standards mode */
+}
+
+/* LOGIN */
+
+#login_top_container {
+    width: 443px;
+    height: 190px;
+    background: #0061af url( ../images/CDR_Login_Graphic_200.jpg ) no-repeat top left;
+    text-align: left;
+    font-size: 14px;
+    color: #ffffff;
+    padding-top: 10px;
+    padding-left: 15px;
+}
+
+* html #login_top_container {
+    \width: 458px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    w\idth: 443px; /* STAR HTML Habk for IE6 in standards mode */
+}
+
+#login_wrapper {
+    margin-top: 75px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 458px;
+}
+
+#login_container {
+    background: #ffffff;
+    padding: 25px 82px 20px 81px;
+    width: 293px; /**was 730px**/
+    float: left;
+    border-right: 1px solid #0061af;
+    border-bottom: 1px solid #0061af;
+    border-left: 1px solid #0061af;
+    overflow: hidden;
+}
+
+* html #login_container {
+    \width: 458px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    w\idth: 293px; /* STAR HTML Habk for IE6 in standards mode */
+}
+
+#login_footer {
+    padding-right: 20px;
+    padding-left: 20px;
+    height: 30px;
+    font-size: 10px;
+    background: #0e1676;
+    width: 418px;
+    float: right;
+    color: #ffffff;
+    padding-top: 10px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+* html #login_footer {
+    \width: 458px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    \padding-bottom: 10px;
+    w\idth: 418px; /* STAR HTML Habk for IE6 in standards mode */
+}
+
+#login_container label {
+    font-size: 12px;
+}
+
+#user_login {
+    font-size: 15px;
+}
+
+#user_pass {
+    font-size: 15px;
+}
+
+#login_submit {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.submit {
+    text-align: right;
+}
+
+.report label {
+    width: 7em;
+    float: left;
+    text-align: right;
+    margin-right: 0.5em;
+    display: block
+}
+
+.ciLink {
+    width: 25em;
+    float: left;
+    text-align: left;
+    margin-left: 0.5em;
+    display: block;
+    white-space:nowrap;
+}
+
+/* TOP NAVIGATION */
+
+#top_nav_wrapper {
+    width: 100%;
+    height: 30px;
+    background: #0061af;
+    text-align: center;
+}
+
+#top_nav_container {
+    width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: right;
+    color: #ffffff;
+}
+
+#top_nav_container ul li {
+    display: inline;
+    font-size: 10px;
+}
+
+#top_nav_container a {
+    color: #b0b6bb;
+    text-decoration: none;
+}
+
+#top_nav_container a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* MAIN NAVIGATION */
+
+ul.main_menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 150px; /* Width of Menu Items */
+    border-bottom: 1px solid #ccc;
+}
+
+ul.main_menu li {
+    position: relative;
+}
+
+li.main_menu_parent ul {
+    position: absolute;
+    left: 149px; /* Set 1px less than menu width */
+    top: 0;
+    display: none;
+}
+
+/* Styles for Menu Items */
+ul.main_menu li a {
+    display: block;
+    text-decoration: none;
+    color: #777;
+    background: #fff; /* IE6 Bug */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+}
+
+/* Fix IE. Hide from IE Mac \*/
+* html ul.main_menu li {
+    float: left;
+    height: 1%;
+}
+
+* html ul.main_menu li a {
+    height: 1%;
+}
+
+/* End */
+
+ul.main_menu li a:hover {
+    color: #E2144A;
+    background: #f9f9f9;
+}
+
+/* Hover Styles */
+
+li.main_menu_parent ul li a {
+    padding: 2px 5px;
+}
+
+/* Sub Menu Styles */
+
+li:hover ul, li.over ul {
+    display: block;
+}
+
+/* The magic */
+
+/* MAIN NAVIGATION - Tabbed Navigation Option*/
+/* To implement the sliding doors navigation simply create a div with the id 'main_nav',
+all tab items in an unordered list, the current tab will get assigned the class 'current' */
+
+#main_nav {
+    float: left;
+    width: 100%;
+    background: #ffffff url( "../images/menu/bg.jpg" ) repeat-x bottom;
+    font-size: 11px;
+    line-height: normal;
+}
+
+#main_nav ul {
+    margin: 0;
+    list-style: none;
+    padding: 15px 15px 0;
+}
+
+#main_nav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    background: url( "../images/menu/norm_right.gif" ) no-repeat right top;
+}
+
+#main_nav a {
+    float: left;
+    display: block;
+    background: url( "../images/menu/norm_left.gif" )
+    no-repeat left top;
+    padding: 5px 15px 4px;
+    text-decoration: none;
+    color: #0061af;
+    font-weight: bold;
+    font-family: verdana, tahoma, sans-serif;
+}
+
+#main_nav a:hover {
+    color: #0e1676;
+    font-weight: bold;
+}
+
+/* Commented Backslash Hack
+     hides rule from IE5-Mac \*/
+#main_nav a {
+    float: none;
+}
+
+/* End IE5-Mac hack */
+
+#main_nav #current {
+    background-image: url( "../images/menu/norm_right_on.gif" );
+    padding-bottom: 1px;
+}
+
+#main_nav #current a {
+    background-image: url( "../images/menu/norm_left_on.gif" );
+}
+
+/* SECTION NAV - Tab Specific Functions such as add, etc.*/
+
+#section_nav {
+    float: right;
+}
+
+/* BREADCRUMBS */
+
+#breadcrumbs {
+    font-size: 9px;
+    color: #333333;
+    background: #ffffff;
+    width: 712px;
+    height: 10px;
+    padding: 10px 20px 20px 26px;
+    border-left: 1px solid #0061af;
+    border-right: 1px solid #0061af;
+    float: left;
+}
+
+* html #breadcrumbs {
+    \width: 758px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    w\idth: 758px; /* STAR HTML Habk for IE6 in standards mode */
+}
+
+ul.breadcrumbs {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.breadcrumbs li {
+    display: inline;
+}
+
+ul.subItems {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* NAVIGATION MENU */
+
+.nav {
+    border-top: 1px solid #e57e17;
+    padding: 7px 5px 9px 0;
+
+    text-align: right;
+    margin-bottom: 1px;
+}
+
+.menuButton {
+    font-size: 10px;
+    padding: 0 5px;
+}
+
+.menuButton a {
+    color: #333;
+    padding: 4px 6px;
+}
+
+.menuButton a.home {
+    background: url( ../images/menu/main_right_nav/home_orange.gif ) center left no-repeat;
+    color: #333;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+
+.menuButton a.home:hover {
+    color: #dc6e0f;
+    text-decoration: none;
+}
+
+.menuButton a.list {
+    background: url( ../images/menu/main_right_nav/view_folder_orange.gif ) center left no-repeat;
+    color: #333;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+
+.menuButton a.list:hover {
+    color: #dc6e0f;
+    text-decoration: none;
+}
+
+.menuButton a.create {
+    background: url( ../images/menu/main_right_nav/add_orange.gif ) center left no-repeat;
+    color: #333333;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+
+.menuButton a.create:hover {
+    color: #dc6e0f;
+    text-decoration: none;
+}
+
+.menuButton a.report {
+    background: url( ../images/menu/main_right_nav/reporting.gif ) center left no-repeat;
+    color: #333333;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+
+.menuButton a.report:hover {
+    color: #dc6e0f;
+    text-decoration: none;
+}
+
+/* MESSAGES AND ERRORS */
+
+.message {
+    background: #f3f8fc url( ../images/skin/information.png ) 8px 50% no-repeat;
+    border: 1px solid #d4e8f2;
+    color: #006dba;
+    margin: 10px 0 5px 0;
+    padding: 5px 5px 5px 30px
+}
+
+div.errors {
+    background: #fff3f3;
+    border: 1px solid red;
+    color: #cc0000;
+    margin: 10px 0 5px 0;
+    padding: 5px 0 5px 0;
+}
+
+div.errors ul {
+    list-style: none;
+    padding: 0;
+}
+
+div.errors li {
+    background: url( ../images/skin/exclamation.png ) 8px 0% no-repeat;
+    line-height: 16px;
+    padding-left: 30px;
+}
+
+td.errors input {
+    border: 1px solid red;
+}
+
+/* TABLES */
+
+table {
+    border: 1px solid #ccc;
+    width: 698px;
+}
+
+* html table {
+    \width: 690px; /* STAR HTML Hack for IE5 and IE6 in quirks mode */
+    w\idth: 690px; /* STAR HTML Habk for IE6 in standards mode */
+}
+
+tr {
+    border: 0;
+    height: 25px;
+}
+
+td, th {
+    font: 11px verdana, tahoma, sans-serif;
+    line-height: 12px;
+    padding: 5px 6px;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: #eaeaea url( ../images/skin/shadow.jpg );
+    color: #333;
+    font-size: 10px; /**font-weight: bold;**/
+    line-height: 17px;
+    padding: 2px 6px;
+}
+
+th a:link, th a:visited, th a:hover {
+    color: #333;
+    display: block;
+    font-size: 10px;
+    text-decoration: none;
+    width: 100%;
+}
+
+th.asc a, th.desc a {
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+th.asc a {
+    background-image: url( ../images/skin/sorted_asc.gif );
+}
+
+th.desc a {
+    background-image: url( ../images/skin/sorted_desc.gif );
+}
+
+.odd {
+    background: #f7f7f7;
+}
+
+.even {
+    background: #fff;
+}
+
+/* LIST */
+
+.list table {
+    border-collapse: collapse;
+}
+
+.list th, .list td {
+    border-left: 1px solid #ddd;
+}
+
+.list th:hover, .list tr:hover {
+    background: #d4e8f2;
+}
+
+/* PAGINATION */
+
+.paginateButtons {
+    background: #fff url( ../images/skin/shadow.jpg ) bottom repeat-x;
+    border: 1px solid #ccc;
+    border-top: 0;
+    color: #666;
+    font-size: 10px;
+    overflow: hidden;
+    padding: 10px 3px;
+    width: 690px;
+}
+
+.paginateButtons a {
+    background: #eeeeee;
+    border: 1px solid #ccc;
+    color: #333;
+    margin: 0 3px;
+    padding: 2px 6px;
+    text-decoration: none;
+}
+
+.paginateButtons a:hover {
+    border: 1px solid #dc6e0f;
+}
+
+.paginateButtons span {
+    padding: 2px 3px;
+}
+
+.paginateButtons .currentStep {
+    color: #dc6e0f;
+}
+
+/* DIALOG */
+
+.dialog table {
+    padding: 5px 0;
+}
+
+.prop {
+    padding: 5px;
+}
+
+.prop .name {
+    text-align: left;
+    width: 15%;
+    white-space: nowrap;
+}
+
+.prop .value {
+    text-align: left;
+    width: 85%;
+}
+
+/* ACTION BUTTONS */
+
+.buttons {
+    background: #fff url( ../images/skin/shadow.jpg ) bottom repeat-x;
+    border: 1px solid #ccc;
+    border-top: 0;
+    color: #666;
+    font-size: 10px;
+    overflow: hidden;
+    padding: 5px;
+    width: 686px; /**added to fix ie issues**/
+}
+
+.buttons input {
+    background: #fff;
+    border: 0;
+
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    margin-left: 3px;
+    overflow: visible;
+    padding: 2px 6px;
+}
+
+.buttons input.delete {
+    background: transparent url( ../images/menu/main_right_nav/delete_red.gif ) 5px 50% no-repeat;
+    padding-left: 20px;
+}
+
+.buttons input.edit {
+    background: transparent url( ../images/menu/main_right_nav/edit_orange.gif ) 5px 50% no-repeat;
+    padding-left: 20px;
+}
+
+.buttons input.save {
+    background: transparent url( ../images/menu/main_right_nav/create_orange.gif ) 5px 50% no-repeat;
+    padding-left: 20px;
+}
+
+#mymenubar {
+    position: absolute;
+}
+
+.ci_name {
+    font-size: 16px;
+}
+
+.remoteField {
+    padding-bottom: 8px;
+}
+
+.required {
+    color: red;
+}
+
+img.blank {
+    background: transparent;
+}
