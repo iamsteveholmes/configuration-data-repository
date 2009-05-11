@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE project SYSTEM "../dtd/Project.dtd">
+
+<project name="demo.googleWebTest" default="test">
+
+	<target name="test">
+
+		<webtest name="check that WebTest is Google's top 'WebTest' result">
+			&config;
+
+			<steps>
+				<invoke url="http://www.google.com/ncr" description="Go to Google (in English)"/>
+				<verifyTitle text="Google" />
+				<setInputField name="q" value="WebTest" />
+				<clickButton label="I'm Feeling Lucky" />
+				<verifyTitle text="Canoo WebTest Homepage" />
+			</steps>
+		</webtest>
+
+	</target>
+</project>
