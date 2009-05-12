@@ -82,6 +82,7 @@ class HardwareTypeController{
         if(hardwareType.save()) {
             flash.message = "Hardware Type ${hardwareType.id} created."
             redirect(action:show,id:hardwareType.id)
+//test
         }
         else {
             render(view:'create',model:[hardwareType:hardwareType])
